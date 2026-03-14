@@ -286,6 +286,12 @@ const datosEstudiantes = [
 buscarBtn.onclick = () => {
 
   const dni = numeroDoc.value.trim();
+
+  if(dni === ""){
+    alert("La búsqueda se realiza únicamente por DNI");
+    return;
+  }
+
   const r = datosEstudiantes.find(e => e.dni === dni);
 
   if(!r){
@@ -305,6 +311,9 @@ buscarBtn.onclick = () => {
 
   nombre.style.background="#e9ecef";
   apellido.style.background="#e9ecef";
+
+  nombre.style.border="1px solid #ccc";
+  apellido.style.border="1px solid #ccc";
 
   studentName.textContent = r.nombre + " " + r.apellido;
 

@@ -338,7 +338,7 @@ cue:"00612275",
 fechaEgreso:"20/12/2020",
 serie:"06-08336-2020",
 hash:"",
-estado:"verificado",
+estado:"peoceso",
 
 tituloLink:"https://ejemplo.com/titulo.pdf",
 analiticoLink:"",
@@ -359,7 +359,7 @@ const r = datosEstudiantes.find(e => e.dni === dni);
 
 if(!r){
 estadoBox.className="estado noverificado";
-estadoBox.innerHTML="🔴 Documento no registrado";
+estadoBox.innerHTML="🔴 DOCUMENTO NO REGISTRADO";
 infoEstudiante.style.display="block";
 studentName.textContent="";
 docsBox.innerHTML="";
@@ -383,12 +383,12 @@ studentName.textContent = r.nombre + " " + r.apellido;
 
 if(r.estado==="verificado"){
 estadoBox.className="estado verificado";
-estadoBox.innerHTML="🟢 Documento verificado";
+estadoBox.innerHTML="🟢 DOCUMENTO VERIFICADO";
 }
 
 if(r.estado==="proceso"){
 estadoBox.className="estado proceso";
-estadoBox.innerHTML="🟡 Documento en proceso";
+estadoBox.innerHTML="🟡 DOCUMENTO EN PROCESO..";
 }
 
 docsBox.innerHTML="";

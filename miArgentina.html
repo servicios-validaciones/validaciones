@@ -202,9 +202,9 @@ Mí Argentina | Sistema de Consulta
 Centro de ayuda · Términos y condiciones
 </footer>
 
-<div id="toast" class="toast">
-Certificado disponible
-</div>
+<a id="toast" class="toast" href="https://www.argentina.gob.ar/miargentina" target="_blank">
+Ver certificado en Mi Argentina
+</a>
 
 <script>
 
@@ -276,7 +276,6 @@ if(hoy>=fechaDisponible){
 mensaje.innerHTML="Verificación completada. Su certificado está DISPONIBLE.";
 
 toast.classList.add("show");
-setTimeout(()=>toast.classList.remove("show"),4000);
 
 }else{
 

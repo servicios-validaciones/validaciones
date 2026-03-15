@@ -83,16 +83,12 @@ text-align:center;
 font-size:18px;
 }
 
-/* TEXTO DESCRIPCIÓN */
-
 .descripcion{
 color:#555;
 text-align:center;
 font-size:14px;
 margin-bottom:15px;
 }
-
-/* INFO BOX */
 
 .info-box{
 background:white;
@@ -109,8 +105,6 @@ width:100%;
 margin:8px 0 0 18px;
 padding:0;
 }
-
-/* INPUT */
 
 label{
 display:block;
@@ -130,8 +124,6 @@ font-size:16px;
 box-sizing:border-box;
 }
 
-/* BOTONES */
-
 button{
 margin-top:18px;
 background:#4338ca;
@@ -148,8 +140,6 @@ button:disabled{
 opacity:.5;
 cursor:not-allowed;
 }
-
-/* BARRA PROGRESO */
 
 .progress{
 width:100%;
@@ -168,16 +158,12 @@ background:#4338ca;
 transition:width .4s;
 }
 
-/* MENSAJE */
-
 #mensaje{
 margin-top:18px;
 font-size:15px;
 color:#444;
 text-align:center;
 }
-
-/* TOAST */
 
 .toast{
 position:fixed;
@@ -196,8 +182,6 @@ text-decoration:none;
 opacity:1;
 }
 
-/* FOOTER */
-
 footer{
 text-align:center;
 padding:12px;
@@ -210,8 +194,6 @@ flex-shrink:0;
 </head>
 
 <body>
-
-<!-- LOADER -->
 
 <div id="loader">
 <div class="spinner"></div>
@@ -270,6 +252,20 @@ document.getElementById("loader").style.display="none";
 },1500);
 });
 
+/* FUNCION PARA LEER FECHAS */
+
+function convertirFecha(fecha){
+
+const partes=fecha.split("-");
+
+if(partes[0].length===4){
+return new Date(partes[0],partes[1]-1,partes[2]);
+}else{
+return new Date(partes[2],partes[1]-1,partes[0]);
+}
+
+}
+
 /* SISTEMA */
 
 const dniInput=document.getElementById("dniInput");
@@ -281,15 +277,15 @@ const toast=document.getElementById("toast");
 
 const certificados={
 "33131107":"2026-12-30",
-"45511439":"2026-30-12",
+"45511439":"30-12-2026",
 "38500951":"2026-03-13",
-"27239643":"2026-02-05",
-"33825465":"2026-02-04",
-"21136573":"2026-02-04",
-"39629903":"2026-02-07",
-"29899080":"2026-02-08",
-"27726148":"2026-02-08",
-"40792260":"2026-04-08"
+"27239643":"05-02-2026",
+"33825465":"04-02-2026",
+"21136573":"04-02-2026",
+"39629903":"07-02-2026",
+"29899080":"08-02-2026",
+"27726148":"08-02-2026",
+"40792260":"08-04-2026"
 };
 
 dniInput.addEventListener("input",()=>{
@@ -322,7 +318,7 @@ return;
 const hoy=new Date();
 hoy.setHours(0,0,0,0);
 
-const fechaDisponible=new Date(certificados[dni]);
+const fechaDisponible=convertirFecha(certificados[dni]);
 fechaDisponible.setHours(0,0,0,0);
 
 if(hoy>=fechaDisponible){

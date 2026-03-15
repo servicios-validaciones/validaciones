@@ -144,15 +144,24 @@ main{
 /* ESTADO */
 .estado{
   margin-bottom:15px;
-  font-weight:bold;
+  font-weight:600;
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:6px;
+  font-size:13px;
+  border:1px solid;
 }
 
 .estado.verificado{
-  color:green;
+  color:#1e7e34;
+  background:#e6f4ea;
+  border-color:#b7e1c1;
 }
 
 .estado.noverificado{
-  color:red;
+  color:#b02a37;
+  background:#f8d7da;
+  border-color:#f1aeb5;
 }
 
 /* DOCUMENTOS */
@@ -360,7 +369,9 @@ apellido.style.background="#e9ecef";
 studentName.textContent = r.nombre + " " + r.apellido;
 
 estadoBox.className = "estado " + (r.verificado ? "verificado" : "noverificado");
-estadoBox.textContent = "Estado: " + (r.verificado ? "VERIFICADO" : "NO VERIFICADO");
+estadoBox.innerHTML = r.verificado
+  ? "✔ Documento verificado"
+  : "✖ Documento no verificado";
 
 docsBox.innerHTML="";
 

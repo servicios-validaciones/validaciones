@@ -3,247 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Registro Federal de Egreso</title>
 
 <style>
-:root{
-  --celeste:#37BBED;
-  --verde:#8DC21F;
-  --gris:#e9ecef;
-  --texto:#333;
-}
-
-*{
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
 
 body{
-  margin:0;
-  background:#fff;
-  color:var(--texto);
+font-family: Arial, Helvetica, sans-serif;
+background:#f5f5f5;
+margin:0;
+padding:0;
 }
 
-/* HEADER */
 header{
-  background:var(--celeste);
-  padding:20px;
+background:#0072bb;
+color:white;
+padding:20px;
+text-align:center;
 }
 
-.header-top{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+.container{
+background:white;
+max-width:900px;
+margin:30px auto;
+padding:30px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-.header-top img{
-  height:38px;
+h1{
+margin:0;
+font-size:22px;
 }
 
-.header-title{
-  color:#fff;
+h2{
+margin-top:5px;
+font-size:18px;
+color:#555;
 }
 
-.header-title h1{
-  font-size:22px;
-  margin:0;
-  font-weight:600;
-}
-
-.header-title h2{
-  font-size:18px;
-  margin:5px 0 0;
-  font-weight:400;
-}
-
-/* MAIN */
-main{
-  max-width:520px;
-  margin:0 auto;
-  padding:20px 15px;
-}
-
-/* FORM */
 .form-group{
-  display:flex;
-  margin-bottom:10px;
+margin-bottom:15px;
 }
 
-.form-label{
-  background:var(--gris);
-  padding:12px;
-  min-width:45%;
-  border-radius:6px 0 0 6px;
-  font-size:14px;
+label{
+display:block;
+margin-bottom:5px;
+font-weight:600;
 }
 
-.form-control{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-left:none;
-  border-radius:0 6px 6px 0;
-  font-size:14px;
+input,select{
+width:100%;
+padding:8px;
+border:1px solid #ccc;
+border-radius:4px;
 }
 
-.form-control:focus{
-  outline:none;
-}
-
-/* LINK */
-.blockchain-link{
-  font-size:14px;
-  margin:10px 0 20px;
-}
-
-.blockchain-link a{
-  color:var(--celeste);
-  text-decoration:none;
-}
-
-/* BUTTONS */
 .buttons{
-  display:flex;
-  gap:10px;
+margin-top:20px;
 }
 
-.btn{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:6px;
-  font-size:16px;
-  color:#fff;
-  cursor:pointer;
+button{
+padding:10px 20px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-weight:600;
 }
 
-.btn-reset{
-  background:#4cc1ef;
+.buscar{
+background:#0072bb;
+color:white;
 }
 
-.btn-search{
-  background:var(--verde);
-}
-
-/* RESULT */
-#infoEstudiante{
-  display:none;
-  margin-top:25px;
-}
-
-.student-info{
-  background:var(--celeste);
-  color:#fff;
-  padding:12px;
-  border-radius:6px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-/* ESTADO */
-.estado{
-  margin-bottom:15px;
-  font-weight:600;
-  display:inline-block;
-  padding:6px 12px;
-  border-radius:6px;
-  font-size:13px;
-  border:1px solid;
-}
-
-.estado.verificado{
-  color:#1e7e34;
-  background:#e6f4ea;
-  border-color:#b7e1c1;
-}
-
-.estado.noverificado{
-  color:#b02a37;
-  background:#f8d7da;
-  border-color:#f1aeb5;
-}
-
-/* DOCUMENTOS */
-.docs{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.docs a{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  border-radius:6px;
-  background:var(--celeste);
-  color:#fff;
-  text-decoration:none;
-  font-size:14px;
-}
-
-/* TABLE */
-.table-wrapper{
-  overflow-x:auto;
+.reset{
+background:#999;
+color:white;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:13px;
-}
-
-th,td{
-  border:1px solid #ccc;
-  padding:8px;
-  text-align:left;
+width:100%;
+border-collapse:collapse;
+margin-top:30px;
 }
 
 th{
-  background:var(--celeste);
-  color:#fff;
+background:#0072bb;
+color:white;
+padding:10px;
+font-size:14px;
 }
 
-/* FOOTER TEXT */
-.info-text{
-  font-size:13px;
-  margin-top:25px;
-  line-height:1.5;
-  text-align:center;
+td{
+border:1px solid #ddd;
+padding:10px;
+font-size:14px;
+text-align:center;
 }
 
-/* RESPONSIVE DESKTOP */
-@media(min-width:768px){
-  main{
-    max-width:900px;
-  }
-  .form-label{
-    min-width:30%;
-  }
+/* recuadro celeste igual para todos */
+.estado-box{
+background:#e7f3ff;
+border:1px solid #c9def5;
+border-radius:6px;
+padding:6px 10px;
+font-weight:600;
+display:inline-block;
 }
+
+/* solo cambia color del texto */
+.verificado{
+color:#1e8e3e;
+}
+
+.no-verificado{
+color:#d93025;
+}
+
+.info{
+margin-top:40px;
+font-size:14px;
+color:#555;
+text-align:center;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-top">
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
-  </div>
-  <div class="header-title">
-    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
-    <h2>Registro Federal de Egreso</h2>
-  </div>
+<h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
+<h2>Registro Federal de Egreso</h2>
 </header>
 
-<main>
-
-<form id="form-busqueda">
+<div class="container">
 
 <div class="form-group">
-<div class="form-label">Tipo de Documento</div>
-<select id="tipoDoc" class="form-control">
-<option value="">-- Selecciona una opción --</option>
+<label>Tipo de Documento</label>
+<select>
+<option>-- Selecciona una opción --</option>
 <option>DNI</option>
 <option>LE</option>
 <option>LC</option>
@@ -252,44 +151,34 @@ th{
 </div>
 
 <div class="form-group">
-<div class="form-label">Número de Documento</div>
-<input id="numeroDoc" class="form-control">
+<label>Número de Documento</label>
+<input type="text">
 </div>
 
 <div class="form-group">
-<div class="form-label">Apellido</div>
-<input id="apellido" class="form-control">
+<label>Apellido</label>
+<input type="text">
 </div>
 
 <div class="form-group">
-<div class="form-label">Nombre</div>
-<input id="nombre" class="form-control">
+<label>Nombre</label>
+<input type="text">
 </div>
 
-<div class="blockchain-link">
+<p style="text-align:center;">
 Si deseas ver tu título en la app Mi Argentina,
-<a href="https://servicios-validaciones.github.io/validaciones/miArgentina.html" target="_blank">haz click aquí</a>
-</div>
+<a href="https://servicios-validaciones.github.io/validaciones/miArgentina.html">
+haz click aquí
+</a>
+</p>
 
 <div class="buttons">
-<button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
-<button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
+<button class="reset">Nueva búsqueda</button>
+<button class="buscar">Buscar</button>
 </div>
 
-</form>
-
-<div id="infoEstudiante">
-
-<div class="student-info" id="studentName"></div>
-
-<div id="estadoBox" class="estado"></div>
-
-<div id="docsBox" class="docs"></div>
-
-<div class="table-wrapper">
 <table>
 
-<thead>
 <tr>
 <th>Tipo</th>
 <th>DNI</th>
@@ -300,129 +189,55 @@ Si deseas ver tu título en la app Mi Argentina,
 <th>Fecha</th>
 <th>Serie</th>
 <th>Blockchain</th>
+<th>Estado</th>
 </tr>
-</thead>
 
-<tbody id="tablaBody"></tbody>
+<tr>
+<td>DNI</td>
+<td>30123456</td>
+<td>Bachiller</td>
+<td>Buenos Aires</td>
+<td>Escuela Secundaria N°1</td>
+<td>06001234</td>
+<td>12/12/2023</td>
+<td>A12345</td>
+<td>✔</td>
+
+<td>
+<span class="estado-box verificado">
+Estado: Verificado
+</span>
+</td>
+
+</tr>
+
+<tr>
+<td>DNI</td>
+<td>29876543</td>
+<td>Bachiller</td>
+<td>Córdoba</td>
+<td>Instituto General San Martín</td>
+<td>14004567</td>
+<td>05/03/2022</td>
+<td>B98234</td>
+<td>✔</td>
+
+<td>
+<span class="estado-box no-verificado">
+Estado: No verificado
+</span>
+</td>
+
+</tr>
 
 </table>
+
+<p class="info">
+Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital.  
+Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
+</p>
+
 </div>
-</div>
-
-<div class="info-text">
-Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
-</div>
-
-</main>
-
-<script>
-
-const datosEstudiantes = [
-{
-dni:"37660995",
-nombre:"LUCAS IVAN",
-apellido:"TEMPONE",
-tipoDoc:"DNI",
-titulo:"ECONOMÍA Y ADMINISTRACIÓN",
-jurisdiccion:"BUENOS AIRES",
-institucion:"E DE COMERCIO N°29",
-cue:"00612275",
-fechaEgreso:"20/12/2020",
-serie:"06-08336-2020",
-hash:"",
-verificado:true,
-
-tituloLink:"https://ejemplo.com/titulo.pdf",
-analiticoLink:"",
-certificadoLink:"https://ejemplo.com/certificado.pdf"
-}
-];
-
-buscarBtn.onclick = () => {
-
-const dni = numeroDoc.value.trim();
-
-if(dni === ""){
-alert("La búsqueda se realiza únicamente por DNI");
-return;
-}
-
-const r = datosEstudiantes.find(e => e.dni === dni);
-
-if(!r){
-alert("No se encontró el DNI");
-infoEstudiante.style.display="none";
-return;
-}
-
-infoEstudiante.style.display="block";
-
-nombre.value = r.nombre;
-apellido.value = r.apellido;
-tipoDoc.value = r.tipoDoc;
-
-nombre.readOnly = true;
-apellido.readOnly = true;
-
-nombre.style.background="#e9ecef";
-apellido.style.background="#e9ecef";
-
-studentName.textContent = r.nombre + " " + r.apellido;
-
-estadoBox.className = "estado " + (r.verificado ? "verificado" : "noverificado");
-estadoBox.innerHTML = r.verificado
-  ? "✔ Documento verificado"
-  : "✖ Documento no verificado";
-
-docsBox.innerHTML="";
-
-if(r.tituloLink){
-docsBox.innerHTML += `<a href="${r.tituloLink}" target="_blank">Ver Título</a>`;
-}
-
-if(r.analiticoLink){
-docsBox.innerHTML += `<a href="${r.analiticoLink}" target="_blank">Ver Analítico</a>`;
-}
-
-if(r.certificadoLink){
-docsBox.innerHTML += `<a href="${r.certificadoLink}" target="_blank">Ver Certificado</a>`;
-}
-
-tablaBody.innerHTML = `
-<tr>
-<td>${r.tipoDoc}</td>
-<td>${r.dni}</td>
-<td>${r.titulo}</td>
-<td>${r.jurisdiccion}</td>
-<td>${r.institucion}</td>
-<td>${r.cue}</td>
-<td>${r.fechaEgreso}</td>
-<td>${r.serie}</td>
-<td>
-<a href="${r.hash}" target="_blank">
-<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#37BBED">
-<path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6-1h4v2h-4v-2zm5.2-4h-3v2h3a3 3 0 0 1 0 6h-3v2h3a5 5 0 0 0 0-10z"/>
-</svg>
-</a>
-</td>
-</tr>
-`;
-};
-
-nuevaBusqueda.onclick = () => {
-
-document.getElementById("form-busqueda").reset();
-
-nombre.readOnly=false;
-apellido.readOnly=false;
-
-nombre.style.background="#fff";
-apellido.style.background="#fff";
-
-infoEstudiante.style.display="none";
-
-};
-</script>
 
 </body>
 </html>

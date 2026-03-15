@@ -159,6 +159,12 @@ background:#e6f4ea;
 border-color:#b7e1c1;
 }
 
+.estado.proceso{
+color:#856404;
+background:#fff3cd;
+border-color:#ffe69c;
+}
+
 .estado.noverificado{
 color:#b02a37;
 background:#f8d7da;
@@ -337,7 +343,7 @@ cue:"00612275",
 fechaEgreso:"20/12/2020",
 serie:"06-08336-2020",
 hash:"",
-verificado:true,
+estado:"verificado",
 
 tituloLink:"https://ejemplo.com/titulo.pdf",
 analiticoLink:"",
@@ -357,8 +363,12 @@ return;
 const r = datosEstudiantes.find(e => e.dni === dni);
 
 if(!r){
-alert("No se encontró el DNI");
-infoEstudiante.style.display="none";
+estadoBox.className="estado noverificado";
+estadoBox.innerHTML="🔴 Documento no registrado";
+infoEstudiante.style.display="block";
+studentName.textContent="";
+docsBox.innerHTML="";
+tablaBody.innerHTML="";
 return;
 }
 
@@ -376,10 +386,15 @@ apellido.style.background="#e9ecef";
 
 studentName.textContent = r.nombre + " " + r.apellido;
 
-estadoBox.className = "estado " + (r.verificado ? "verificado" : "noverificado");
-estadoBox.innerHTML = r.verificado
-? "✔ Documento verificado"
-: "✖ Documento no verificado";
+if(r.estado==="verificado"){
+estadoBox.className="estado verificado";
+estadoBox.innerHTML="🟢 Documento verificado";
+}
+
+if(r.estado==="proceso"){
+estadoBox.className="estado proceso";
+estadoBox.innerHTML="🟡 Documento en proceso";
+}
 
 docsBox.innerHTML="";
 

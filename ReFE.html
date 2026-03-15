@@ -1,13 +1,20 @@
-<!DOCTYPE html>  <html lang="es">    <head>    
-<meta charset="UTF-8">    
-<meta name="viewport" content="width=device-width, initial-scale=1.0">    
-<title>Registro Federal de Egreso</title>  <style>    
-:root{    
-  --celeste:#37BBED;    
-  --verde:#8DC21F;    
-  --gris:#e9ecef;    
-  --texto:#333;    
-}    *{
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro Federal de Egreso</title>
+
+<style>
+:root{
+  --celeste:#37BBED;
+  --verde:#8DC21F;
+  --gris:#e9ecef;
+  --texto:#333;
+}
+
+*{
 box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
@@ -215,57 +222,109 @@ max-width:900px;
 min-width:30%;
 }
 }
-</style>  </head>  <body>  <header>
+</style>
+</head>
 
-  <div class="header-top">    
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">    
-  </div>    
-  <div class="header-title">    
-    <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>    
-    <h2>Registro Federal de Egreso</h2>    
-  </div>    
-</header>  <main>  <form id="form-busqueda">  <div class="form-group">    
-<div class="form-label">Tipo de Documento</div>    
-<select id="tipoDoc" class="form-control">    
-<option value="">-- Selecciona una opción --</option>    
-<option>DNI</option>    
-<option>LE</option>    
-<option>LC</option>    
-<option>DOCUMENTO EXTRANJERO</option>    
-</select>    
-</div>  <div class="form-group">    
-<div class="form-label">Número de Documento</div>    
-<input id="numeroDoc" class="form-control">    
-</div>  <div class="form-group">    
-<div class="form-label">Apellido</div>    
-<input id="apellido" class="form-control">    
-</div>  <div class="form-group">    
-<div class="form-label">Nombre</div>    
-<input id="nombre" class="form-control">    
-</div>  <div class="blockchain-link">    
-Si deseas ver tu título en la app Mi Argentina,    
-<a href="https://servicios-validaciones.github.io/validaciones/miArgentina.html" target="_blank">haz click aquí</a>    
-</div>  <div class="buttons">    
-<button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>    
-<button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>    
-</div>  </form>  <div id="infoEstudiante">  <div class="student-info" id="studentName"></div>  <div id="estadoBox" class="estado"></div>  <div id="docsBox" class="docs"></div>  <div class="table-wrapper">    
-<table>  <thead>    
-<tr>    
-<th>Tipo</th>    
-<th>DNI</th>    
-<th>Título</th>    
-<th>Jurisdicción</th>    
-<th>Institución</th>    
-<th>CUE</th>    
-<th>Fecha</th>    
-<th>Serie</th>    
-<th>Blockchain</th>    
-</tr>    
-</thead>  <tbody id="tablaBody"></tbody>  </table>    
-</div>    
-</div>  <div class="info-text">    
-Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.    
-</div>  </main>  <script>    const datosEstudiantes = [
+<body>
+
+<header>
+
+<div class="header-top">
+<img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
+</div>
+
+<div class="header-title">
+<h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
+<h2>Registro Federal de Egreso</h2>
+</div>
+
+</header>
+
+<main>
+
+<form id="form-busqueda">
+
+<div class="form-group">
+<div class="form-label">Tipo de Documento</div>
+<select id="tipoDoc" class="form-control">
+<option value="">-- Selecciona una opción --</option>
+<option>DNI</option>
+<option>LE</option>
+<option>LC</option>
+<option>DOCUMENTO EXTRANJERO</option>
+</select>
+</div>
+
+<div class="form-group">
+<div class="form-label">Número de Documento</div>
+<input id="numeroDoc" class="form-control">
+</div>
+
+<div class="form-group">
+<div class="form-label">Apellido</div>
+<input id="apellido" class="form-control">
+</div>
+
+<div class="form-group">
+<div class="form-label">Nombre</div>
+<input id="nombre" class="form-control">
+</div>
+
+<div class="blockchain-link">
+Si deseas ver tu título en la app Mi Argentina,
+<a href="https://servicios-validaciones.github.io/validaciones/miArgentina.html" target="_blank">haz click aquí</a>
+</div>
+
+<div class="buttons">
+<button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
+<button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
+</div>
+
+</form>
+
+<div id="infoEstudiante">
+
+<div class="student-info" id="studentName"></div>
+
+<div id="estadoBox" class="estado"></div>
+
+<div id="docsBox" class="docs"></div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Tipo</th>
+<th>DNI</th>
+<th>Título</th>
+<th>Jurisdicción</th>
+<th>Institución</th>
+<th>CUE</th>
+<th>Fecha</th>
+<th>Serie</th>
+<th>Blockchain</th>
+</tr>
+</thead>
+
+<tbody id="tablaBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="info-text">
+Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
+</div>
+
+</main>
+
+<script>
+
+const datosEstudiantes = [
 {
 dni:"37660995",
 nombre:"LUCAS IVAN",
@@ -325,38 +384,42 @@ estadoBox.innerHTML = r.verificado
 docsBox.innerHTML="";
 
 if(r.tituloLink){
-docsBox.innerHTML += <a href="${r.tituloLink}" target="_blank">Ver Título</a>;
+docsBox.innerHTML += `<a href="${r.tituloLink}" target="_blank">Ver Título</a>`;
 }
 
 if(r.analiticoLink){
-docsBox.innerHTML += <a href="${r.analiticoLink}" target="_blank">Ver Analítico</a>;
+docsBox.innerHTML += `<a href="${r.analiticoLink}" target="_blank">Ver Analítico</a>`;
 }
 
 if(r.certificadoLink){
-docsBox.innerHTML += <a href="${r.certificadoLink}" target="_blank">Ver Certificado</a>;
+docsBox.innerHTML += `<a href="${r.certificadoLink}" target="_blank">Ver Certificado</a>`;
 }
 
 tablaBody.innerHTML = `
 
-<tr>    
-<td>${r.tipoDoc}</td>    
-<td>${r.dni}</td>    
-<td>${r.titulo}</td>    
-<td>${r.jurisdiccion}</td>    
-<td>${r.institucion}</td>    
-<td>${r.cue}</td>    
-<td>${r.fechaEgreso}</td>    
-<td>${r.serie}</td>    
-<td>    
-<a href="${r.hash}" target="_blank">    
-<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#37BBED">    
-<path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6-1h4v2h-4v-2zm5.2-4h-3v2h3a3 3 0 0 1 0 6h-3v2h3a5 5 0 0 0 0-10z"/>    
-</svg>    
-</a>    
-</td>    
-</tr>    
-`;    
-};    nuevaBusqueda.onclick = () => {
+<tr>
+<td>${r.tipoDoc}</td>
+<td>${r.dni}</td>
+<td>${r.titulo}</td>
+<td>${r.jurisdiccion}</td>
+<td>${r.institucion}</td>
+<td>${r.cue}</td>
+<td>${r.fechaEgreso}</td>
+<td>${r.serie}</td>
+<td>
+<a href="${r.hash}" target="_blank">
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#37BBED">
+<path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6-1h4v2h-4v-2zm5.2-4h-3v2h3a3 3 0 0 1 0 6h-3v2h3a5 5 0 0 0 0-10z"/>
+</svg>
+</a>
+</td>
+</tr>
+
+`;
+
+};
+
+nuevaBusqueda.onclick = () => {
 
 document.getElementById("form-busqueda").reset();
 
@@ -369,6 +432,8 @@ apellido.style.background="#fff";
 infoEstudiante.style.display="none";
 
 };
-</script>  </body>
 
-</html>  
+</script>
+
+</body>
+</html>

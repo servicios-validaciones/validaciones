@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mí Argentina</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistema de Consulta</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
 <style>
 
-html, body{
-margin:0;
-padding:0;
-height:100%;
+body{
 font-family:'Montserrat',sans-serif;
-background:#f2f9fc;
+margin:0;
+background:#f2f2f2;
 display:flex;
 flex-direction:column;
+min-height:100vh;
 }
 
 /* LOADER */
@@ -36,18 +35,13 @@ align-items:center;
 z-index:9999;
 }
 
-.loader-logo{
-width:90px;
-margin-bottom:25px;
-}
-
 .spinner{
-width:55px;
-height:55px;
-border:5px solid #e4edf6;
-border-top:5px solid #0072bb;
+width:60px;
+height:60px;
+border:6px solid #e6e6e6;
+border-top:6px solid #4338ca;
 border-radius:50%;
-animation:girar .9s linear infinite;
+animation:girar 1s linear infinite;
 }
 
 @keyframes girar{
@@ -55,109 +49,120 @@ from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
 }
 
-.loader-texto{
-margin-top:18px;
-font-weight:600;
-color:#0072bb;
-}
-
 /* HEADER */
 
 header{
-background:#0072bb;
+background:#4338ca;
 color:white;
 text-align:center;
+padding:18px;
+font-size:22px;
 font-weight:700;
-padding:1vh 0;
-font-size:2.5vh;
 }
 
-header span{
+/* CONTENEDOR */
+
+.container{
+padding:25px;
+max-width:500px;
+margin:auto;
+width:100%;
+}
+
+h2{
+margin-bottom:20px;
+}
+
+/* INPUT */
+
+label{
 display:block;
-font-weight:400;
-font-size:1.5vh;
-color:#dce6f1;
-}
-
-/* MAIN */
-
-main{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.contenedor{
-width:90%;
-max-width:600px;
-background:white;
-padding:3vh 2vw;
-border-radius:12px;
-box-shadow:0 8px 24px rgba(0,0,0,.15);
-border:2px solid #0072bb;
-text-align:center;
-}
-
-.titulo{
-color:#0072bb;
-font-weight:700;
-font-size:3vh;
-margin-bottom:2vh;
-}
-
-.subtitulo{
-font-size:2vh;
+margin-top:15px;
 color:#555;
-opacity:0;
-transition:opacity .5s ease-in-out;
-}
-
-.btn-miarg{
-background:#0072bb;
-color:white;
-border-radius:50px;
-padding:1.5vh 3vw;
 font-weight:600;
-margin-top:2vh;
-border:none;
 }
 
-.btn-miarg:disabled{
+input{
+width:100%;
+padding:14px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-top:5px;
+font-size:16px;
+}
+
+/* BOTONES */
+
+button{
+margin-top:20px;
+background:#4338ca;
+color:white;
+border:none;
+padding:14px;
+border-radius:30px;
+width:180px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:disabled{
 opacity:.5;
 cursor:not-allowed;
+}
+
+/* BARRA PROGRESO */
+
+.progress{
+width:100%;
+background:#e5e5e5;
+border-radius:20px;
+height:8px;
+margin-top:20px;
+overflow:hidden;
+display:none;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#4338ca;
+transition:width .4s;
+}
+
+/* MENSAJE */
+
+#mensaje{
+margin-top:20px;
+font-size:16px;
+color:#444;
 }
 
 /* TOAST */
 
 .toast{
 position:fixed;
-bottom:2vh;
-right:2vw;
-background:#0072bb;
+bottom:20px;
+right:20px;
+background:#4338ca;
 color:white;
-padding:1vh 2vw;
-border-radius:1vh;
-box-shadow:0 4px 15px rgba(0,0,0,.2);
+padding:12px 18px;
+border-radius:8px;
 opacity:0;
-transform:translateY(10px);
 transition:.4s;
-font-weight:600;
-z-index:1000;
 }
 
 .toast.show{
 opacity:1;
-transform:translateY(0);
 }
 
 /* FOOTER */
 
 footer{
 text-align:center;
-color:#666;
-font-size:1.5vh;
-padding:1.5vh 0;
+margin-top:auto;
+padding:20px;
+color:#777;
+font-size:14px;
 }
 
 </style>
@@ -168,56 +173,37 @@ padding:1.5vh 0;
 <!-- LOADER -->
 
 <div id="loader">
-
-<img class="loader-logo"
-src="https://upload.wikimedia.org/wikipedia/commons/0/00/Escudo_de_la_Rep%C3%BAblica_Argentina.svg">
-
 <div class="spinner"></div>
-
-<div class="loader-texto">
-Cargando sistema...
-</div>
-
+<p style="margin-top:15px;color:#4338ca;font-weight:600;">Cargando sistema...</p>
 </div>
 
 <header>
-Mí Argentina 
-<span>Consulta de Acreditación de Certificados</span>
+Sistema de Consulta
 </header>
 
-<main>
+<div class="container">
 
-<div class="contenedor">
+<h2>Consultar certificado</h2>
 
-<h1 class="titulo">
-Documentación Académica 
-</h1>
+<label>DNI</label>
+<input type="text" id="dniInput" placeholder="Ingrese su DNI" maxlength="8">
 
-<div class="mb-3">
-<input
-type="text"
-id="dniInput"
-class="form-control text-center"
-placeholder="Ingrese su DNI"
-maxlength="8">
+<button id="consultarBtn" disabled>Consultar</button>
+
+<div class="progress">
+<div class="progress-bar" id="barra"></div>
 </div>
 
-<button id="consultarBtn" class="btn-miarg" disabled>
-Consultar
-</button>
-
-<p id="mensaje" class="subtitulo mt-4"></p>
+<div id="mensaje"></div>
 
 </div>
-
-</main>
 
 <footer>
-© 2026 Mí Argentina | Sistema de Consulta
+Centro de ayuda · Términos y condiciones
 </footer>
 
 <div id="toast" class="toast">
-¡Listo! Su certificado ya está disponible
+Certificado disponible
 </div>
 
 <script>
@@ -227,17 +213,17 @@ Consultar
 window.addEventListener("load",()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-},1800);
+},1500);
 });
 
-/* CONSULTA */
+/* SISTEMA */
 
-document.addEventListener('DOMContentLoaded',()=>{
-
-const dniInput=document.getElementById('dniInput');
-const consultarBtn=document.getElementById('consultarBtn');
-const mensaje=document.getElementById('mensaje');
-const toast=document.getElementById('toast');
+const dniInput=document.getElementById("dniInput");
+const consultarBtn=document.getElementById("consultarBtn");
+const mensaje=document.getElementById("mensaje");
+const barra=document.getElementById("barra");
+const progress=document.querySelector(".progress");
+const toast=document.getElementById("toast");
 
 const certificados={
 "33131107":"2026-02-05",
@@ -252,23 +238,27 @@ const certificados={
 "40792260":"2026-02-08"
 };
 
-dniInput.addEventListener('input',()=>{
-const dniValido=/^\d{7,8}$/.test(dniInput.value.trim());
-consultarBtn.disabled=!dniValido;
+dniInput.addEventListener("input",()=>{
+const valido=/^\d{7,8}$/.test(dniInput.value.trim());
+consultarBtn.disabled=!valido;
 });
 
-consultarBtn.addEventListener('click',()=>{
+consultarBtn.addEventListener("click",()=>{
 
 const dni=dniInput.value.trim();
 
-mensaje.style.opacity=1;
 mensaje.innerHTML="Consultando base de datos...";
+progress.style.display="block";
+barra.style.width="20%";
 
 setTimeout(()=>{
 mensaje.innerHTML="Validando certificado...";
+barra.style.width="60%";
 },1200);
 
 setTimeout(()=>{
+
+barra.style.width="100%";
 
 if(!certificados[dni]){
 mensaje.innerHTML="No se encontró información para el DNI ingresado.";
@@ -283,34 +273,20 @@ fechaDisponible.setHours(0,0,0,0);
 
 if(hoy>=fechaDisponible){
 
-mensaje.innerHTML=`
-Verificación completada.<br><br>
-Su <strong>Certificado</strong> se encuentra
-<strong>DISPONIBLE</strong>.
-Puede visualizarlo en la sección
-<strong>Documentos</strong>.
-`;
+mensaje.innerHTML="Verificación completada. Su certificado está DISPONIBLE.";
 
-setTimeout(()=>toast.classList.add('show'),800);
-setTimeout(()=>toast.classList.remove('show'),5000);
+toast.classList.add("show");
+setTimeout(()=>toast.classList.remove("show"),4000);
 
 }else{
 
-const fechaFormateada=fechaDisponible.toLocaleDateString('es-AR');
+const fechaFormateada=fechaDisponible.toLocaleDateString("es-AR");
 
-mensaje.innerHTML=`
-Verificación completada.<br><br>
-Su <strong>Certificado</strong> se encuentra en
-<strong>PROCESO</strong>.<br>
-Estará disponible a partir del
-<strong>${fechaFormateada}</strong>.
-`;
+mensaje.innerHTML="Certificado en proceso. Disponible desde "+fechaFormateada;
 
 }
 
-},2400);
-
-});
+},2500);
 
 });
 

@@ -4,53 +4,99 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Registro Federal de Egreso - ReFE</title>
+<title>Registro Federal de Egreso</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-font-family: Arial, Helvetica, sans-serif;
+font-family:'Montserrat',sans-serif;
 background:#ffffff;
 text-align:center;
 }
 
+/* ENCABEZADO */
+
 .header{
-padding:40px 20px;
+padding:50px 20px 30px 20px;
 }
 
 .logo{
-max-width:320px;
-margin:auto;
-display:block;
+width:320px;
+max-width:90%;
 }
 
-.gov{
-margin-top:30px;
-max-width:260px;
+.gobierno{
+margin-top:40px;
+width:260px;
+max-width:80%;
 }
 
-.section{
-background:linear-gradient(135deg,#3bb3d4,#2aa3c7);
+/* FRANJA VERDE */
+
+.linea-verde{
+height:6px;
+background:#8cc63f;
+width:100%;
+}
+
+/* SECCION PRINCIPAL */
+
+.hero{
+background:linear-gradient(135deg,#46b5d7,#2aa3c7);
+padding:70px 25px 90px 25px;
 color:white;
-padding:60px 25px;
+position:relative;
+overflow:hidden;
+}
+
+/* figuras suaves tipo original */
+
+.hero:before{
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+background:rgba(255,255,255,0.07);
+border-radius:50%;
+bottom:-150px;
+left:-120px;
+}
+
+.hero:after{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+background:rgba(255,255,255,0.05);
+border-radius:50%;
+top:-120px;
+right:-120px;
 }
 
 .texto{
-font-size:20px;
+font-size:22px;
 line-height:1.5;
-max-width:500px;
+max-width:600px;
 margin:auto;
+position:relative;
+z-index:2;
 }
 
+/* BOTON */
+
 .boton{
-margin-top:40px;
+margin-top:50px;
+position:relative;
+z-index:2;
 }
 
 .boton a{
 display:inline-block;
-padding:14px 50px;
-border:2px solid rgba(255,255,255,0.7);
+padding:16px 70px;
+border:2px solid rgba(255,255,255,0.8);
 border-radius:6px;
 color:white;
 text-decoration:none;
@@ -75,11 +121,13 @@ color:#2aa3c7;
 
 <br>
 
-<img src="https://www.argentina.gob.ar/sites/default/files/logo_ministerio_educacion.png" class="gov">
+<img src="https://www.argentina.gob.ar/sites/default/files/logo_ministerio_educacion.png" class="gobierno">
 
 </div>
 
-<div class="section">
+<div class="linea-verde"></div>
+
+<div class="hero">
 
 <div class="texto">
 Este registro permite verificar la autenticidad de los títulos de nivel secundario y superior emitidos a partir del 1 de noviembre del 2023

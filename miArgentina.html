@@ -19,6 +19,44 @@ html, body {
   flex-direction: column;
 }
 
+/* LOADER INICIAL */
+
+#loader {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+}
+
+.spinner {
+  width:60px;
+  height:60px;
+  border:6px solid #dce6f1;
+  border-top:6px solid #0072bb;
+  border-radius:50%;
+  animation: girar 1s linear infinite;
+}
+
+.loader-texto{
+  margin-top:15px;
+  font-weight:600;
+  color:#0072bb;
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* CONTENIDO */
+
 header {
   background-color: #0072bb;
   color: white;
@@ -114,6 +152,13 @@ footer {
 
 <body>
 
+<!-- LOADER -->
+
+<div id="loader">
+  <div class="spinner"></div>
+  <div class="loader-texto">Cargando portal...</div>
+</div>
+
 <header>
   Portal ABC | Mi Argentina
   <span>Portal Oficial del Estado Argentino</span>
@@ -139,75 +184,3 @@ footer {
 <footer>
   © 2026 Mi Argentina — Presidencia de la Nación
 </footer>
-
-<div id="toast" class="toast">¡Listo! Su certificado ya está disponible</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const dniInput = document.getElementById('dniInput');
-  const consultarBtn = document.getElementById('consultarBtn');
-  const mensaje = document.getElementById('mensaje');
-  const toast = document.getElementById('toast');
-
-  // Base simulada de datos
-  const certificados = {
-    "33131107": "2026-02-05",
-    "45511439": "2026-02-05",
-    "38500951": "2026-02-05",
-    "27239643": "2026-02-05",
-    "33825465": "2026-02-04",
-    "21136573": "2026-02-04",
-    "39629903": "2026-02-07",
-    "29899080": "2026-02-08",
-    "27726148": "2026-02-08",
-    "40792260": "2026-02-08"
-  };
-
-  // Validar DNI en tiempo real
-  dniInput.addEventListener('input', () => {
-    const dniValido = /^\d{7,8}$/.test(dniInput.value.trim());
-    consultarBtn.disabled = !dniValido;
-  });
-
-  consultarBtn.addEventListener('click', () => {
-    const dni = dniInput.value.trim();
-    mensaje.style.opacity = 1;
-
-    if (!certificados[dni]) {
-      mensaje.innerHTML = "No se encontró información para el DNI ingresado.";
-      return;
-    }
-
-    const hoy = new Date();
-    hoy.setHours(0,0,0,0);
-
-    const fechaDisponible = new Date(certificados[dni]);
-    fechaDisponible.setHours(0,0,0,0);
-
-    if (hoy >= fechaDisponible) {
-      mensaje.innerHTML = `
-        Su <strong>Certificado</strong> se encuentra
-        <strong>DISPONIBLE</strong>.
-        Puede visualizarlo en la sección <strong>Documentos</strong>
-        dentro de la App.
-      `;
-
-      setTimeout(() => toast.classList.add('show'), 800);
-      setTimeout(() => toast.classList.remove('show'), 5000);
-
-    } else {
-      const fechaFormateada = fechaDisponible.toLocaleDateString('es-AR');
-      mensaje.innerHTML = `
-        Su <strong>Certificado</strong> se encuentra en
-        <strong>PROCESO</strong>.
-        Estará disponible a partir del día
-        <strong>${fechaFormateada}</strong>.
-      `;
-    }
-  });
-});
-</script>
-
-</body>
-</html>
-

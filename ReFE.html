@@ -141,6 +141,38 @@ main{
   margin-bottom:10px;
 }
 
+/* ESTADO */
+.estado{
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+.estado.verificado{
+  color:green;
+}
+
+.estado.noverificado{
+  color:red;
+}
+
+/* DOCUMENTOS */
+.docs{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.docs a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:6px;
+  background:var(--celeste);
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+}
+
 /* TABLE */
 .table-wrapper{
   overflow-x:auto;
@@ -186,7 +218,7 @@ th{
 
 <header>
   <div class="header-top">
-    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" alt="ReFE">
+    <img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg">
   </div>
   <div class="header-title">
     <h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
@@ -198,160 +230,187 @@ th{
 
 <form id="form-busqueda">
 
-  <div class="form-group">
-    <div class="form-label">Tipo de Documento</div>
-    <select id="tipoDoc" class="form-control">
-      <option value="">-- Selecciona una opción --</option>
-      <option>DNI</option>
-      <option>LE</option>
-      <option>LC</option>
-      <option>DOCUMENTO EXTRANJERO</option>
-    </select>
-  </div>
+<div class="form-group">
+<div class="form-label">Tipo de Documento</div>
+<select id="tipoDoc" class="form-control">
+<option value="">-- Selecciona una opción --</option>
+<option>DNI</option>
+<option>LE</option>
+<option>LC</option>
+<option>DOCUMENTO EXTRANJERO</option>
+</select>
+</div>
 
-  <div class="form-group">
-    <div class="form-label">Número de Documento</div>
-    <input id="numeroDoc" class="form-control">
-  </div>
+<div class="form-group">
+<div class="form-label">Número de Documento</div>
+<input id="numeroDoc" class="form-control">
+</div>
 
-  <div class="form-group">
-    <div class="form-label">Apellido</div>
-    <input id="apellido" class="form-control">
-  </div>
+<div class="form-group">
+<div class="form-label">Apellido</div>
+<input id="apellido" class="form-control">
+</div>
 
-  <div class="form-group">
-    <div class="form-label">Nombre</div>
-    <input id="nombre" class="form-control">
-  </div>
+<div class="form-group">
+<div class="form-label">Nombre</div>
+<input id="nombre" class="form-control">
+</div>
 
-  <div class="blockchain-link">
+<div class="blockchain-link">
 Si deseas ver tu título en la app Mi Argentina,
 <a href="https://servicios-validaciones.github.io/validaciones/miArgentina.html" target="_blank">haz click aquí</a>
 </div>
 
-  <div class="buttons">
-    <button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
-    <button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
-  </div>
+<div class="buttons">
+<button type="button" class="btn btn-reset" id="nuevaBusqueda">Nueva búsqueda</button>
+<button type="button" class="btn btn-search" id="buscarBtn">Buscar</button>
+</div>
 
 </form>
 
 <div id="infoEstudiante">
-  <div class="student-info" id="studentName"></div>
 
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>DNI</th>
-          <th>Título</th>
-          <th>Jurisdicción</th>
-          <th>Institución</th>
-          <th>CUE</th>
-          <th>Fecha</th>
-          <th>Serie</th>
-          <th>Blockchain</th>
-        </tr>
-      </thead>
-      <tbody id="tablaBody"></tbody>
-    </table>
-  </div>
+<div class="student-info" id="studentName"></div>
+
+<div id="estadoBox" class="estado"></div>
+
+<div id="docsBox" class="docs"></div>
+
+<div class="table-wrapper">
+<table>
+
+<thead>
+<tr>
+<th>Tipo</th>
+<th>DNI</th>
+<th>Título</th>
+<th>Jurisdicción</th>
+<th>Institución</th>
+<th>CUE</th>
+<th>Fecha</th>
+<th>Serie</th>
+<th>Blockchain</th>
+</tr>
+</thead>
+
+<tbody id="tablaBody"></tbody>
+
+</table>
+</div>
 </div>
 
 <div class="info-text">
-  Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
+Por Resolución CFE N° 440/23, los títulos son emitidos en formato digital. Para títulos emitidos digitalmente, el ReFE es el nuevo instrumento de legalización, certificación y confronte de autenticidad de la documentación educativa correspondiente a los niveles de educación secundaria y de educación superior, para su presentación dentro del territorio argentino.
 </div>
 
 </main>
 
 <script>
+
 const datosEstudiantes = [
-  {
-    dni:"37660995",
-    nombre:"LUCAS IVAN",
-    apellido:"TEMPONE",
-    tipoDoc:"DNI",
-    titulo:"ECONOMÍA Y ADMINISTRACIÓN",
-    jurisdiccion:"BUENOS AIRES",
-    institucion:"E DE COMERCIO N°29",
-    cue:"00612275",
-    fechaEgreso:"20/12/2020",
-    serie:"06-08336-2020",
-    hash:""
-  }
+{
+dni:"37660995",
+nombre:"LUCAS IVAN",
+apellido:"TEMPONE",
+tipoDoc:"DNI",
+titulo:"ECONOMÍA Y ADMINISTRACIÓN",
+jurisdiccion:"BUENOS AIRES",
+institucion:"E DE COMERCIO N°29",
+cue:"00612275",
+fechaEgreso:"20/12/2020",
+serie:"06-08336-2020",
+hash:"",
+verificado:true,
+
+tituloLink:"https://ejemplo.com/titulo.pdf",
+analiticoLink:"",
+certificadoLink:"https://ejemplo.com/certificado.pdf"
+}
 ];
 
 buscarBtn.onclick = () => {
 
-  const dni = numeroDoc.value.trim();
+const dni = numeroDoc.value.trim();
 
-  if(dni === ""){
-    alert("La búsqueda se realiza únicamente por DNI");
-    return;
-  }
+if(dni === ""){
+alert("La búsqueda se realiza únicamente por DNI");
+return;
+}
 
-  const r = datosEstudiantes.find(e => e.dni === dni);
+const r = datosEstudiantes.find(e => e.dni === dni);
 
-  if(!r){
-    alert("No se encontró el DNI");
-    infoEstudiante.style.display="none";
-    return;
-  }
+if(!r){
+alert("No se encontró el DNI");
+infoEstudiante.style.display="none";
+return;
+}
 
-  infoEstudiante.style.display="block";
+infoEstudiante.style.display="block";
 
-  nombre.value = r.nombre;
-  apellido.value = r.apellido;
-  tipoDoc.value = r.tipoDoc;
+nombre.value = r.nombre;
+apellido.value = r.apellido;
+tipoDoc.value = r.tipoDoc;
 
-  nombre.readOnly = true;
-  apellido.readOnly = true;
+nombre.readOnly = true;
+apellido.readOnly = true;
 
-  nombre.style.background="#e9ecef";
-  apellido.style.background="#e9ecef";
+nombre.style.background="#e9ecef";
+apellido.style.background="#e9ecef";
 
-  nombre.style.border="1px solid #ccc";
-  apellido.style.border="1px solid #ccc";
+studentName.textContent = r.nombre + " " + r.apellido;
 
-  studentName.textContent = r.nombre + " " + r.apellido;
+estadoBox.className = "estado " + (r.verificado ? "verificado" : "noverificado");
+estadoBox.textContent = "Estado: " + (r.verificado ? "VERIFICADO" : "NO VERIFICADO");
 
-  tablaBody.innerHTML = `
-    <tr>
-      <td>${r.tipoDoc}</td>
-      <td>${r.dni}</td>
-      <td>${r.titulo}</td>
-      <td>${r.jurisdiccion}</td>
-      <td>${r.institucion}</td>
-      <td>${r.cue}</td>
-      <td>${r.fechaEgreso}</td>
-      <td>${r.serie}</td>
-      <td>
-  <a href="${r.hash}" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#37BBED">
-      <path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6-1h4v2h-4v-2zm5.2-4h-3v2h3a3 3 0 0 1 0 6h-3v2h3a5 5 0 0 0 0-10z"/>
-    </svg>
-  </a>
+docsBox.innerHTML="";
+
+if(r.tituloLink){
+docsBox.innerHTML += `<a href="${r.tituloLink}" target="_blank">Ver Título</a>`;
+}
+
+if(r.analiticoLink){
+docsBox.innerHTML += `<a href="${r.analiticoLink}" target="_blank">Ver Analítico</a>`;
+}
+
+if(r.certificadoLink){
+docsBox.innerHTML += `<a href="${r.certificadoLink}" target="_blank">Ver Certificado</a>`;
+}
+
+tablaBody.innerHTML = `
+<tr>
+<td>${r.tipoDoc}</td>
+<td>${r.dni}</td>
+<td>${r.titulo}</td>
+<td>${r.jurisdiccion}</td>
+<td>${r.institucion}</td>
+<td>${r.cue}</td>
+<td>${r.fechaEgreso}</td>
+<td>${r.serie}</td>
+<td>
+<a href="${r.hash}" target="_blank">
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#37BBED">
+<path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6-1h4v2h-4v-2zm5.2-4h-3v2h3a3 3 0 0 1 0 6h-3v2h3a5 5 0 0 0 0-10z"/>
+</svg>
+</a>
 </td>
-    </tr>
-  `;
+</tr>
+`;
 };
 
 nuevaBusqueda.onclick = () => {
 
-  document.getElementById("form-busqueda").reset();
+document.getElementById("form-busqueda").reset();
 
-  nombre.readOnly = false;
-  apellido.readOnly = false;
+nombre.readOnly=false;
+apellido.readOnly=false;
 
-  nombre.style.background="#fff";
-  apellido.style.background="#fff";
+nombre.style.background="#fff";
+apellido.style.background="#fff";
 
-  infoEstudiante.style.display="none";
+infoEstudiante.style.display="none";
 
 };
 </script>
 
 </body>
-    </html>
-    
+</html>

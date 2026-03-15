@@ -363,7 +363,7 @@ const r = datosEstudiantes.find(e => e.dni === dni);
 
 if(!r){
 estadoBox.className="estado noverificado";
-estadoBox.innerHTML="🔴 DOCUMENTO NO REGISTRADO";
+estadoBox.innerHTML="🔴 NÚMERO DE DOCUMENTO NO REGISTRADO EN ESTE SISTEMA";
 infoEstudiante.style.display="block";
 studentName.textContent="";
 docsBox.innerHTML="";
@@ -387,12 +387,12 @@ studentName.textContent = r.nombre + " " + r.apellido;
 
 if(r.estado==="verificado"){
 estadoBox.className="estado verificado";
-estadoBox.innerHTML="🟢 DOCUMENTO VERIFICADO";
+estadoBox.innerHTML="🟢 DOCUMENTACIÓN VERIFICADA";
 }
 
 if(r.estado==="proceso"){
 estadoBox.className="estado proceso";
-estadoBox.innerHTML="🟡 DOCUMENTO EN PROCESO..";
+estadoBox.innerHTML="🟡 DOCUMENTACIÓN EN PROCESO..";
 }
 
 docsBox.innerHTML="";

@@ -14,134 +14,6 @@ body{
 font-family:'Montserrat',sans-serif;
 margin:0;
 background:#f2f2f2;
-display:flex;
-flex-direction:column;
-min-height:100vh;
-}
-
-/* LOADER */
-
-#loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.spinner{
-width:60px;
-height:60px;
-border:6px solid #e6e6e6;
-border-top:6px solid #4338ca;
-border-radius:50%;
-animation:girar 1s linear infinite;
-}
-
-@keyframes girar{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-/* HEADER */
-
-header{
-background:#4338ca;
-color:white;
-text-align:center;
-padding:18px;
-font-size:22px;
-font-weight:700;
-}
-
-/* CONTENEDOR */
-
-.container{
-padding:25px;
-max-width:500px;
-margin:auto;
-width:100%;
-}
-
-h2{
-margin-bottom:20px;
-}
-
-/* INPUT */
-
-label{
-display:block;
-margin-top:15px;
-color:#555;
-font-weight:600;
-}
-
-input{
-width:100%;
-padding:14px;
-border-radius:8px;
-border:1px solid #ddd;
-margin-top:5px;
-font-size:16px;
-}
-
-/* BOTONES */
-
-button{
-margin-top:20px;
-background:#4338ca;
-color:white;
-border:none;
-padding:14px;
-border-radius:30px;
-width:180px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:disabled{
-opacity:.5;
-cursor:not-allowed;
-}
-
-/* BARRA PROGRESO */
-
-.progress{
-width:100%;
-background:#e5e5e5;
-border-radius:20px;
-height:8px;
-margin-top:20px;
-overflow:hidden;
-display:none;
-}
-
-.progress-bar{
-height:100%;
-width:0%;
-background:#4338ca;
-transition:width .4s;
-}
-
-/* MENSAJE */
-
-#mensaje{
-margin-top:20px;
-font-size:16px;
-color:#444;
-}
-
-/* TOAST */
-body{
-font-family:'Montserrat',sans-serif;
-margin:0;
-background:#f2f2f2;
 height:100vh;
 display:flex;
 flex-direction:column;
@@ -206,8 +78,35 @@ box-sizing:border-box;
 }
 
 h2{
-margin-bottom:15px;
+margin-bottom:10px;
 text-align:center;
+}
+
+/* TEXTO DESCRIPCIÓN */
+
+.descripcion{
+color:#555;
+text-align:center;
+font-size:14px;
+margin-bottom:15px;
+}
+
+/* INFO BOX */
+
+.info-box{
+background:white;
+border-radius:10px;
+padding:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+margin-bottom:15px;
+font-size:14px;
+color:#444;
+width:100%;
+}
+
+.info-box ul{
+margin:8px 0 0 18px;
+padding:0;
 }
 
 /* INPUT */
@@ -319,12 +218,25 @@ flex-shrink:0;
 </div>
 
 <header>
-Mí Argentina | Sistema de Consulta
+Mi Argentina | Sistema de Consulta
 </header>
 
 <div class="container">
 
-<h2>Consultar estado de Documentación</h2>
+<h2>Consultar estado de documentación</h2>
+
+<p class="descripcion">
+Ingrese su DNI para verificar si su certificado ya se encuentra disponible en la aplicación Mi Argentina.
+</p>
+
+<div class="info-box">
+<b>Información del sistema</b>
+<ul>
+<li>La consulta se realiza únicamente mediante DNI.</li>
+<li>Si el certificado está disponible podrá visualizarlo en Mi Argentina.</li>
+<li>El proceso de validación puede demorar algunos días.</li>
+</ul>
+</div>
 
 <label>DNI</label>
 <input type="text" id="dniInput" placeholder="Ingrese su DNI" maxlength="8">
@@ -415,13 +327,11 @@ fechaDisponible.setHours(0,0,0,0);
 if(hoy>=fechaDisponible){
 
 mensaje.innerHTML="Verificación completada. Su certificado está DISPONIBLE.";
-
 toast.classList.add("show");
 
 }else{
 
 const fechaFormateada=fechaDisponible.toLocaleDateString("es-AR");
-
 mensaje.innerHTML="Certificado en proceso. Disponible desde "+fechaFormateada;
 
 }

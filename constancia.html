@@ -164,7 +164,7 @@ font-size:18px;
 /* FIRMAS */
 
 .firmas{
-margin-top:70px;
+margin-top:80px;
 display:flex;
 justify-content:space-around;
 align-items:flex-end;
@@ -172,12 +172,12 @@ align-items:flex-end;
 
 .firma-box{
 text-align:center;
-width:220px;
+width:230px;
 position:relative;
 }
 
 .firma-box img{
-height:70px;
+height:105px;
 }
 
 .linea-firma{
@@ -185,31 +185,37 @@ border-top:1px solid #000;
 margin-top:5px;
 }
 
-/* SELLO */
+/* AREA SELLO */
 
 .sello-area{
 text-align:center;
 position:relative;
+width:180px;
+height:140px;
 }
 
-/* sello abajo */
+/* SELLO */
 
 .sello{
-width:120px;
+width:150px;
 opacity:0.9;
-position:relative;
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
 z-index:1;
 }
 
-/* firma arriba */
+/* FIRMA CRUZANDO SELLO */
 
 .firma-sobre-sello{
 position:absolute;
-top:-40px;
+top:-10px;
 left:50%;
-transform:translateX(-50%);
-height:60px;
+transform:translateX(-50%) rotate(-8deg);
+height:110px;
 z-index:2;
+pointer-events:none;
 }
 
 /* FOOTER */

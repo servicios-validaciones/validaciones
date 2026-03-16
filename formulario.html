@@ -195,11 +195,24 @@ El mismo se realiza únicamente a través de los siguientes medios:
 <input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaEgreso" required>  
 </div>  
   
-<div class="input-group mb-3">  
+<div class="input-group mb-3" id="tituloBox">  
 <span class="input-group-text text-secondary" style="width:250px;">Nombre del Título/Bachiller</span>  
 <input class="form-control" id="titulo" required>  
 </div>  
-  
+
+<!-- NUEVO SELECTOR DE CONSTANCIA -->  
+<div class="input-group mb-3">  
+<span class="input-group-text text-secondary" style="width:250px;">Tipo de Constancia</span>  
+
+<select class="form-select" id="tipoConstancia">
+<option value="">No corresponde</option>
+<option>Constancia de Alumno Regular</option>
+<option>Constancia de Analítico en Trámite</option>
+<option>Constancia de Título en Trámite</option>
+</select>  
+
+</div>
+
 <div class="text-end mt-4">  
 <button class="btn btn-success" type="submit" style="width:200px;background:#88C517;border-color:#88C517;">  
 Enviar Solicitud  
@@ -235,14 +248,31 @@ const option=this.options[this.selectedIndex];
 
 precioSeleccionado=option.dataset.precio;
 
-if(precioSeleccionado){
-
-document.getElementById("precio").innerText="Costo del trámite: "+precioSeleccionado;
-
-document.getElementById("precioBox").style.display="block";
-
+// Solo mostrar precio si NO es constancia
+if(!document.getElementById("tipoConstancia").value){
+  if(precioSeleccionado){
+    document.getElementById("precio").innerText="Costo del trámite: "+precioSeleccionado;
+    document.getElementById("precioBox").style.display="block";
+  }
 }
 
+});
+
+// OCULTAR TÍTULO Y FIJAR PRECIO SI SE ELIGE CONSTANCIA
+document.getElementById("tipoConstancia").addEventListener("change", function() {
+const tituloBox = document.getElementById("tituloBox");
+if (this.value !== "") {
+  tituloBox.style.display = "none";
+  precioSeleccionado = "$100.000";
+  document.getElementById("precio").innerText = "Costo del trámite: "+precioSeleccionado;
+  document.getElementById("precioBox").style.display="block";
+} else {
+  tituloBox.style.display = "flex";
+  // Si cambian a no constancia, limpiar precio para que tome el select de documento
+  document.getElementById("precio").innerText = "";
+  document.getElementById("precioBox").style.display="none";
+  precioSeleccionado = "";
+}
 });
 
 document.getElementById("formLegalizacion").addEventListener("submit", e => {

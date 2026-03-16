@@ -99,13 +99,13 @@ color:#37BBED;
 <main class="container my-4">  
   
 <form id="formLegalizacion" class="mb-3">  
-  
+
 <!-- TIPO DOCUMENTO -->  
 <h5><i class="fas fa-file-alt section-icon"></i>Tipo de Documentación</h5>  
   
 <div class="input-group mb-3">  
 <span class="input-group-text text-secondary" style="width:250px;">Tipo de Documento</span>  
-  
+
 <select class="form-select" id="tipoDocumento" required>  
 <option value="">Seleccione…</option>  
 <option data-precio="$150.000">Certificado de Secundaria ($150.000)</option>  
@@ -115,7 +115,7 @@ color:#37BBED;
 <option data-precio="$190.000">Certificado Terciario ($190.000)</option>  
 <option data-precio="$100.000">Certificaciones ($100.000)</option>  
 </select>  
-  
+
 </div>  
 
 <div id="precioBox">
@@ -127,64 +127,64 @@ El mismo se realiza únicamente a través de los siguientes medios:
 • Depósito en efectivo mediante Pago Fácil
 ⌛ Tiempo estimado de emisión: el proceso completo puede demorar hasta 45 minutos.</p>
 </div>
-  
+
 <hr>  
-  
+
 <!-- DATOS PERSONALES -->  
-  
+
 <h5><i class="fas fa-user section-icon"></i>Datos Personales</h5>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Nombre(s)</span>  
 <input class="form-control" id="nombre" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Apellido</span>  
 <input class="form-control" id="apellido" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">DNI</span>  
 <input class="form-control" id="dni" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Lugar de Nacimiento</span>  
 <input class="form-control" id="lugarNacimiento" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Provincia</span>  
 <input class="form-control" id="provincia" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Fecha de Nacimiento</span>  
 <input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaNacimiento" required>  
 </div>  
-  
+
 <div class="input-group mb-3">  
 <span class="input-group-text text-secondary" style="width:250px;">E-mail</span>  
 <input type="email" class="form-control" id="email" required>  
 </div>  
-  
+
 <hr>  
-  
+
 <!-- DATOS ACADÉMICOS -->  
-  
+
 <h5><i class="fas fa-graduation-cap section-icon"></i>Datos Académicos</h5>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Institución</span>  
 <input class="form-control" id="institucion" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Dirección</span>  
 <input class="form-control" id="direccionInstitucion" required>  
 </div>  
-  
+
 <div class="input-group mb-2">  
 <span class="input-group-text text-secondary" style="width:250px;">Localidad</span>  
 <input class="form-control" id="localidad" required>  
@@ -194,16 +194,42 @@ El mismo se realiza únicamente a través de los siguientes medios:
 <span class="input-group-text text-secondary" style="width:250px;">Provincia</span>  
 <input class="form-control" id="provinciaAcademica" required>  
 </div>  
-  
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Año de Egreso/Finalización</span>  
+
+<div class="input-group mb-2" id="fechaEgresoBox">  
+<span class="input-group-text text-secondary" style="width:250px;" id="labelFechaEgreso">Año de Egreso/Finalización</span>  
 <input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaEgreso" required>  
 </div>  
-  
+
 <div class="input-group mb-3" id="tituloBox">  
 <span class="input-group-text text-secondary" style="width:250px;">Nombre del Título/Bachiller</span>  
 <input class="form-control" id="titulo" required>  
 </div>  
+
+<!-- CAMPOS ADICIONALES PARA CONSTANCIA DE ALUMNO REGULAR -->
+<div id="constanciaExtras" style="display:none;">
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Curso / Nivel</span>
+<input class="form-control" id="cursoNivel">
+</div>
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Nivel Educativo</span>
+<select class="form-select" id="nivelEducativo">
+<option value="">Seleccione…</option>
+<option>Primaria</option>
+<option>Secundaria</option>
+<option>Terciaria</option>
+<option>Universitaria</option>
+</select>
+</div>
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Año Lectivo</span>
+<input class="form-control" id="anioLectivo">
+</div>
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Fecha de Emisión (Constancia)</span>
+<input type="date" class="form-control" id="fechaEmision">
+</div>
+</div>
 
 <!-- NUEVO SELECTOR DE CONSTANCIA -->  
 <div class="input-group mb-3">  
@@ -225,7 +251,7 @@ Enviar Solicitud
 </div>  
   
 </form>  
-  
+
 <div id="resumen" style="display:none;">  
 <h5>✅ Resumen de Solicitud</h5>  
 <div id="resumenContenido"></div>  
@@ -238,14 +264,17 @@ Confirmar
 </button>  
 </div>  
 </div>  
-  
+
 </main>  
-  
+
 <script>  
 
 const whatsapp = "5491131602393";
 
 let precioSeleccionado = "";
+
+const labelFecha = document.getElementById("labelFechaEgreso");
+const constanciaExtras = document.getElementById("constanciaExtras");
 
 document.getElementById("tipoDocumento").addEventListener("change",function(){
 
@@ -271,12 +300,32 @@ if (this.value !== "") {
   precioSeleccionado = "$100.000";
   document.getElementById("precio").innerText = "Costo del trámite: "+precioSeleccionado;
   document.getElementById("precioBox").style.display="block";
+  labelFecha.textContent = "Año de Constancia";
+  if(this.value==="Constancia de Alumno Regular"){
+    constanciaExtras.style.display="block";
+    // hacer campos obligatorios
+    document.getElementById("cursoNivel").required = true;
+    document.getElementById("nivelEducativo").required = true;
+    document.getElementById("anioLectivo").required = true;
+    document.getElementById("fechaEmision").required = true;
+  } else {
+    constanciaExtras.style.display="none";
+    document.getElementById("cursoNivel").required = false;
+    document.getElementById("nivelEducativo").required = false;
+    document.getElementById("anioLectivo").required = false;
+    document.getElementById("fechaEmision").required = false;
+  }
 } else {
   tituloBox.style.display = "flex";
-  // Si cambian a no constancia, limpiar precio para que tome el select de documento
   document.getElementById("precio").innerText = "";
   document.getElementById("precioBox").style.display="none";
   precioSeleccionado = "";
+  labelFecha.textContent = "Año de Egreso/Finalización";
+  constanciaExtras.style.display="none";
+  document.getElementById("cursoNivel").required = false;
+  document.getElementById("nivelEducativo").required = false;
+  document.getElementById("anioLectivo").required = false;
+  document.getElementById("fechaEmision").required = false;
 }
 });
 
@@ -321,6 +370,6 @@ window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`, "_b
 });
 
 </script>  
-  
+
 </body>  
 </html>

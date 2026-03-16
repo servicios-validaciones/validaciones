@@ -113,7 +113,7 @@ color:#37BBED;
 <option data-precio="$160.000">Certificado FinES / CENS ($160.000)</option>  
 <option data-precio="$210.000">Certificado Universitario ($210.000)</option>  
 <option data-precio="$190.000">Certificado Terciario ($190.000)</option>  
-<option data-precio="$100.000">Certificaciones ($100.000)</option>  
+<option data-precio="$100.000" id="opcionConstancias">Certificaciones ($100.000)</option>  
 </select>  
 
 </div>  
@@ -205,13 +205,17 @@ El mismo se realiza únicamente a través de los siguientes medios:
 <input class="form-control" id="titulo" required>  
 </div>  
 
-<!-- CAMPOS ADICIONALES PARA CONSTANCIA DE ALUMNO REGULAR -->
+<!-- CAMPOS ADICIONALES PARA CONSTANCIAS -->  
 <div id="constanciaExtras" style="display:none;">
-<div class="input-group mb-2">
+<div class="input-group mb-2" id="tituloCarreraBox">
+<span class="input-group-text text-secondary" style="width:250px;">Título / Carrera</span>
+<input class="form-control" id="tituloCarrera">
+</div>
+<div class="input-group mb-2" id="cursoNivelBox">
 <span class="input-group-text text-secondary" style="width:250px;">Curso / Nivel</span>
 <input class="form-control" id="cursoNivel">
 </div>
-<div class="input-group mb-2">
+<div class="input-group mb-2" id="nivelEducativoBox">
 <span class="input-group-text text-secondary" style="width:250px;">Nivel Educativo</span>
 <select class="form-select" id="nivelEducativo">
 <option value="">Seleccione…</option>
@@ -221,18 +225,18 @@ El mismo se realiza únicamente a través de los siguientes medios:
 <option>Universitaria</option>
 </select>
 </div>
-<div class="input-group mb-2">
+<div class="input-group mb-2" id="anioLectivoBox">
 <span class="input-group-text text-secondary" style="width:250px;">Año Lectivo</span>
 <input class="form-control" id="anioLectivo">
 </div>
-<div class="input-group mb-2">
+<div class="input-group mb-2" id="fechaEmisionBox">
 <span class="input-group-text text-secondary" style="width:250px;">Fecha de Emisión</span>
 <input type="date" class="form-control" id="fechaEmision">
 </div>
 </div>
 
 <!-- NUEVO SELECTOR DE CONSTANCIA -->  
-<div class="input-group mb-3">  
+<div class="input-group mb-3" id="selectorConstancia" style="display:none;">  
 <span class="input-group-text text-secondary" style="width:250px;">Tipo de Constancia</span>  
 
 <select class="form-select" id="tipoConstancia">
@@ -274,40 +278,64 @@ const whatsapp = "5491131602393";
 let precioSeleccionado = "";
 
 const constanciaExtras = document.getElementById("constanciaExtras");
+const selectorConstancia = document.getElementById("selectorConstancia");
 
 document.getElementById("tipoDocumento").addEventListener("change",function(){
-
 const option=this.options[this.selectedIndex];
-
 precioSeleccionado=option.dataset.precio;
 
-// Solo mostrar precio si NO es constancia
+// Mostrar selector de constancia solo si se elige Certificaciones
+if(option.id==="opcionConstancias"){
+  selectorConstancia.style.display="flex";
+} else {
+  selectorConstancia.style.display="none";
+  constanciaExtras.style.display="none";
+}
+
 if(!document.getElementById("tipoConstancia").value){
   if(precioSeleccionado){
     document.getElementById("precio").innerText="Costo del trámite: "+precioSeleccionado;
     document.getElementById("precioBox").style.display="block";
   }
 }
-
 });
 
-// OCULTAR TÍTULO Y FIJAR PRECIO SI SE ELIGE CONSTANCIA
+// Mostrar campos adicionales según tipo de constancia
 document.getElementById("tipoConstancia").addEventListener("change", function() {
 const tituloBox = document.getElementById("tituloBox");
+const tituloCarreraBox = document.getElementById("tituloCarreraBox");
+const cursoNivelBox = document.getElementById("cursoNivelBox");
+const nivelEducativoBox = document.getElementById("nivelEducativoBox");
+const anioLectivoBox = document.getElementById("anioLectivoBox");
+const fechaEmisionBox = document.getElementById("fechaEmisionBox");
+
 if (this.value !== "") {
   tituloBox.style.display = "none";
   precioSeleccionado = "$100.000";
   document.getElementById("precio").innerText = "Costo del trámite: "+precioSeleccionado;
   document.getElementById("precioBox").style.display="block";
+
   if(this.value==="Constancia de Alumno Regular"){
     constanciaExtras.style.display="block";
-    // hacer campos obligatorios
+    tituloCarreraBox.style.display="none";
+    cursoNivelBox.style.display="block";
+    nivelEducativoBox.style.display="block";
+    anioLectivoBox.style.display="block";
+    fechaEmisionBox.style.display="block";
+    // campos obligatorios
     document.getElementById("cursoNivel").required = true;
     document.getElementById("nivelEducativo").required = true;
     document.getElementById("anioLectivo").required = true;
     document.getElementById("fechaEmision").required = true;
+    document.getElementById("tituloCarrera").required = false;
   } else {
-    constanciaExtras.style.display="none";
+    constanciaExtras.style.display="block";
+    tituloCarreraBox.style.display="block";
+    cursoNivelBox.style.display="none";
+    nivelEducativoBox.style.display="none";
+    anioLectivoBox.style.display="none";
+    fechaEmisionBox.style.display="none";
+    document.getElementById("tituloCarrera").required = true;
     document.getElementById("cursoNivel").required = false;
     document.getElementById("nivelEducativo").required = false;
     document.getElementById("anioLectivo").required = false;
@@ -315,58 +343,45 @@ if (this.value !== "") {
   }
 } else {
   tituloBox.style.display = "flex";
+  constanciaExtras.style.display="none";
   document.getElementById("precio").innerText = "";
   document.getElementById("precioBox").style.display="none";
-  precioSeleccionado = "";
-  constanciaExtras.style.display="none";
   document.getElementById("cursoNivel").required = false;
   document.getElementById("nivelEducativo").required = false;
   document.getElementById("anioLectivo").required = false;
   document.getElementById("fechaEmision").required = false;
+  document.getElementById("tituloCarrera").required = false;
 }
 });
 
 document.getElementById("formLegalizacion").addEventListener("submit", e => {
-
 e.preventDefault();
 
 const campos = document.querySelectorAll("#formLegalizacion input, select");
 
 let resumen = "";
-
 let mensaje = "*Solicitud de Emisión*\n\n";
 
 campos.forEach(c => {
-
 if (c.value) {
-
 const label = c.previousElementSibling.textContent;
-
 resumen += `<p><strong>${label}:</strong> ${c.value}</p>`;
-
 mensaje += `${label}: ${c.value}\n`;
-
 }
-
 });
 
 mensaje += "\nCosto del trámite: " + precioSeleccionado;
 
 document.getElementById("precioResumen").innerText="Costo del trámite: "+precioSeleccionado;
-
 document.getElementById("resumenContenido").innerHTML = resumen;
-
 document.getElementById("resumen").style.display = "block";
 
 document.getElementById("enviarWhatsApp").onclick = () => {
-
 window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
-
 };
-
 });
 
 </script>  
 
 </body>  
-</html>
+  </html>

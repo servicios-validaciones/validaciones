@@ -2,46 +2,83 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Constancia de Analítico / Título en Trámite</title>
+<title>Constancia Analítico en Trámite</title>
 
 <style>
 
+@page{
+size:A4;
+margin:25mm;
+}
+
 body{
-font-family: Arial, Helvetica, sans-serif;
-background:#f3f3f3;
-padding:30px;
+font-family:"Arial",sans-serif;
+background:#e9e9e9;
 }
 
 .documento{
-width:900px;
+width:210mm;
+min-height:297mm;
+background:white;
 margin:auto;
-background:#ffffff;
-padding:40px;
-border:1px solid #ddd;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+padding:35px;
+box-sizing:border-box;
+border:1px solid #cfcfcf;
+position:relative;
+overflow:hidden;
 }
+
+/* MARCA DE AGUA */
+
+.documento::before{
+content:"CONSTANCIA DE DOCUMENTACIÓN EN TRÁMITE";
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) rotate(-30deg);
+font-size:70px;
+font-weight:bold;
+color:#000;
+opacity:0.05;
+white-space:nowrap;
+pointer-events:none;
+}
+
+/* FIN MARCA DE AGUA */
 
 .header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:2px solid #e5e5e5;
-padding-bottom:15px;
+border-bottom:2px solid #d8d8d8;
+padding-bottom:10px;
 }
 
 .logo{
-font-weight:bold;
-color:#2a9ec4;
-font-size:22px;
+display:flex;
+align-items:center;
+gap:15px;
 }
 
-.subtitulo{
-font-size:14px;
-color:#555;
+.logo img{
+height:60px;
+}
+
+.logo-text{
+font-size:18px;
+font-weight:bold;
+color:#2c9ec4;
+}
+
+.sub{
+font-size:13px;
+color:#333;
 }
 
 .numero{
-text-align:right;
+border:1px solid #ccc;
+padding:10px 15px;
+border-radius:6px;
 font-size:14px;
 }
 
@@ -51,54 +88,84 @@ font-size:26px;
 font-weight:bold;
 margin-top:25px;
 margin-bottom:25px;
-border-bottom:2px solid #2a9ec4;
+border-bottom:3px solid #2c9ec4;
 padding-bottom:10px;
 }
 
 .texto{
 font-size:18px;
-line-height:1.6;
-margin-bottom:20px;
-}
-
-.campo{
-display:flex;
-justify-content:space-between;
-margin:10px 0;
-font-size:18px;
+line-height:1.7;
+margin-top:15px;
 }
 
 .linea{
 border-bottom:1px solid #000;
-display:inline-block;
-padding:3px 10px;
-min-width:200px;
+padding:2px 6px;
+font-weight:bold;
 }
 
-.checkbox{
-border:1px solid #bbb;
+.campos{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+font-size:18px;
+}
+
+.check{
+border:1px solid #cfcfcf;
 padding:10px 15px;
+border-radius:6px;
 display:inline-block;
 margin-right:10px;
-border-radius:5px;
 }
 
-.checked{
-background:#eaeaea;
+.check.active{
+background:#efefef;
+}
+
+.establecimiento{
+margin-top:20px;
+font-size:18px;
 }
 
 .firmas{
+margin-top:70px;
 display:flex;
 justify-content:space-around;
-margin-top:60px;
-text-align:center;
+align-items:flex-end;
 }
 
-.firma-linea{
+.firma-box{
+text-align:center;
+width:220px;
+position:relative;
+}
+
+.firma-box img{
+height:70px;
+}
+
+.linea-firma{
 border-top:1px solid #000;
-width:200px;
-margin:auto;
-margin-bottom:5px;
+margin-top:5px;
+}
+
+.sello-area{
+text-align:center;
+position:relative;
+}
+
+.sello{
+width:120px;
+opacity:0.9;
+}
+
+.firma-sobre-sello{
+position:absolute;
+top:-40px;
+left:50%;
+transform:translateX(-50%);
+height:60px;
 }
 
 .footer{
@@ -106,17 +173,18 @@ margin-top:40px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-top:2px solid #e5e5e5;
-padding-top:20px;
+border-top:2px solid #dcdcdc;
+padding-top:15px;
 }
 
-.qr{
-width:80px;
-height:80px;
-background:#ddd;
+.qr img{
+width:90px;
 }
 
 .codigo{
+border:1px solid #ccc;
+padding:8px 12px;
+border-radius:5px;
 font-size:16px;
 }
 
@@ -129,9 +197,15 @@ font-size:16px;
 
 <div class="header">
 
+<div class="logo">
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Escudo_de_la_Provincia_de_Buenos_Aires.svg">
+
 <div>
-<div class="logo">PROVINCIA DE BUENOS AIRES</div>
-<div class="subtitulo">DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN</div>
+<div class="logo-text">PROVINCIA DE BUENOS AIRES</div>
+<div class="sub">DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN</div>
+</div>
+
 </div>
 
 <div class="numero">
@@ -141,19 +215,26 @@ font-size:16px;
 
 </div>
 
-
 <div class="titulo">
 CONSTANCIA DE ANALÍTICO / TÍTULO EN TRÁMITE
 </div>
-
 
 <div class="texto">
 Se deja constancia que el/la alumno/a:
 </div>
 
-<div class="campo">
-<div>Apellido y Nombre: <span class="linea"><b>JUAN PÉREZ</b></span></div>
-<div>DNI: <span class="linea"><b>12.345.678</b></span></div>
+<div class="campos">
+
+<div>
+Apellido y Nombre:
+<span class="linea">JUAN PÉREZ</span>
+</div>
+
+<div>
+DNI:
+<span class="linea">12.345.678</span>
+</div>
+
 </div>
 
 <div class="texto">
@@ -162,23 +243,35 @@ ha finalizado los estudios correspondientes a
 
 <div class="texto">
 
-<span class="checkbox checked">✔ Educación Secundaria</span>
+<span class="check active">✔ Educación Secundaria</span>
 
-<span class="checkbox">Educación Terciaria / Universitaria</span>
+<span class="check">Educación Terciaria / Universitaria</span>
 
 </div>
 
-<div class="texto">
-en el establecimiento: <span class="linea"><b>ESCUELA SECUNDARIA N° 123</b></span>
+<div class="establecimiento">
+
+en el establecimiento:
+<span class="linea">ESCUELA SECUNDARIA N° 123</span>
+
 </div>
 
 <div class="texto">
 Av. Ejemplo 1234 - La Plata - Provincia de Buenos Aires
 </div>
 
-<div class="campo">
-<div>Ciclo Lectivo: <span class="linea"><b>2025</b></span></div>
-<div>Título: <span class="linea"><b>Bachiller en Ciencias Sociales</b></span></div>
+<div class="campos">
+
+<div>
+Ciclo Lectivo:
+<span class="linea">2025</span>
+</div>
+
+<div>
+Título:
+<span class="linea">Bachiller en Ciencias Sociales</span>
+</div>
+
 </div>
 
 <div class="texto">
@@ -189,20 +282,38 @@ Y que el <b>ANALÍTICO / TÍTULO</b> se encuentra <b>EN TRÁMITE</b>, en el plaz
 La presente constancia se extiende a pedido del interesado/a para ser presentada ante quien corresponda.
 </div>
 
-<div class="texto" style="text-align:right">
+<div class="texto" style="text-align:right;">
 La Plata, 16 de marzo de 2026
 </div>
 
 <div class="firmas">
 
-<div>
-<div class="firma-linea"></div>
-Director/a
+<div class="sello-area">
+
+<img class="firma-sobre-sello" src="LINK_FIRMA_SOBRE_SELLO.png">
+
+<img class="sello" src="LINK_SELLO.png">
+
 </div>
 
-<div>
-<div class="firma-linea"></div>
+<div class="firma-box">
+
+<img src="LINK_FIRMA_DIRECTOR.png">
+
+<div class="linea-firma"></div>
+
+Director/a
+
+</div>
+
+<div class="firma-box">
+
+<img src="LINK_FIRMA_SECRETARIA.png">
+
+<div class="linea-firma"></div>
+
 Secretaria
+
 </div>
 
 </div>
@@ -213,9 +324,12 @@ Secretaria
 Dirección Provincial de Educación
 </div>
 
-<div>
-<div class="qr"></div>
-<div class="codigo">BA-2026-000256</div>
+<div class="qr">
+<img src="LINK_QR.png">
+</div>
+
+<div class="codigo">
+BA-2026-000256
 </div>
 
 </div>

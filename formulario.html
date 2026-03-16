@@ -226,7 +226,7 @@ El mismo se realiza únicamente a través de los siguientes medios:
 <input class="form-control" id="anioLectivo">
 </div>
 <div class="input-group mb-2">
-<span class="input-group-text text-secondary" style="width:250px;">Fecha de Emisión (Constancia)</span>
+<span class="input-group-text text-secondary" style="width:250px;">Fecha de Emisión</span>
 <input type="date" class="form-control" id="fechaEmision">
 </div>
 </div>
@@ -273,7 +273,6 @@ const whatsapp = "5491131602393";
 
 let precioSeleccionado = "";
 
-const labelFecha = document.getElementById("labelFechaEgreso");
 const constanciaExtras = document.getElementById("constanciaExtras");
 
 document.getElementById("tipoDocumento").addEventListener("change",function(){
@@ -300,7 +299,6 @@ if (this.value !== "") {
   precioSeleccionado = "$100.000";
   document.getElementById("precio").innerText = "Costo del trámite: "+precioSeleccionado;
   document.getElementById("precioBox").style.display="block";
-  labelFecha.textContent = "Año de Constancia";
   if(this.value==="Constancia de Alumno Regular"){
     constanciaExtras.style.display="block";
     // hacer campos obligatorios
@@ -320,7 +318,6 @@ if (this.value !== "") {
   document.getElementById("precio").innerText = "";
   document.getElementById("precioBox").style.display="none";
   precioSeleccionado = "";
-  labelFecha.textContent = "Año de Egreso/Finalización";
   constanciaExtras.style.display="none";
   document.getElementById("cursoNivel").required = false;
   document.getElementById("nivelEducativo").required = false;

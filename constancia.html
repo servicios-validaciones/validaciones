@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Constancia Analítico en Trámite</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
 
 @page{
@@ -14,6 +16,24 @@ margin:25mm;
 body{
 font-family:"Arial",sans-serif;
 background:#e9e9e9;
+text-align:center;
+}
+
+/* BOTON PDF */
+
+.boton-pdf{
+margin:20px;
+padding:12px 25px;
+font-size:16px;
+background:#2c9ec4;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.boton-pdf:hover{
+background:#2383a3;
 }
 
 .documento{
@@ -26,6 +46,7 @@ box-sizing:border-box;
 border:1px solid #cfcfcf;
 position:relative;
 overflow:hidden;
+text-align:left;
 }
 
 /* MARCA DE AGUA */
@@ -46,7 +67,7 @@ line-height:1.2;
 pointer-events:none;
 }
 
-/* FIN MARCA DE AGUA */
+/* RESTO DEL DISEÑO */
 
 .header{
 display:flex;
@@ -195,7 +216,11 @@ font-size:16px;
 
 <body>
 
-<div class="documento">
+<button class="boton-pdf" onclick="descargarPDF()">
+Descargar Constancia en PDF
+</button>
+
+<div class="documento" id="documento">
 
 <div class="header">
 
@@ -338,5 +363,25 @@ BA-2026-000256
 
 </div>
 
+<script>
+
+function descargarPDF(){
+
+const elemento = document.getElementById("documento");
+
+html2pdf().set({
+
+margin:0,
+filename:'constancia-documentacion-en-tramite.pdf',
+image:{type:'jpeg',quality:1},
+html2canvas:{scale:3},
+jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+
+}).from(elemento).save();
+
+}
+
+</script>
+
 </body>
-           </html>
+</html>

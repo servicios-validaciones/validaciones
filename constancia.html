@@ -53,18 +53,29 @@ text-align:left;
 
 /* MARCA DE AGUA */
 
+/* MARCA DE AGUA REPETIDA */
+
 .documento::before{
-content:"CONSTANCIA DE DOCUMENTACION EN TRAMITE";
+content:"CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE
+CONSTANCIA DE DOCUMENTACION EN TRAMITE";
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%) rotate(-30deg);
-font-size:70px;
+font-size:55px;
 font-weight:bold;
 color:#000;
 opacity:0.05;
-white-space:nowrap;
+text-align:center;
+line-height:120px;
 pointer-events:none;
+white-space:pre;
 }
 
 /* HEADER */

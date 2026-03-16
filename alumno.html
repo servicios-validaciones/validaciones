@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Constancia de Alumno Regular</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+@page{
+size:A4;
+margin:20mm;
+}
+
+body{
+font-family:Arial, sans-serif;
+background:#e9e9e9;
+text-align:center;
+}
+
+/* BOTON */
+
+.boton-pdf{
+margin:20px;
+padding:12px 25px;
+font-size:16px;
+background:#2c9ec4;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.boton-pdf:hover{
+background:#2383a3;
+}
+
+/* DOCUMENTO */
+
+.documento{
+width:190mm;
+min-height:270mm;
+background:white;
+margin:auto;
+padding:35px;
+box-sizing:border-box;
+border:1px solid #cfcfcf;
+position:relative;
+overflow:hidden;
+text-align:left;
+}
+
+/* MARCA DE AGUA */
+
+.documento::before{
+content:
+"ALUMNO REGULAR\A
+ALUMNO REGULAR\A
+ALUMNO REGULAR\A
+ALUMNO REGULAR\A
+ALUMNO REGULAR\A
+ALUMNO REGULAR\A
+ALUMNO REGULAR";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+transform:rotate(-30deg);
+font-size:60px;
+font-weight:bold;
+color:#000;
+opacity:0.05;
+text-align:center;
+line-height:120px;
+pointer-events:none;
+white-space:pre;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:2px solid #d8d8d8;
+padding-bottom:10px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo img{
+height:60px;
+}
+
+.logo-text{
+font-size:18px;
+font-weight:bold;
+color:#2c9ec4;
+}
+
+.sub{
+font-size:13px;
+color:#333;
+}
+
+.numero{
+border:1px solid #ccc;
+padding:10px 15px;
+border-radius:6px;
+font-size:14px;
+}
+
+/* TITULO */
+
+.titulo{
+text-align:center;
+font-size:26px;
+font-weight:bold;
+margin-top:25px;
+margin-bottom:25px;
+border-bottom:3px solid #2c9ec4;
+padding-bottom:10px;
+}
+
+/* TEXTO */
+
+.texto{
+font-size:18px;
+line-height:1.7;
+margin-top:15px;
+}
+
+.linea{
+border-bottom:1px solid #000;
+padding:2px 6px;
+font-weight:bold;
+}
+
+/* CAMPOS */
+
+.campos{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+font-size:18px;
+}
+
+/* ESTABLECIMIENTO */
+
+.establecimiento{
+margin-top:20px;
+font-size:18px;
+}
+
+/* FIRMAS */
+
+.firmas{
+margin-top:80px;
+display:flex;
+justify-content:space-around;
+align-items:flex-end;
+}
+
+.firma-box{
+text-align:center;
+width:230px;
+position:relative;
+}
+
+.firma-box img{
+height:105px;
+}
+
+.linea-firma{
+border-top:1px solid #000;
+margin-top:5px;
+}
+
+/* AREA SELLO */
+
+.sello-area{
+text-align:center;
+position:relative;
+width:180px;
+height:140px;
+}
+
+.sello{
+width:150px;
+opacity:0.9;
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+z-index:1;
+}
+
+.firma-sobre-sello{
+position:absolute;
+top:-10px;
+left:50%;
+transform:translateX(-50%) rotate(-8deg);
+height:110px;
+z-index:2;
+pointer-events:none;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-top:2px solid #dcdcdc;
+padding-top:15px;
+}
+
+.codigo{
+border:1px solid #ccc;
+padding:8px 12px;
+border-radius:5px;
+font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="boton-pdf" onclick="descargarPDF()">
+Descargar Constancia en PDF
+</button>
+
+<div class="documento" id="documento">
+
+<div class="header">
+
+<div class="logo">
+
+<img src="https://i.postimg.cc/8FPNZ2fJ/250px-Coat-of-arms-of-Argentina-svg-(1).png">
+
+<div>
+<div class="logo-text">PROVINCIA DE BUENOS AIRES</div>
+<div class="sub">DIRECCION GENERAL DE CULTURA Y EDUCACION</div>
+<div class="sub">DIRECCION PROVINCIAL DE EDUCACION SECUNDARIA</div>
+</div>
+
+</div>
+
+<div class="numero">
+<b>N° REGISTRO:</b> 000184/2026<br>
+<b>CUE:</b> 06-12345678-00
+</div>
+
+</div>
+
+<div class="titulo">
+CONSTANCIA DE ALUMNO/A REGULAR
+</div>
+
+<div class="texto">
+La autoridad del establecimiento educativo deja constancia que el/la alumno/a:
+</div>
+
+<div class="campos">
+
+<div>
+Apellido y Nombre:
+<span class="linea">JUAN PEREZ</span>
+</div>
+
+<div>
+DNI:
+<span class="linea">12.345.678</span>
+</div>
+
+</div>
+
+<div class="texto">
+se encuentra inscripto/a como <b>ALUMNO/A REGULAR</b> en este establecimiento educativo.
+</div>
+
+<div class="campos">
+
+<div>
+Curso / Año:
+<span class="linea">5° AÑO</span>
+</div>
+
+<div>
+Turno:
+<span class="linea">MAÑANA</span>
+</div>
+
+</div>
+
+<div class="establecimiento">
+Establecimiento:
+<span class="linea">ESCUELA SECUNDARIA N° 123</span>
+</div>
+
+<div class="texto">
+Av. Ejemplo 1234 - La Plata - Provincia de Buenos Aires
+</div>
+
+<div class="campos">
+
+<div>
+Ciclo Lectivo:
+<span class="linea">2026</span>
+</div>
+
+<div>
+Modalidad:
+<span class="linea">Educacion Secundaria</span>
+</div>
+
+</div>
+
+<div class="texto">
+Se extiende la presente constancia a pedido del interesado/a para ser presentada ante quien corresponda.
+</div>
+
+<div class="texto" style="text-align:right;">
+La Plata, 16 de marzo de 2026
+</div>
+
+<div class="firmas">
+
+<div class="sello-area">
+
+<img class="firma-sobre-sello" src="https://i.postimg.cc/Xrtpm734/Screenshot-20260131-172341-2-removebg-preview-(1).png">
+
+<img class="sello" src="https://i.postimg.cc/SJrKVx2j/Screenshot-20260105-125151-removebg-preview.png">
+
+</div>
+
+<div class="firma-box">
+
+<img src="https://i.postimg.cc/K37Pv3cX/pngwing-com-(1).png">
+
+<div class="linea-firma"></div>
+Director/a
+
+</div>
+
+<div class="firma-box">
+
+<img src="https://i.postimg.cc/mPn8nMtg/Screenshot-20260131-172122-2-removebg-preview.png">
+
+<div class="linea-firma"></div>
+Secretaria
+
+</div>
+
+</div>
+
+<div class="footer">
+
+<div>
+Direccion General de Cultura y Educacion (DGCyE)
+</div>
+
+<div class="codigo">
+BA-2026-000184
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function descargarPDF(){
+
+const elemento = document.getElementById("documento");
+
+const opciones = {
+
+margin:0,
+filename:'constancia-alumno-regular.pdf',
+
+image:{type:'jpeg',quality:1},
+
+html2canvas:{
+scale:4,
+useCORS:true,
+allowTaint:true,
+letterRendering:true,
+backgroundColor:"#ffffff"
+},
+
+jsPDF:{
+unit:'mm',
+format:'a4',
+orientation:'portrait'
+}
+
+};
+
+html2pdf().set(opciones).from(elemento).save();
+
+}
+
+</script>
+
+</body>
+</html>

@@ -300,13 +300,20 @@ document.getElementById("tipoDocumento").addEventListener("change",function(){
   const option=this.options[this.selectedIndex];
   precioSeleccionado=option.dataset.precio;
 
+  const fechaEgresoBox = document.getElementById("fechaEgresoBox");
+  const fechaEgresoInput = document.getElementById("fechaEgreso");
+
   if(option.text.includes("Certificaciones")){
     tipoConstanciaBox.style.display = "flex";
+    fechaEgresoBox.style.display = "none";
+    fechaEgresoInput.required = false;
   } else {
     tipoConstanciaBox.style.display = "none";
     document.getElementById("tipoConstancia").value = "";
     constanciaExtras.style.display = "none";
     tituloCarreraBox.style.display = "none";
+    fechaEgresoBox.style.display = "flex";
+    fechaEgresoInput.required = true;
   }
 
   if(!document.getElementById("tipoConstancia").value){

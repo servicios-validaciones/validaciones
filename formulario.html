@@ -1,134 +1,120 @@
-<!DOCTYPE html>  
-<html lang="es">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Formulario de Emisión |</title>  
-  
-<!-- Bootstrap -->  
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">  
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  
-  
-<style>  
-body {  
-background-color: #f4f6f8;  
-font-family: Arial, sans-serif;  
-color: #333;  
-}  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de Emisión |</title>
 
-header {  
-text-align: left;  
-margin: 20px 0;  
-background-color:#37BBED;  
-padding: 20px;  
-display: flex;  
-flex-direction: column;  
-align-items: center;  
-}  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-header img {  
-max-height: 50px;  
-margin-bottom: 10px;  
-}  
-
-header h1, header h2 {  
-color: #fff;  
-margin: 0;  
-align-self: flex-start;  
-}  
-
-header h1 {  
-font-size: 22px;  
-font-weight: 600;  
-}  
-
-header h2 {  
-font-size: 18px;  
-font-weight: 500;  
-margin-top: 5px;  
-}  
-
-hr {  
-border-top: 2px solid #37BBED;  
-margin: 20px 0;  
-}  
-
-.section-icon {  
-margin-right: 8px;  
-color: #37BBED;  
-}  
-
-#resumen {  
-background: #fff;  
-border: 2px solid #37BBED;  
-border-radius: 8px;  
-padding: 15px;  
-margin-top: 20px;  
-}  
-
-#resumen h5 {  
-color: #37BBED;  
-}  
-
-#precioBox{  
-display:none;  
-background:#fff;  
-border:2px solid #37BBED;  
-border-radius:8px;  
-padding:15px;  
-margin-top:10px;  
+<style>
+body{
+background-color:#f4f6f8;
+font-family:Arial,sans-serif;
+color:#333;
 }
 
-#precio{  
-font-size:22px;  
-font-weight:700;  
-color:#37BBED;  
+header{
+text-align:left;
+margin:20px 0;
+background-color:#37BBED;
+padding:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
-/* --- Cambio para constancia de alumno regular --- */
-#constanciaExtras {
-  display: none;
-  flex-direction: column;
-  gap: 10px;
+header img{
+max-height:50px;
+margin-bottom:10px;
 }
 
-#constanciaExtras .form-control, 
-#constanciaExtras .form-select {
-  flex: 1;
+header h1,header h2{
+color:#fff;
+margin:0;
+align-self:flex-start;
 }
 
-</style>  
-</head>  
-  
-<body>  
-  
-<header>  
-<img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330">  
-<h1>Dirección de Validez Nacional de Títulos y Estudios</h1>  
-<h2>Emisión de Certificados</h2>  
-</header>  
-  
-<main class="container my-4">  
-  
-<form id="formLegalizacion" class="mb-3">  
+header h1{
+font-size:22px;
+font-weight:600;
+}
 
-<!-- TIPO DOCUMENTO -->  
-<h5><i class="fas fa-file-alt section-icon"></i>Tipo de Documentación</h5>  
-  
-<div class="input-group mb-3">  
-<span class="input-group-text text-secondary" style="width:250px;">Tipo de Documento</span>  
+header h2{
+font-size:18px;
+font-weight:500;
+margin-top:5px;
+}
 
-<select class="form-select" id="tipoDocumento" required>  
-<option value="">Seleccione…</option>  
-<option data-precio="$150.000">Certificado de Secundaria ($150.000)</option>  
-<option data-precio="$170.000">Certificado de Secundaria Técnica ($170.000)</option>  
-<option data-precio="$160.000">Certificado FinES / CENS ($160.000)</option>  
-<option data-precio="$210.000">Certificado Universitario ($210.000)</option>  
-<option data-precio="$190.000">Certificado Terciario ($190.000)</option>  
-<option data-precio="$130.000">Certificaciones ($130.000)</option>  
-</select>  
+hr{
+border-top:2px solid #37BBED;
+margin:20px 0;
+}
 
-</div>  
+.section-icon{
+margin-right:8px;
+color:#37BBED;
+}
+
+#resumen{
+background:#fff;
+border:2px solid #37BBED;
+border-radius:8px;
+padding:15px;
+margin-top:20px;
+}
+
+#resumen h5{
+color:#37BBED;
+}
+
+#precioBox{
+display:none;
+background:#fff;
+border:2px solid #37BBED;
+border-radius:8px;
+padding:15px;
+margin-top:10px;
+}
+
+#precio{
+font-size:22px;
+font-weight:700;
+color:#37BBED;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="https://refe.educacion.gob.ar/img/ReFE/Banner/ReFE-Banner.svg" width="330">
+<h1>Dirección de Validez Nacional de Títulos y Estudios</h1>
+<h2>Emisión de Certificados</h2>
+</header>
+
+<main class="container my-4">
+
+<form id="formLegalizacion" class="mb-3">
+
+<h5><i class="fas fa-file-alt section-icon"></i>Tipo de Documentación</h5>
+
+<div class="input-group mb-3">
+<span class="input-group-text text-secondary" style="width:250px;">Tipo de Documento</span>
+
+<select class="form-select" id="tipoDocumento" required>
+<option value="">Seleccione…</option>
+<option data-precio="$150.000">Certificado de Secundaria ($150.000)</option>
+<option data-precio="$170.000">Certificado de Secundaria Técnica ($170.000)</option>
+<option data-precio="$160.000">Certificado FinES / CENS ($160.000)</option>
+<option data-precio="$210.000">Certificado Universitario ($210.000)</option>
+<option data-precio="$190.000">Certificado Terciario ($190.000)</option>
+<option data-precio="$130.000">Constancia de Alumno Regular ($130.000)</option>
+<option data-precio="$130.000">Constancia de Documentación en Trámite ($130.000)</option>
+<option data-precio="$90.000">Cargas al Sistema ($90.000)</option>
+</select>
+</div>
 
 <div id="precioBox">
 <div id="precio"></div>
@@ -137,282 +123,169 @@ Una vez finalizada la documentación y luego de que usted haya verificado que to
 El mismo se realiza únicamente a través de los siguientes medios:
 • Transferencia bancaria (CVU / CBU)
 • Depósito en efectivo mediante Pago Fácil
-⌛ Tiempo estimado de emisión: el proceso completo puede demorar hasta 45 minutos.</p>
+⌛ Tiempo estimado de emisión: el proceso completo puede demorar hasta 45 minutos.
+</p>
 </div>
 
-<hr>  
+<hr>
 
-<!-- DATOS PERSONALES -->  
+<h5><i class="fas fa-user section-icon"></i>Datos Personales</h5>
 
-<h5><i class="fas fa-user section-icon"></i>Datos Personales</h5>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Nombre(s)</span>  
-<input class="form-control" id="nombre" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Apellido</span>  
-<input class="form-control" id="apellido" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">DNI</span>  
-<input class="form-control" id="dni" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Lugar de Nacimiento</span>  
-<input class="form-control" id="lugarNacimiento" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Provincia</span>  
-<input class="form-control" id="provincia" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Fecha de Nacimiento</span>  
-<input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaNacimiento" required>  
-</div>  
-
-<div class="input-group mb-3">  
-<span class="input-group-text text-secondary" style="width:250px;">E-mail</span>  
-<input type="email" class="form-control" id="email" required>  
-</div>  
-
-<hr>  
-
-<!-- DATOS ACADÉMICOS -->  
-
-<h5><i class="fas fa-graduation-cap section-icon"></i>Datos Académicos</h5>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Institución</span>  
-<input class="form-control" id="institucion" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Dirección</span>  
-<input class="form-control" id="direccionInstitucion" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Localidad</span>  
-<input class="form-control" id="localidad" required>  
-</div>  
-
-<div class="input-group mb-2">  
-<span class="input-group-text text-secondary" style="width:250px;">Provincia</span>  
-<input class="form-control" id="provinciaAcademica" required>  
-</div>  
-
-<div class="input-group mb-2" id="fechaEgresoBox">  
-<span class="input-group-text text-secondary" style="width:250px;" id="labelFechaEgreso">Año de Egreso/Finalización</span>  
-<input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaEgreso" required>  
-</div>  
-
-<div class="input-group mb-3" id="tituloBox">  
-<span class="input-group-text text-secondary" style="width:250px;">Nombre del Título/Bachiller</span>  
-<input class="form-control" id="titulo" required>  
-</div>  
-
-<!-- CAMPOS ADICIONALES PARA CONSTANCIA DE ALUMNO REGULAR -->
-<div id="constanciaExtras">
 <div class="input-group mb-2">
-<span class="input-group-text text-secondary" style="width:250px;">Curso / Nivel</span>
-<input class="form-control" id="cursoNivel">
+<span class="input-group-text text-secondary" style="width:250px;">Nombre(s)</span>
+<input class="form-control" id="nombre" required>
 </div>
+
 <div class="input-group mb-2">
-<span class="input-group-text text-secondary" style="width:250px;">Nivel Educativo</span>
-<select class="form-select" id="nivelEducativo">
-<option value="">Seleccione…</option>
-<option>Primaria</option>
-<option>Secundaria</option>
-<option>Terciaria</option>
-<option>Universitaria</option>
-</select>
+<span class="input-group-text text-secondary" style="width:250px;">Apellido</span>
+<input class="form-control" id="apellido" required>
 </div>
+
 <div class="input-group mb-2">
-<span class="input-group-text text-secondary" style="width:250px;">Año Lectivo</span>
-<input class="form-control" id="anioLectivo">
+<span class="input-group-text text-secondary" style="width:250px;">DNI</span>
+<input class="form-control" id="dni" required>
 </div>
+
 <div class="input-group mb-2">
-<span class="input-group-text text-secondary" style="width:250px;">Fecha de Emisión</span>
-<input type="date" class="form-control" id="fechaEmision">
-</div>
-<div class="input-group mb-2" id="tituloCarreraBox">
-<span class="input-group-text text-secondary" style="width:250px;">Título / Carrera</span>
-<input class="form-control" id="tituloCarrera">
-</div>
+<span class="input-group-text text-secondary" style="width:250px;">Lugar de Nacimiento</span>
+<input class="form-control" id="lugarNacimiento" required>
 </div>
 
-<!-- NUEVO SELECTOR DE CONSTANCIA -->  
-<div class="input-group mb-3" id="tipoConstanciaBox">  
-<span class="input-group-text text-secondary" style="width:250px;">Tipo de Constancia</span>  
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Provincia</span>
+<input class="form-control" id="provincia" required>
+</div>
 
-<select class="form-select" id="tipoConstancia">
-<option value="">No corresponde</option>
-<option>Constancia de Alumno Regular</option>
-<option>Constancia de Analítico en Trámite</option>
-<option>Constancia de Título en Trámite</option>
-</select>  
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Fecha de Nacimiento</span>
+<input type="text" placeholder="dd/mm/aaaa" pattern="\d{2}/\d{2}/\d{4}" class="form-control" id="fechaNacimiento" required>
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text text-secondary" style="width:250px;">E-mail</span>
+<input type="email" class="form-control" id="email" required>
+</div>
+
+<hr id="lineaAcademica">
+
+<div id="bloqueAcademico">
+
+<h5><i class="fas fa-graduation-cap section-icon"></i>Datos Académicos</h5>
+
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Institución</span>
+<input class="form-control" id="institucion">
+</div>
+
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Dirección</span>
+<input class="form-control" id="direccionInstitucion">
+</div>
+
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Localidad</span>
+<input class="form-control" id="localidad">
+</div>
+
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Provincia</span>
+<input class="form-control" id="provinciaAcademica">
+</div>
+
+<div class="input-group mb-2">
+<span class="input-group-text text-secondary" style="width:250px;">Año de Egreso/Finalización</span>
+<input type="text" placeholder="dd/mm/aaaa" class="form-control" id="fechaEgreso">
+</div>
+
+<div class="input-group mb-3">
+<span class="input-group-text text-secondary" style="width:250px;">Nombre del Título/Bachiller</span>
+<input class="form-control" id="titulo">
+</div>
 
 </div>
 
-<div class="text-end mt-4">  
-<button class="btn btn-success" type="submit" style="width:200px;background:#88C517;border-color:#88C517;">  
-Enviar Solicitud  
-</button>  
-</div>  
-  
-</form>  
+<div class="text-end mt-4">
+<button class="btn btn-success" type="submit" style="width:200px;background:#88C517;border-color:#88C517;">
+Enviar Solicitud
+</button>
+</div>
 
-<div id="resumen" style="display:none;">  
-<h5>✅ Resumen de Solicitud</h5>  
-<div id="resumenContenido"></div>  
+</form>
 
+<div id="resumen" style="display:none;">
+<h5>✅ Resumen de Solicitud</h5>
+<div id="resumenContenido"></div>
 <p id="precioResumen" style="font-weight:700;font-size:18px;"></p>
 
-<div class="text-end mt-3">  
-<button id="enviarWhatsApp" class="btn btn-success" style="background:#88C517;border-color:#88C517;">  
-Confirmar  
-</button>  
-</div>  
-</div>  
+<div class="text-end mt-3">
+<button id="enviarWhatsApp" class="btn btn-success" style="background:#88C517;border-color:#88C517;">
+Confirmar
+</button>
+</div>
+</div>
 
-</main>  
+</main>
 
-<script>  
+<script>
 
-const whatsapp = "5491131602393";
-
-let precioSeleccionado = "";
-
-const constanciaExtras = document.getElementById("constanciaExtras");
-const tipoConstanciaBox = document.getElementById("tipoConstanciaBox");
-const tituloCarreraBox = document.getElementById("tituloCarreraBox");
-const tituloCarreraInput = document.getElementById("tituloCarrera");
-
-tipoConstanciaBox.style.display = "none"; // <-- no mostrar por defecto
+const whatsapp="5491131602393";
+let precioSeleccionado="";
+let documentoSeleccionado="";
 
 document.getElementById("tipoDocumento").addEventListener("change",function(){
-  const option=this.options[this.selectedIndex];
-  precioSeleccionado=option.dataset.precio;
 
-  const fechaEgresoBox = document.getElementById("fechaEgresoBox");
-  const fechaEgresoInput = document.getElementById("fechaEgreso");
+const option=this.options[this.selectedIndex];
+precioSeleccionado=option.dataset.precio;
+documentoSeleccionado=option.text;
 
-  if(option.text.includes("Certificaciones")){
-    tipoConstanciaBox.style.display = "flex";
-    fechaEgresoBox.style.display = "none";
-    fechaEgresoInput.required = false;
-  } else {
-    tipoConstanciaBox.style.display = "none";
-    document.getElementById("tipoConstancia").value = "";
-    constanciaExtras.style.display = "none";
-    tituloCarreraBox.style.display = "none";
-    fechaEgresoBox.style.display = "flex";
-    fechaEgresoInput.required = true;
-  }
+document.getElementById("precio").innerText="Costo del trámite: "+precioSeleccionado;
+document.getElementById("precioBox").style.display="block";
 
-  if(!document.getElementById("tipoConstancia").value){
-    if(precioSeleccionado){
-      document.getElementById("precio").innerText="Costo del trámite: "+precioSeleccionado;
-      document.getElementById("precioBox").style.display="block";
-    }
-  }
+if(documentoSeleccionado.includes("Cargas al Sistema")){
+document.getElementById("bloqueAcademico").style.display="none";
+document.getElementById("lineaAcademica").style.display="none";
+}else{
+document.getElementById("bloqueAcademico").style.display="block";
+document.getElementById("lineaAcademica").style.display="block";
+}
+
 });
 
-document.getElementById("tipoConstancia").addEventListener("change", function() {
-  const tituloBox = document.getElementById("tituloBox");
-  if (this.value !== "") {
-    tituloBox.style.display = "none";
-    precioSeleccionado = "$100.000";
-    document.getElementById("precio").innerText = "Costo del trámite: "+precioSeleccionado;
-    document.getElementById("precioBox").style.display="block";
-
-    if(this.value==="Constancia de Alumno Regular"){
-      constanciaExtras.style.display="flex";
-      tituloCarreraBox.style.display = "none";
-      document.getElementById("cursoNivel").required = true;
-      document.getElementById("nivelEducativo").required = true;
-      document.getElementById("anioLectivo").required = true;
-      document.getElementById("fechaEmision").required = true;
-      tituloCarreraInput.required = false;
-    } else if(this.value==="Constancia de Analítico en Trámite" || this.value==="Constancia de Título en Trámite"){
-      constanciaExtras.style.display="flex";
-      tituloCarreraBox.style.display = "flex";
-      tituloCarreraInput.required = true;
-      document.getElementById("cursoNivel").required = false;
-      document.getElementById("nivelEducativo").required = false;
-      document.getElementById("anioLectivo").required = false;
-      document.getElementById("fechaEmision").required = false;
-    } else {
-      constanciaExtras.style.display="none";
-      tituloCarreraBox.style.display = "none";
-      tituloCarreraInput.required = false;
-      document.getElementById("cursoNivel").required = false;
-      document.getElementById("nivelEducativo").required = false;
-      document.getElementById("anioLectivo").required = false;
-      document.getElementById("fechaEmision").required = false;
-    }
-  } else {
-    tituloBox.style.display = "flex";
-    document.getElementById("precio").innerText = "";
-    document.getElementById("precioBox").style.display="none";
-    precioSeleccionado = "";
-    constanciaExtras.style.display="none";
-    tituloCarreraBox.style.display = "none";
-    document.getElementById("cursoNivel").required = false;
-    document.getElementById("nivelEducativo").required = false;
-    document.getElementById("anioLectivo").required = false;
-    document.getElementById("fechaEmision").required = false;
-    tituloCarreraInput.required = false;
-  }
-});
-
-document.getElementById("formLegalizacion").addEventListener("submit", e => {
+document.getElementById("formLegalizacion").addEventListener("submit",e=>{
 
 e.preventDefault();
 
-const campos = document.querySelectorAll("#formLegalizacion input, select");
+const campos=document.querySelectorAll("#formLegalizacion input");
+let resumen="";
+let mensaje="📄 *Solicitud de Emisión*\n\n";
 
-let resumen = "";
+mensaje+="Tipo de Documento: "+documentoSeleccionado+"\n\n";
 
-let mensaje = "*Solicitud de Emisión*\n\n";
+campos.forEach(c=>{
 
-campos.forEach(c => {
+if(c.value){
 
-if (c.value) {
-
-const label = c.previousElementSibling.textContent;
-
-resumen += `<p><strong>${label}:</strong> ${c.value}</p>`;
-
-mensaje += `${label}: ${c.value}\n`;
+const label=c.previousElementSibling.textContent;
+resumen+=`<p><strong>${label}:</strong> ${c.value}</p>`;
+mensaje+=`${label}: ${c.value}\n`;
 
 }
 
 });
 
-mensaje += "\nCosto del trámite: " + precioSeleccionado;
+mensaje+="\n💰 Costo del trámite: "+precioSeleccionado;
 
 document.getElementById("precioResumen").innerText="Costo del trámite: "+precioSeleccionado;
+document.getElementById("resumenContenido").innerHTML=resumen;
+document.getElementById("resumen").style.display="block";
 
-document.getElementById("resumenContenido").innerHTML = resumen;
-
-document.getElementById("resumen").style.display = "block";
-
-document.getElementById("enviarWhatsApp").onclick = () => {
-
-window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank");
-
+document.getElementById("enviarWhatsApp").onclick=()=>{
+window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,"_blank");
 };
 
 });
 
-</script>  
+</script>
 
-</body>  
-  </html>
+</body>
+                                                                              </html>

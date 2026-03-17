@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mí Argentina - Sistema de Consulta</title>
+<title>Mi Argentina - Sistema de Consulta</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -165,6 +165,28 @@ color:#444;
 text-align:center;
 }
 
+/* ESTADO CERTIFICADO */
+
+.estado{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+margin-top:15px;
+font-weight:600;
+}
+
+.punto{
+width:12px;
+height:12px;
+border-radius:50%;
+display:inline-block;
+}
+
+.verde{ background:#22c55e; }
+.amarillo{ background:#facc15; }
+.rojo{ background:#ef4444; }
+
 .toast{
 position:fixed;
 bottom:20px;
@@ -271,18 +293,14 @@ let dia, mes, anio;
 /* detectar formato */
 
 if(partes[0] > 31){ 
-// formato YYYY-MM-DD
 anio = partes[0];
 mes = partes[1];
 dia = partes[2];
 }else{
-// formato DD-MM-YYYY
 dia = partes[0];
 mes = partes[1];
 anio = partes[2];
 }
-
-/* crear fecha segura */
 
 return new Date(anio, mes-1, dia);
 
@@ -326,7 +344,12 @@ setTimeout(()=>{
 barra.style.width="100%";
 
 if(!certificados[dni]){
-mensaje.innerHTML="No se encontró información para el DNI ingresado.";
+mensaje.innerHTML=`
+<div class="estado">
+<span class="punto rojo"></span>
+DNI no registrado
+</div>
+`;
 return;
 }
 
@@ -338,13 +361,24 @@ fechaDisponible.setHours(0,0,0,0);
 
 if(hoy>=fechaDisponible){
 
-mensaje.innerHTML="Verificación completada. Su certificado está DISPONIBLE.";
+mensaje.innerHTML=`
+<div class="estado">
+<span class="punto verde"></span>
+Su certificado está DISPONIBLE
+</div>
+`;
 toast.classList.add("show");
 
 }else{
 
 const fechaFormateada=fechaDisponible.toLocaleDateString("es-AR");
-mensaje.innerHTML="Certificado en proceso. Estará disponible a partir de "+fechaFormateada;
+
+mensaje.innerHTML=`
+<div class="estado">
+<span class="punto amarillo"></span>
+Certificado en proceso. Disponible a partir de ${fechaFormateada}
+</div>
+`;
 
 }
 

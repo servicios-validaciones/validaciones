@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Escuela Secundaria Oval</title>
+<title>Sello Escuela Secundaria Vertical</title>
 
 <style>
 body {
@@ -18,51 +18,53 @@ body {
 
 <body>
 
-<svg class="sello" width="360" height="260" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+<svg class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Color tinta -->
+  <!-- Grupo principal -->
   <g stroke="#1a1a1a" fill="none">
 
-    <!-- Ovalo externo -->
-    <ellipse cx="180" cy="130" rx="170" ry="115" stroke-width="4"/>
+    <!-- Óvalo externo (vertical) -->
+    <ellipse cx="130" cy="180" rx="110" ry="160" stroke-width="4"/>
 
-    <!-- Ovalo interno -->
-    <ellipse cx="180" cy="130" rx="150" ry="95" stroke-width="1.5"/>
+    <!-- Óvalo interno -->
+    <ellipse cx="130" cy="180" rx="95" ry="140" stroke-width="1.5"/>
 
-    <!-- Definiciones de curvas -->
+    <!-- Curvas -->
     <defs>
-      <path id="topArc" d="M 40 130 A 140 90 0 0 1 320 130" />
-      <path id="bottomArc" d="M 40 130 A 140 90 0 0 0 320 130" />
+      <path id="topArc" d="M 40 180 A 90 140 0 0 1 220 180" />
+      <path id="bottomArc" d="M 40 180 A 90 140 0 0 0 220 180" />
     </defs>
 
     <!-- Texto superior -->
-    <text font-size="14" letter-spacing="2" font-family="Arial, sans-serif">
+    <text font-size="13" letter-spacing="2" font-family="Arial, sans-serif">
       <textPath href="#topArc" startOffset="50%" text-anchor="middle">
         ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
       </textPath>
     </text>
 
     <!-- Texto inferior -->
-    <text font-size="13" letter-spacing="2" font-family="Arial, sans-serif">
+    <text font-size="12" letter-spacing="1.5" font-family="Arial, sans-serif">
       <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-        CUE: 06-12345678-0 · PROVINCIA DE BUENOS AIRES
+        CUE: 06-12345678-0 · BS. AS. ARGENTINA
       </textPath>
     </text>
 
     <!-- Centro -->
-    <text x="180" y="115" text-anchor="middle"
-          font-size="16"
+    <text x="130" y="155" text-anchor="middle"
+          font-size="15"
           font-weight="bold"
           font-family="Arial, sans-serif">
       “JOSÉ HERNÁNDEZ”
     </text>
 
-    <line x1="90" y1="130" x2="270" y2="130"
+    <!-- Línea -->
+    <line x1="60" y1="180" x2="200" y2="180"
           stroke="#000"
           stroke-width="1"/>
 
-    <text x="180" y="155" text-anchor="middle"
-          font-size="13"
+    <!-- Texto inferior centro -->
+    <text x="130" y="210" text-anchor="middle"
+          font-size="12"
           font-family="Arial, sans-serif">
       DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN
     </text>
@@ -72,4 +74,4 @@ body {
 </svg>
 
 </body>
-        </html>
+</html>

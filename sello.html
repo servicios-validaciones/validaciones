@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sello Universitario</title>
+<style>
+  .sello {
+    width: 220px;
+    height: 220px;
+    border: 4px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+  }
+
+  .sello::before {
+    content: "UNIVERSIDAD EMPRESARIAL";
+    position: absolute;
+    top: 15px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .sello::after {
+    content: "SIGLO XXI";
+    position: absolute;
+    bottom: 15px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .contenido {
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="sello">
+  <div class="contenido">
+    CÓRDOBA<br>
+    ARGENTINA
+  </div>
+</div>
+
+</body>
+</html>

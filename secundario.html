@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Secundario Pro Vertical</title>
+<title>Sello Escuela Secundaria Vertical</title>
 
 <style>
 body {
@@ -10,9 +10,8 @@ body {
   background: transparent;
 }
 
-/* tinta más real */
 .sello {
-  filter: contrast(1.08) brightness(0.96);
+  filter: contrast(1.1) brightness(0.95);
 }
 </style>
 </head>
@@ -22,71 +21,55 @@ body {
 <svg class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
   <!-- Grupo principal -->
-  <g stroke="#111" fill="none">
+  <g stroke="#1a1a1a" fill="none">
 
-    <!-- Óvalo externo (más natural) -->
-    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
+    <!-- Óvalo externo (vertical) -->
+    <ellipse cx="130" cy="180" rx="110" ry="160" stroke-width="4"/>
 
     <!-- Óvalo interno -->
-    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+    <ellipse cx="130" cy="180" rx="95" ry="140" stroke-width="1.5"/>
 
-    <!-- Definiciones -->
+    <!-- Curvas -->
     <defs>
-      <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180" />
-      <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180" />
-
-      <!-- desgaste sutil -->
-      <filter id="noise">
-        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
-        <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 0.10"/>
-        </feComponentTransfer>
-      </filter>
+      <path id="topArc" d="M 40 180 A 90 140 0 0 1 220 180" />
+      <path id="bottomArc" d="M 40 180 A 90 140 0 0 0 220 180" />
     </defs>
 
     <!-- Texto superior -->
-    <text font-size="12.5" letter-spacing="1.8"
-          font-family="Arial, Helvetica, sans-serif">
+    <text font-size="13" letter-spacing="2" font-family="Arial, sans-serif">
       <textPath href="#topArc" startOffset="50%" text-anchor="middle">
         ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
       </textPath>
     </text>
 
     <!-- Texto inferior -->
-    <text font-size="11.5" letter-spacing="1.5"
-          font-family="Arial, Helvetica, sans-serif">
+    <text font-size="12" letter-spacing="1.5" font-family="Arial, sans-serif">
       <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-        CUE 06-12345678-0 · PROV. BS. AS.
+        CUE: 06-12345678-0 · BS. AS. ARGENTINA
       </textPath>
     </text>
 
-    <!-- Nombre (más protagonista) -->
-    <text x="130" y="150"
-          text-anchor="middle"
-          font-size="16"
+    <!-- Centro -->
+    <text x="130" y="155" text-anchor="middle"
+          font-size="15"
           font-weight="bold"
-          font-family="Times New Roman, serif"
-          letter-spacing="1">
+          font-family="Arial, sans-serif">
       “JOSÉ HERNÁNDEZ”
     </text>
 
-    <!-- Línea más fina -->
-    <line x1="65" y1="180" x2="195" y2="180"
-          stroke="#111"
-          stroke-width="0.8"/>
+    <!-- Línea -->
+    <line x1="60" y1="180" x2="200" y2="180"
+          stroke="#000"
+          stroke-width="1"/>
 
-    <!-- Texto institucional -->
-    <text x="130" y="205"
-          text-anchor="middle"
-          font-size="11.5"
-          font-family="Arial, Helvetica, sans-serif">
-      DIR. GRAL. DE CULTURA Y EDUCACIÓN
+    <!-- Texto inferior centro -->
+    <text x="130" y="210" text-anchor="middle"
+          font-size="12"
+          font-family="Arial, sans-serif">
+      DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN
     </text>
 
   </g>
-
-  <!-- textura muy leve -->
-  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/>
 
 </svg>
 

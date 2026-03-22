@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Universitario Pro</title>
+<title>Sello Universitario Ultra</title>
 
 <style>
 body {
@@ -10,15 +10,9 @@ body {
   background: transparent;
 }
 
-/* efecto tinta */
+/* efecto tinta más realista */
 .sello {
-  filter: contrast(1.3) brightness(0.9);
-}
-
-/* textura tipo desgaste */
-.grain {
-  opacity: 0.15;
-  mix-blend-mode: multiply;
+  filter: contrast(1.15) brightness(0.95);
 }
 </style>
 </head>
@@ -27,59 +21,74 @@ body {
 
 <svg class="sello" width="320" height="320" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Color institucional -->
-  <g stroke="#1f3a93" fill="none">
+  <!-- Color institucional más sobrio -->
+  <g stroke="#1c2e8a" fill="none">
 
-    <!-- Aro externo -->
-    <circle cx="150" cy="150" r="140" stroke-width="5"/>
+    <!-- Aro externo (más dominante) -->
+    <circle cx="150" cy="150" r="138" stroke-width="4.5"/>
 
-    <!-- Aro interno -->
-    <circle cx="150" cy="150" r="120" stroke-width="2"/>
+    <!-- Aro medio -->
+    <circle cx="150" cy="150" r="122" stroke-width="1.8"/>
 
-    <!-- Arcos para texto -->
+    <!-- Aro interno fino -->
+    <circle cx="150" cy="150" r="118" stroke-width="0.8"/>
+
+    <!-- Definiciones -->
     <defs>
-      <path id="topArc" d="M 40 150 A 110 110 0 0 1 260 150" />
-      <path id="bottomArc" d="M 40 150 A 110 110 0 0 0 260 150" />
+      <path id="topArc" d="M 45 150 A 105 105 0 0 1 255 150" />
+      <path id="bottomArc" d="M 45 150 A 105 105 0 0 0 255 150" />
 
-      <!-- ruido / textura -->
-      <filter id="noise">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/>
-        <feColorMatrix type="saturate" values="0"/>
+      <!-- textura sutil -->
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2"/>
         <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 0.2"/>
+          <feFuncA type="table" tableValues="0 0.12"/>
         </feComponentTransfer>
       </filter>
     </defs>
 
     <!-- Texto superior -->
-    <text font-size="14" fill="#1f3a93" letter-spacing="2">
+    <text font-size="13" fill="#1c2e8a" letter-spacing="2.5" font-family="Times New Roman, serif">
       <textPath href="#topArc" startOffset="50%" text-anchor="middle">
         UNIVERSIDAD EMPRESARIAL
       </textPath>
     </text>
 
     <!-- Texto inferior -->
-    <text font-size="14" fill="#1f3a93" letter-spacing="2">
+    <text font-size="13" fill="#1c2e8a" letter-spacing="2.5" font-family="Times New Roman, serif">
       <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
         REPÚBLICA ARGENTINA
       </textPath>
     </text>
 
-    <!-- Centro -->
-    <text x="150" y="140" text-anchor="middle" font-size="26" font-weight="bold" fill="#1f3a93">
+    <!-- Centro principal -->
+    <text x="150" y="138" text-anchor="middle"
+          font-size="24"
+          font-weight="bold"
+          fill="#1c2e8a"
+          font-family="Times New Roman, serif"
+          letter-spacing="2">
       SIGLO 21
     </text>
 
-    <line x1="90" y1="155" x2="210" y2="155" stroke="#1f3a93" stroke-width="1.5"/>
+    <!-- Línea institucional -->
+    <line x1="95" y1="152" x2="205" y2="152"
+          stroke="#1c2e8a"
+          stroke-width="1.2"/>
 
-    <text x="150" y="178" text-anchor="middle" font-size="14" fill="#1f3a93">
+    <!-- Subtexto -->
+    <text x="150" y="174" text-anchor="middle"
+          font-size="13"
+          fill="#1c2e8a"
+          font-family="Times New Roman, serif"
+          letter-spacing="1.5">
       CÓRDOBA
     </text>
 
   </g>
 
-  <!-- textura desgaste -->
-  <rect class="grain" width="100%" height="100%" filter="url(#noise)"/>
+  <!-- textura desgaste MUY sutil -->
+  <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
 
 </svg>
 

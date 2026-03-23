@@ -51,6 +51,13 @@
     .section {
         margin-bottom: 25px;
     }
+    .precio {
+        background: #eaf4ff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        font-size: 16px;
+    }
 </style>
 </head>
 
@@ -61,83 +68,92 @@
 <h1>🏡 Formulario de Trámites Inmobiliarios</h1>
 <p>Complete los datos para gestionar la documentación del inmueble. La información será verificada antes de cualquier pago.</p>
 
-<form>
+<form onsubmit="enviarWhatsApp(event)">
 
-<!-- TITULAR -->
 <div class="section">
 <h2>📄 Datos del Titular (Vendedor / Locador)</h2>
 
 <label>Nombre y Apellido</label>
-<input type="text" required>
+<input type="text" id="titular_nombre" required>
 
 <label>DNI / CUIT / CUIL</label>
-<input type="text" required>
+<input type="text" id="titular_doc" required>
 
 <label>Fecha de nacimiento</label>
-<input type="date">
+<input type="date" id="titular_nac">
 
 <label>Estado civil</label>
-<input type="text">
+<input type="text" id="titular_estado">
 
 <label>Domicilio</label>
-<input type="text">
+<input type="text" id="titular_dom">
 
 <label>Teléfono</label>
-<input type="text">
+<input type="text" id="titular_tel">
 
 <label>Email</label>
-<input type="email">
+<input type="email" id="titular_email">
+
+<label>Foto DNI (Frente)</label>
+<input type="file" id="titular_dni_frente" accept="image/*">
+
+<label>Foto DNI (Dorso)</label>
+<input type="file" id="titular_dni_dorso" accept="image/*">
 
 </div>
 
-<!-- COMPRADOR -->
 <div class="section">
 <h2>📄 Datos del Comprador (Adquirente / Locatario)</h2>
 
 <label>Nombre y Apellido</label>
-<input type="text" required>
+<input type="text" id="comp_nombre" required>
 
 <label>DNI / CUIT / CUIL</label>
-<input type="text" required>
+<input type="text" id="comp_doc" required>
 
 <label>Fecha de nacimiento</label>
-<input type="date">
+<input type="date" id="comp_nac">
 
 <label>Estado civil</label>
-<input type="text">
+<input type="text" id="comp_estado">
 
 <label>Domicilio</label>
-<input type="text">
+<input type="text" id="comp_dom">
 
 <label>Teléfono</label>
-<input type="text">
+<input type="text" id="comp_tel">
 
 <label>Email</label>
-<input type="email">
+<input type="email" id="comp_email">
+
+<label>Foto DNI (Frente)</label>
+<input type="file" id="comp_dni_frente" accept="image/*">
+
+<label>Foto DNI (Dorso)</label>
+<input type="file" id="comp_dni_dorso" accept="image/*">
 
 </div>
 
-<!-- INMUEBLE -->
 <div class="section">
 <h2>📍 Datos del Inmueble</h2>
 
 <label>Dirección exacta</label>
-<input type="text" required>
+<input type="text" id="direccion" required>
 
 <label>Entre calles</label>
-<input type="text">
+<input type="text" id="entre">
 
 <label>Localidad</label>
-<input type="text" required>
+<input type="text" id="localidad" required>
 
 <label>Provincia</label>
-<input type="text" required>
+<input type="text" id="provincia" required>
 
 <label>Código Postal</label>
-<input type="text">
+<input type="text" id="cp">
 
 <label>Tipo de inmueble</label>
-<select>
+<select id="tipo">
 <option>Casa</option>
 <option>Departamento</option>
 <option>Terreno</option>
@@ -146,115 +162,50 @@
 </select>
 
 <label>Estado del inmueble</label>
-<select>
+<select id="estado">
 <option>Nuevo</option>
 <option>Usado</option>
 <option>A refaccionar</option>
 </select>
 
-<label>Superficie total (m²)</label>
-<input type="number">
-
-<label>Superficie cubierta (m²)</label>
-<input type="number">
-
-<label>Cantidad de ambientes</label>
-<input type="number">
-
-<label>Antigüedad aproximada</label>
-<input type="text">
-
 </div>
 
-<!-- OPERACIÓN -->
 <div class="section">
 <h2>💰 Datos de la Operación</h2>
 
 <label>Tipo de operación</label>
-<select>
+<select id="operacion">
 <option>Venta</option>
 <option>Alquiler</option>
 <option>Cesión</option>
 </select>
 
 <label>Monto</label>
-<input type="number">
+<input type="number" id="monto">
 
 <label>Moneda</label>
-<select>
+<select id="moneda">
 <option>ARS</option>
 <option>USD</option>
 </select>
 
-<label>Forma de pago</label>
-<select>
-<option>Contado</option>
-<option>Financiado</option>
-</select>
-
-<label>Fecha estimada</label>
-<input type="date">
-
 </div>
 
-<!-- CATASTRAL -->
 <div class="section">
 <h2>📑 Datos Catastrales</h2>
 
 <label>Nomenclatura catastral</label>
-<input type="text">
+<input type="text" id="nomenclatura">
 
 <label>Partida inmobiliaria</label>
-<input type="text">
+<input type="text" id="partida">
 
 <label>Matrícula</label>
-<input type="text">
-
-<label>Circunscripción / Sección / Manzana / Parcela</label>
-<input type="text">
-
-<label>Unidad funcional</label>
-<input type="text">
-
+<input type="text" id="matricula">
 </div>
 
-<!-- EXTRA -->
-<div class="section">
-<h2>⚖️ Información adicional</h2>
-
-<label>¿Posee hipoteca?</label>
-<select>
-<option>No</option>
-<option>Sí</option>
-</select>
-
-<label>¿El titular tiene inhibiciones?</label>
-<select>
-<option>No</option>
-<option>Sí</option>
-</select>
-
-<label>¿El inmueble está ocupado?</label>
-<select>
-<option>No</option>
-<option>Sí</option>
-</select>
-
-<label>¿Tiene plano aprobado?</label>
-<select>
-<option>No</option>
-<option>Sí</option>
-</select>
-
-<label>Observaciones</label>
-<textarea rows="4"></textarea>
-
-</div>
-
-<!-- DOCUMENTACIÓN -->
 <div class="section">
 <h2>📂 Documentación incluida</h2>
-
 <p>
 ✔ Testimonio de escritura<br>
 ✔ Certificado de dominio (RPI)<br>
@@ -263,7 +214,12 @@
 ✔ Constancia catastral<br>
 ✔ Certificado de inhibición
 </p>
+</div>
 
+<div class="precio">
+💰 <strong>Costo total de la carpeta completa: $500.000</strong><br>
+✔ Verificación incluida antes del pago<br>
+🏦 Medio de pago: Transferencia bancaria
 </div>
 
 <button type="submit">📄 Enviar solicitud</button>
@@ -272,5 +228,57 @@
 
 </div>
 
+<script>
+function enviarWhatsApp(e) {
+    e.preventDefault();
+
+    let mensaje = "🏡 SOLICITUD TRÁMITE INMOBILIARIO%0A%0A";
+
+    mensaje += "📄 TITULAR%0A";
+    mensaje += "Nombre: " + document.getElementById("titular_nombre").value + "%0A";
+    mensaje += "DNI: " + document.getElementById("titular_doc").value + "%0A";
+    mensaje += "Nacimiento: " + document.getElementById("titular_nac").value + "%0A";
+    mensaje += "Estado civil: " + document.getElementById("titular_estado").value + "%0A";
+    mensaje += "Domicilio: " + document.getElementById("titular_dom").value + "%0A";
+    mensaje += "Tel: " + document.getElementById("titular_tel").value + "%0A";
+    mensaje += "Email: " + document.getElementById("titular_email").value + "%0A%0A";
+
+    mensaje += "📄 COMPRADOR%0A";
+    mensaje += "Nombre: " + document.getElementById("comp_nombre").value + "%0A";
+    mensaje += "DNI: " + document.getElementById("comp_doc").value + "%0A";
+    mensaje += "Nacimiento: " + document.getElementById("comp_nac").value + "%0A";
+    mensaje += "Estado civil: " + document.getElementById("comp_estado").value + "%0A";
+    mensaje += "Domicilio: " + document.getElementById("comp_dom").value + "%0A";
+    mensaje += "Tel: " + document.getElementById("comp_tel").value + "%0A";
+    mensaje += "Email: " + document.getElementById("comp_email").value + "%0A%0A";
+
+    mensaje += "📍 INMUEBLE%0A";
+    mensaje += "Dirección: " + document.getElementById("direccion").value + "%0A";
+    mensaje += "Entre calles: " + document.getElementById("entre").value + "%0A";
+    mensaje += "Localidad: " + document.getElementById("localidad").value + "%0A";
+    mensaje += "Provincia: " + document.getElementById("provincia").value + "%0A";
+    mensaje += "CP: " + document.getElementById("cp").value + "%0A";
+    mensaje += "Tipo: " + document.getElementById("tipo").value + "%0A";
+    mensaje += "Estado: " + document.getElementById("estado").value + "%0A%0A";
+
+    mensaje += "💰 OPERACIÓN%0A";
+    mensaje += "Tipo: " + document.getElementById("operacion").value + "%0A";
+    mensaje += "Monto: " + document.getElementById("monto").value + " " + document.getElementById("moneda").value + "%0A%0A";
+
+    mensaje += "📑 CATASTRAL%0A";
+    mensaje += "Nomenclatura: " + document.getElementById("nomenclatura").value + "%0A";
+    mensaje += "Partida: " + document.getElementById("partida").value + "%0A";
+    mensaje += "Matrícula: " + document.getElementById("matricula").value + "%0A%0A";
+
+    mensaje += "📎 Se adjuntarán fotos de DNI por este medio%0A%0A";
+
+    mensaje += "💰 Costo informado: $500.000 - Pago por transferencia bancaria";
+
+    let url = "https://wa.me/5491131602393?text=" + mensaje;
+
+    window.open(url, "_blank");
+}
+</script>
+
 </body>
-  </html>
+    </html>

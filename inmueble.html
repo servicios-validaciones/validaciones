@@ -2,249 +2,207 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Formulario Inmobiliario Completo</title>
+<title>Formulario Trámites Inmobiliarios</title>
 
 <style>
-body { font-family: Arial; background:#f0f2f5; padding:20px; }
-form { background:#fff; padding:25px; border-radius:10px; max-width:900px; margin:auto; }
-h2 { background:#343a40; color:#fff; padding:10px; border-radius:5px; }
-label { display:block; margin-top:10px; font-weight:bold; }
-input, select, textarea {
-    width:100%;
-    padding:8px;
-    margin-top:5px;
-    border-radius:5px;
-    border:1px solid #ccc;
+body {
+    font-family: Arial;
+    background: #f4f6f8;
+    padding: 20px;
 }
-.hidden { display:none; }
+.container {
+    max-width: 900px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+}
+h2 {
+    text-align: center;
+}
+label {
+    font-weight: bold;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.section {
+    display: none;
+}
 button {
-    margin-top:20px;
-    padding:12px;
-    width:100%;
-    background:#28a745;
-    color:#fff;
-    border:none;
-    font-size:16px;
-    border-radius:5px;
+    width: 100%;
+    padding: 12px;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.info {
+    background: #eef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 </style>
 
 <script>
-function mostrarCampos() {
-    let t = document.getElementById("tramite").value;
+function mostrarSecciones() {
+    let tipo = document.getElementById("tramite").value;
 
-    let secciones = ["compra", "cesion", "usucapion"];
-    secciones.forEach(id => document.getElementById(id).classList.add("hidden"));
+    document.getElementById("compraVenta").style.display = "none";
+    document.getElementById("usucapion").style.display = "none";
+    document.getElementById("cesion").style.display = "none";
 
-    if (t) document.getElementById(t).classList.remove("hidden");
+    if (tipo === "compraventa") {
+        document.getElementById("compraVenta").style.display = "block";
+    } else if (tipo === "usucapion") {
+        document.getElementById("usucapion").style.display = "block";
+    } else if (tipo === "cesion") {
+        document.getElementById("cesion").style.display = "block";
+    }
 }
 
 function enviarWhatsApp() {
-    let f = document.getElementById("form");
-    let data = new FormData(f);
-    let msg = "📄 *TRÁMITE INMOBILIARIO*%0A%0A";
+    let tramite = document.getElementById("tramite").value;
 
-    data.forEach((v,k)=>{ msg += k + ": " + v + "%0A"; });
+    let mensaje = "📄 *SOLICITUD DE TRÁMITE INMOBILIARIO*\n\n";
 
-    window.open("https://wa.me/5491131602393?text=" + msg, "_blank");
+    if (tramite === "usucapion") {
+        mensaje += "Tipo: ACTA DE POSESIÓN Y DECLARACIÓN PARA PRESCRIPCIÓN ADQUISITIVA (USUCAPIÓN)\n";
+    } else if (tramite === "compraventa") {
+        mensaje += "Tipo: CONTRATO DE COMPRAVENTA INMOBILIARIA\n";
+    } else if (tramite === "cesion") {
+        mensaje += "Tipo: CESIÓN DE DERECHOS POSESORIOS\n";
+    }
+
+    mensaje += "\n📍 DATOS DEL INMUEBLE\n";
+    mensaje += "Dirección: " + document.getElementById("direccion").value + "\n";
+    mensaje += "Nomenclatura: " + document.getElementById("nomenclatura").value + "\n";
+    mensaje += "Tipo: " + document.getElementById("tipoInmueble").value + "\n";
+    mensaje += "Condición: " + document.getElementById("condicion").value + "\n";
+    mensaje += "¿Habitado?: " + document.getElementById("habitado").value + "\n";
+
+    mensaje += "\n👤 DATOS DEL SOLICITANTE\n";
+    mensaje += "Nombre: " + document.getElementById("nombre").value + "\n";
+    mensaje += "DNI: " + document.getElementById("dni").value + "\n";
+    mensaje += "Teléfono: " + document.getElementById("telefono").value + "\n";
+
+    if (tramite === "compraventa") {
+        mensaje += "\n🧑‍💼 VENDEDOR\n";
+        mensaje += "Nombre: " + document.getElementById("vendedor").value + "\n";
+        mensaje += "DNI: " + document.getElementById("dniVendedor").value + "\n";
+
+        mensaje += "\n🧑‍💼 COMPRADOR\n";
+        mensaje += "Nombre: " + document.getElementById("comprador").value + "\n";
+        mensaje += "DNI: " + document.getElementById("dniComprador").value + "\n";
+    }
+
+    if (tramite === "usucapion") {
+        mensaje += "\n👥 TESTIGOS\n";
+        mensaje += "Testigo 1: " + document.getElementById("testigo1").value + "\n";
+        mensaje += "Testigo 2: " + document.getElementById("testigo2").value + "\n";
+    }
+
+    mensaje += "\n💰 HONORARIOS\n";
+    mensaje += "Total: $1.500.000\n";
+    mensaje += "50% anticipo y 50% contra entrega\n";
+
+    mensaje += "\n📂 INCLUYE:\n";
+    mensaje += "- Testimonio de escritura\n";
+    mensaje += "- Certificado de dominio (RPI)\n";
+    mensaje += "- Certificado relativo al inmueble\n";
+    mensaje += "- Certificado catastral\n";
+    mensaje += "- Constancia catastral\n";
+    mensaje += "- Certificado de inhibición\n";
+
+    let url = "https://wa.me/5491131602393?text=" + encodeURIComponent(mensaje);
+    window.open(url, "_blank");
 }
 </script>
-
 </head>
+
 <body>
 
-<form id="form">
+<div class="container">
+<h2>Formulario Trámites Inmobiliarios</h2>
 
-<h2>👤 DATOS DEL SOLICITANTE</h2>
+<div class="info">
+💰 Precio del servicio: $1.500.000<br>
+✔ 50% para iniciar - 50% al finalizar<br>
+📄 Entrega digital en PDF<br><br>
 
-<label>Apellido y Nombre</label>
-<input name="Nombre Completo">
+Incluye:
+<ul>
+<li>Testimonio de escritura</li>
+<li>Certificado de dominio (RPI)</li>
+<li>Certificado relativo al inmueble</li>
+<li>Certificado catastral</li>
+<li>Constancia catastral</li>
+<li>Certificado de inhibición</li>
+</ul>
+</div>
 
-<label>DNI</label>
-<input name="DNI">
-
-<label>CUIT/CUIL</label>
-<input name="CUIT">
-
-<label>Estado Civil</label>
-<select name="Estado Civil">
-<option>Soltero</option><option>Casado</option><option>Divorciado</option><option>Viudo</option>
-</select>
-
-<label>Domicilio</label>
-<input name="Domicilio">
-
-<label>Teléfono</label>
-<input name="Telefono">
-
-<label>Email</label>
-<input name="Email">
-
----
-
-<h2>📌 TIPO DE TRÁMITE</h2>
-
-<select id="tramite" name="Tipo Tramite" onchange="mostrarCampos()">
+<label>Tipo de trámite</label>
+<select id="tramite" onchange="mostrarSecciones()">
 <option value="">Seleccionar</option>
-<option value="compra">Compra - Venta</option>
-<option value="cesion">Cesión de Derechos</option>
-<option value="usucapion">Usucapión</option>
+<option value="usucapion">ACTA DE POSESIÓN Y DECLARACIÓN PARA PRESCRIPCIÓN ADQUISITIVA (USUCAPIÓN)</option>
+<option value="compraventa">CONTRATO DE COMPRAVENTA INMOBILIARIA</option>
+<option value="cesion">CESIÓN DE DERECHOS POSESORIOS</option>
 </select>
 
----
+<h3>Datos del solicitante</h3>
+<input type="text" id="nombre" placeholder="Nombre completo">
+<input type="text" id="dni" placeholder="DNI">
+<input type="text" id="telefono" placeholder="Teléfono">
 
-<h2>🏠 DATOS DEL INMUEBLE</h2>
-
-<label>Dirección</label>
-<input name="Direccion">
-
-<label>Localidad</label>
-<input name="Localidad">
-
-<label>Provincia</label>
-<input name="Provincia">
-
-<label>Nomenclatura Catastral</label>
-<input name="Nomenclatura">
-
-<label>Partida Inmobiliaria</label>
-<input name="Partida">
-
-<label>Matrícula</label>
-<input name="Matricula">
-
-<label>Superficie (m²)</label>
-<input name="Superficie">
-
-<label>Linderos</label>
-<textarea name="Linderos"></textarea>
-
-<label>Destino</label>
-<select name="Destino">
-<option>Vivienda</option>
-<option>Comercial</option>
+<h3>Datos del inmueble</h3>
+<input type="text" id="direccion" placeholder="Dirección">
+<input type="text" id="nomenclatura" placeholder="Nomenclatura catastral (si posee)">
+<select id="tipoInmueble">
+<option>Casa</option>
+<option>Departamento</option>
 <option>Terreno</option>
-<option>Industrial</option>
+<option>Lote</option>
 </select>
 
----
+<textarea id="condicion" placeholder="Condición del inmueble"></textarea>
 
-<h2>📑 SITUACIÓN LEGAL</h2>
+<select id="habitado">
+<option>Habitado</option>
+<option>No habitado</option>
+</select>
 
-<label>¿Posee Escritura?</label>
-<select name="Escritura"><option>Si</option><option>No</option></select>
+<div id="compraVenta" class="section">
+<h3>Datos del vendedor</h3>
+<input type="text" id="vendedor" placeholder="Nombre completo">
+<input type="text" id="dniVendedor" placeholder="DNI">
 
-<label>¿Hipoteca o Deuda?</label>
-<select name="Deuda"><option>No</option><option>Si</option></select>
-
-<label>¿Posee Plano?</label>
-<select name="Plano"><option>Si</option><option>No</option></select>
-
-<label>Observaciones</label>
-<textarea name="Observaciones"></textarea>
-
----
-
-<h2>📎 DOCUMENTACIÓN</h2>
-
-<label>DNI Comprador (frente y dorso)</label>
-<input type="file">
-
-<label>DNI Vendedor</label>
-<input type="file">
-
-<label>Escritura / Boleto</label>
-<input type="file">
-
-<label>Impuestos / Servicios</label>
-<input type="file">
-
----
-
-<!-- COMPRA VENTA -->
-<div id="compra" class="hidden">
-
-<h2>💰 COMPRA - VENTA</h2>
-
-<label>Datos del Vendedor</label>
-<input name="Vendedor Nombre">
-
-<label>DNI Vendedor</label>
-<input name="Vendedor DNI">
-
-<label>Domicilio Vendedor</label>
-<input name="Vendedor Domicilio">
-
-<label>Precio</label>
-<input name="Precio">
-
-<label>Moneda</label>
-<select name="Moneda"><option>USD</option><option>ARS</option></select>
-
-<label>Forma de Pago</label>
-<input name="Forma Pago">
-
-<label>Entrega de Posesión</label>
-<input name="Entrega">
-
+<h3>Datos del comprador</h3>
+<input type="text" id="comprador" placeholder="Nombre completo">
+<input type="text" id="dniComprador" placeholder="DNI">
 </div>
 
----
-
-<!-- CESION -->
-<div id="cesion" class="hidden">
-
-<h2>📄 CESIÓN DE DERECHOS</h2>
-
-<label>Cedente</label>
-<input name="Cedente">
-
-<label>Cesionario</label>
-<input name="Cesionario">
-
-<label>Objeto de la Cesión</label>
-<textarea name="Objeto Cesion"></textarea>
-
-<label>Precio Cesión</label>
-<input name="Precio Cesion">
-
+<div id="usucapion" class="section">
+<h3>Testigos</h3>
+<input type="text" id="testigo1" placeholder="Nombre testigo 1">
+<input type="text" id="testigo2" placeholder="Nombre testigo 2">
 </div>
 
----
-
-<!-- USUCAPION -->
-<div id="usucapion" class="hidden">
-
-<h2>⚖️ USUCAPIÓN</h2>
-
-<label>Años de Posesión</label>
-<input name="Años">
-
-<label>Inicio de Posesión</label>
-<input type="date" name="Inicio">
-
-<label>¿Posesión Pública?</label>
-<select name="Publica"><option>Si</option><option>No</option></select>
-
-<label>¿Posesión Pacífica?</label>
-<select name="Pacifica"><option>Si</option><option>No</option></select>
-
-<label>¿Posesión Continua?</label>
-<select name="Continua"><option>Si</option><option>No</option></select>
-
-<label>Servicios a su nombre</label>
-<input name="Servicios">
-
-<label>Testigos (Nombre y DNI)</label>
-<textarea name="Testigos"></textarea>
-
+<div id="cesion" class="section">
+<h3>Datos de cesión</h3>
+<input type="text" placeholder="Cedente">
+<input type="text" placeholder="Cesionario">
 </div>
 
----
+<br>
+<button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
 
-<button type="button" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
-
-</form>
+</div>
 
 </body>
 </html>

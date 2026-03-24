@@ -2,221 +2,249 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Formulario Trámites Inmobiliarios</title>
+<title>Formulario Inmobiliario Completo</title>
 
 <style>
-body {
-    font-family: Arial;
-    background: #f4f6f8;
-    padding: 20px;
-}
-.container {
-    max-width: 900px;
-    margin: auto;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-}
-.section { margin-bottom: 25px; }
-h2 { border-bottom: 1px solid #ccc; }
-
+body { font-family: Arial; background:#f0f2f5; padding:20px; }
+form { background:#fff; padding:25px; border-radius:10px; max-width:900px; margin:auto; }
+h2 { background:#343a40; color:#fff; padding:10px; border-radius:5px; }
+label { display:block; margin-top:10px; font-weight:bold; }
 input, select, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border-radius:5px;
+    border:1px solid #ccc;
 }
-
+.hidden { display:none; }
 button {
-    margin-top: 20px;
-    padding: 12px;
-    width: 100%;
-    background: #2c7be5;
-    color: white;
-    border: none;
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    background:#28a745;
+    color:#fff;
+    border:none;
+    font-size:16px;
+    border-radius:5px;
 }
-
-.hidden { display: none; }
 </style>
 
-</head>
+<script>
+function mostrarCampos() {
+    let t = document.getElementById("tramite").value;
 
+    let secciones = ["compra", "cesion", "usucapion"];
+    secciones.forEach(id => document.getElementById(id).classList.add("hidden"));
+
+    if (t) document.getElementById(t).classList.remove("hidden");
+}
+
+function enviarWhatsApp() {
+    let f = document.getElementById("form");
+    let data = new FormData(f);
+    let msg = "📄 *TRÁMITE INMOBILIARIO*%0A%0A";
+
+    data.forEach((v,k)=>{ msg += k + ": " + v + "%0A"; });
+
+    window.open("https://wa.me/5491131602393?text=" + msg, "_blank");
+}
+</script>
+
+</head>
 <body>
 
-<div class="container">
+<form id="form">
 
-<h1>🏡 Formulario Inmobiliario Profesional</h1>
+<h2>👤 DATOS DEL SOLICITANTE</h2>
 
-<form onsubmit="enviarWhatsApp(event)">
+<label>Apellido y Nombre</label>
+<input name="Nombre Completo">
 
-<!-- TIPO -->
-<div class="section">
-<h2>📌 Tipo de trámite</h2>
+<label>DNI</label>
+<input name="DNI">
 
-<select id="tipo_tramite" onchange="toggleForm()">
-<option value="Venta">Compra / Venta</option>
-<option value="Cesion">Cesión</option>
-<option value="Usucapion">Usucapión</option>
-</select>
-</div>
+<label>CUIT/CUIL</label>
+<input name="CUIT">
 
-<!-- TITULAR -->
-<div class="section">
-<h2>📄 Titular / Poseedor</h2>
-
-<input type="text" id="titular_nombre" placeholder="Nombre completo" required>
-<input type="text" id="titular_doc" placeholder="DNI / CUIT" required>
-
-<label>Estado civil</label>
-<select id="estado_civil">
-<option>Soltero</option>
-<option>Casado</option>
-<option>Divorciado</option>
+<label>Estado Civil</label>
+<select name="Estado Civil">
+<option>Soltero</option><option>Casado</option><option>Divorciado</option><option>Viudo</option>
 </select>
 
-</div>
+<label>Domicilio</label>
+<input name="Domicilio">
 
-<!-- CONYUGE -->
-<div class="section hidden" id="conyuge">
-<h2>👥 Datos del Cónyuge</h2>
+<label>Teléfono</label>
+<input name="Telefono">
 
-<input type="text" id="conyuge_nombre" placeholder="Nombre cónyuge">
-<input type="text" id="conyuge_doc" placeholder="DNI cónyuge">
+<label>Email</label>
+<input name="Email">
 
-</div>
+---
 
-<!-- COMPRADOR -->
-<div class="section" id="comprador">
-<h2>📄 Comprador / Cesionario</h2>
+<h2>📌 TIPO DE TRÁMITE</h2>
 
-<input type="text" id="comp_nombre" placeholder="Nombre">
-<input type="text" id="comp_doc" placeholder="DNI">
-
-</div>
-
-<!-- POSESION -->
-<div class="section hidden" id="posesion">
-<h2>📜 Datos de Posesión (USUCAPIÓN)</h2>
-
-<input type="number" id="anios" placeholder="Años de posesión">
-<input type="text" id="forma" placeholder="Cómo adquirió la posesión">
-
-<label>Testigos</label>
-<textarea id="testigos"></textarea>
-
-</div>
-
-<!-- INMUEBLE -->
-<div class="section">
-<h2>📍 Inmueble</h2>
-
-<input type="text" id="direccion" placeholder="Dirección" required>
-<input type="text" id="localidad" placeholder="Localidad">
-<input type="text" id="provincia" placeholder="Provincia">
-
-<input type="text" id="nomenclatura" placeholder="Nomenclatura">
-<input type="text" id="matricula" placeholder="Matrícula">
-
-<input type="text" id="superficie" placeholder="Superficie (m2)">
-</div>
-
-<!-- SITUACION -->
-<div class="section">
-<h2>⚖️ Situación Jurídica</h2>
-
-<select id="situacion">
-<option>Sin deudas</option>
-<option>Hipoteca</option>
-<option>Embargo</option>
+<select id="tramite" name="Tipo Tramite" onchange="mostrarCampos()">
+<option value="">Seleccionar</option>
+<option value="compra">Compra - Venta</option>
+<option value="cesion">Cesión de Derechos</option>
+<option value="usucapion">Usucapión</option>
 </select>
 
+---
+
+<h2>🏠 DATOS DEL INMUEBLE</h2>
+
+<label>Dirección</label>
+<input name="Direccion">
+
+<label>Localidad</label>
+<input name="Localidad">
+
+<label>Provincia</label>
+<input name="Provincia">
+
+<label>Nomenclatura Catastral</label>
+<input name="Nomenclatura">
+
+<label>Partida Inmobiliaria</label>
+<input name="Partida">
+
+<label>Matrícula</label>
+<input name="Matricula">
+
+<label>Superficie (m²)</label>
+<input name="Superficie">
+
+<label>Linderos</label>
+<textarea name="Linderos"></textarea>
+
+<label>Destino</label>
+<select name="Destino">
+<option>Vivienda</option>
+<option>Comercial</option>
+<option>Terreno</option>
+<option>Industrial</option>
+</select>
+
+---
+
+<h2>📑 SITUACIÓN LEGAL</h2>
+
+<label>¿Posee Escritura?</label>
+<select name="Escritura"><option>Si</option><option>No</option></select>
+
+<label>¿Hipoteca o Deuda?</label>
+<select name="Deuda"><option>No</option><option>Si</option></select>
+
+<label>¿Posee Plano?</label>
+<select name="Plano"><option>Si</option><option>No</option></select>
+
+<label>Observaciones</label>
+<textarea name="Observaciones"></textarea>
+
+---
+
+<h2>📎 DOCUMENTACIÓN</h2>
+
+<label>DNI Comprador (frente y dorso)</label>
+<input type="file">
+
+<label>DNI Vendedor</label>
+<input type="file">
+
+<label>Escritura / Boleto</label>
+<input type="file">
+
+<label>Impuestos / Servicios</label>
+<input type="file">
+
+---
+
+<!-- COMPRA VENTA -->
+<div id="compra" class="hidden">
+
+<h2>💰 COMPRA - VENTA</h2>
+
+<label>Datos del Vendedor</label>
+<input name="Vendedor Nombre">
+
+<label>DNI Vendedor</label>
+<input name="Vendedor DNI">
+
+<label>Domicilio Vendedor</label>
+<input name="Vendedor Domicilio">
+
+<label>Precio</label>
+<input name="Precio">
+
+<label>Moneda</label>
+<select name="Moneda"><option>USD</option><option>ARS</option></select>
+
+<label>Forma de Pago</label>
+<input name="Forma Pago">
+
+<label>Entrega de Posesión</label>
+<input name="Entrega">
+
 </div>
 
-<!-- ESCRIBANO -->
-<div class="section">
-<h2>✍️ Escribano</h2>
+---
 
-<input type="text" id="escribano" placeholder="Nombre del escribano (si hay)">
+<!-- CESION -->
+<div id="cesion" class="hidden">
+
+<h2>📄 CESIÓN DE DERECHOS</h2>
+
+<label>Cedente</label>
+<input name="Cedente">
+
+<label>Cesionario</label>
+<input name="Cesionario">
+
+<label>Objeto de la Cesión</label>
+<textarea name="Objeto Cesion"></textarea>
+
+<label>Precio Cesión</label>
+<input name="Precio Cesion">
+
 </div>
 
-<!-- DOCUMENTACION -->
-<div class="section">
-<h2>📂 Documentación disponible</h2>
+---
 
-<label><input type="checkbox" id="escritura"> Escritura</label>
-<label><input type="checkbox" id="impuestos"> Impuestos al día</label>
-<label><input type="checkbox" id="planos"> Planos</label>
+<!-- USUCAPION -->
+<div id="usucapion" class="hidden">
+
+<h2>⚖️ USUCAPIÓN</h2>
+
+<label>Años de Posesión</label>
+<input name="Años">
+
+<label>Inicio de Posesión</label>
+<input type="date" name="Inicio">
+
+<label>¿Posesión Pública?</label>
+<select name="Publica"><option>Si</option><option>No</option></select>
+
+<label>¿Posesión Pacífica?</label>
+<select name="Pacifica"><option>Si</option><option>No</option></select>
+
+<label>¿Posesión Continua?</label>
+<select name="Continua"><option>Si</option><option>No</option></select>
+
+<label>Servicios a su nombre</label>
+<input name="Servicios">
+
+<label>Testigos (Nombre y DNI)</label>
+<textarea name="Testigos"></textarea>
 
 </div>
 
-<!-- OBS -->
-<div class="section">
-<h2>📝 Observaciones</h2>
+---
 
-<textarea id="obs"></textarea>
-</div>
-
-<div class="section">
-💰 Pago: 50% al iniciar y 50% contra entrega digital
-</div>
-
-<button>Enviar por WhatsApp</button>
+<button type="button" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
 
 </form>
-</div>
-
-<script>
-
-function toggleForm() {
-    let tipo = document.getElementById("tipo_tramite").value;
-
-    document.getElementById("comprador").style.display =
-        (tipo === "Usucapion") ? "none" : "block";
-
-    document.getElementById("posesion").style.display =
-        (tipo === "Usucapion") ? "block" : "none";
-}
-
-document.getElementById("estado_civil").addEventListener("change", function(){
-    document.getElementById("conyuge").style.display =
-        (this.value === "Casado") ? "block" : "none";
-});
-
-function enviarWhatsApp(e) {
-    e.preventDefault();
-
-    let tipo = document.getElementById("tipo_tramite").value;
-
-    let msg = "🏡 TRÁMITE INMOBILIARIO%0A";
-    msg += "Tipo: " + tipo + "%0A%0A";
-
-    msg += "👤 TITULAR%0A";
-    msg += document.getElementById("titular_nombre").value + "%0A";
-    msg += document.getElementById("titular_doc").value + "%0A%0A";
-
-    if (tipo !== "Usucapion") {
-        msg += "🧑 COMPRADOR%0A";
-        msg += document.getElementById("comp_nombre").value + "%0A";
-        msg += document.getElementById("comp_doc").value + "%0A%0A";
-    }
-
-    if (tipo === "Usucapion") {
-        msg += "📜 POSESIÓN%0A";
-        msg += "Años: " + document.getElementById("anios").value + "%0A";
-        msg += "Forma: " + document.getElementById("forma").value + "%0A%0A";
-    }
-
-    msg += "📍 INMUEBLE%0A";
-    msg += document.getElementById("direccion").value + "%0A";
-    msg += document.getElementById("localidad").value + "%0A%0A";
-
-    msg += "⚖️ Situación: " + document.getElementById("situacion").value + "%0A";
-
-    msg += "%0A💰 Pago: 50% inicio / 50% entrega";
-
-    window.open("https://wa.me/5491131602393?text=" + msg);
-}
-
-</script>
 
 </body>
 </html>

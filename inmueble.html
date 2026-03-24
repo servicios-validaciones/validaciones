@@ -2,167 +2,259 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Solicitud Acta de Posesión - Usucapión</title>
+<title>Acta de Posesión - Usucapión</title>
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-    }
-    .container {
-        max-width: 700px;
-        margin: auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-        text-align: center;
-        color: #333;
-    }
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-    }
-    input, textarea {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    button {
-        margin-top: 20px;
-        width: 100%;
-        padding: 12px;
-        background-color: #25D366;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #1ebe5d;
-    }
-    .info {
-        background: #eef;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        font-size: 14px;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+    padding:20px;
+}
+.container {
+    max-width:800px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+h2 {
+    text-align:center;
+}
+.section {
+    margin-top:25px;
+    padding-top:15px;
+    border-top:2px solid #ccc;
+}
+label {
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+}
+input, textarea {
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+button {
+    margin-top:25px;
+    width:100%;
+    padding:12px;
+    background:#25D366;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+}
+.info {
+    background:#eef;
+    padding:12px;
+    border-radius:5px;
+    font-size:14px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <h2>Solicitud de Acta de Posesión y Declaración para Usucapión</h2>
 
-    <div class="info">
-        <strong>La carpeta completa incluye (formato digital PDF):</strong><br>
-        • Certificado de dominio (RPI)<br>
-        • Certificado relativo al inmueble (RPI)<br>
-        • Certificado catastral<br>
-        • Constancia catastral<br>
-        • Certificado de inhibición<br><br>
+<h2>ACTA DE POSESIÓN Y DECLARACIÓN PARA PRESCRIPCIÓN ADQUISITIVA</h2>
 
-        <strong>Valor del servicio:</strong> $1.500.000<br>
-        50% al iniciar el trámite y 50% al finalizar.
-    </div>
+<div class="info">
+<b>Carpeta digital (PDF) incluye:</b><br>
+• Certificado de dominio (RPI)<br>
+• Certificado relativo al inmueble (RPI)<br>
+• Certificado catastral<br>
+• Constancia catastral<br>
+• Certificado de inhibición<br><br>
 
-    <form id="formulario">
+<b>Honorarios:</b> $1.500.000<br>
+50% al inicio + 50% al finalizar.
+</div>
 
-        <label>Nombre y Apellido</label>
-        <input type="text" id="nombre" required>
+<form id="formulario">
 
-        <label>DNI</label>
-        <input type="text" id="dni" required>
+<div class="section">
+<h3>1. DATOS DEL/LOS POSEEDOR/ES</h3>
 
-        <label>CUIT/CUIL</label>
-        <input type="text" id="cuit">
+<label>Nombre completo</label>
+<input type="text" id="nombre">
 
-        <label>Fecha de nacimiento</label>
-        <input type="date" id="nacimiento">
+<label>DNI</label>
+<input type="text" id="dni">
 
-        <label>Estado civil</label>
-        <input type="text" id="estadoCivil">
+<label>CUIT/CUIL</label>
+<input type="text" id="cuit">
 
-        <label>Domicilio actual</label>
-        <input type="text" id="domicilio">
+<label>Fecha de nacimiento</label>
+<input type="date" id="nacimiento">
 
-        <label>Teléfono</label>
-        <input type="text" id="telefono">
+<label>Nacionalidad</label>
+<input type="text" id="nacionalidad">
 
-        <label>Email</label>
-        <input type="email" id="email">
+<label>Estado civil</label>
+<input type="text" id="estadoCivil">
 
-        <label>Datos del inmueble (Dirección completa)</label>
-        <input type="text" id="inmueble" required>
+<label>Profesión</label>
+<input type="text" id="profesion">
 
-        <label>Nomenclatura catastral</label>
-        <input type="text" id="nomenclatura">
+<label>Domicilio real</label>
+<input type="text" id="domicilio">
 
-        <label>Partida inmobiliaria</label>
-        <input type="text" id="partida">
+<label>Teléfono</label>
+<input type="text" id="telefono">
 
-        <label>Tiempo de posesión (años)</label>
-        <input type="text" id="tiempo">
+<label>Email</label>
+<input type="email" id="email">
 
-        <label>Forma en que adquirió la posesión</label>
-        <textarea id="forma"></textarea>
+<label>¿Actúa en nombre propio o representación?</label>
+<input type="text" id="representacion">
 
-        <label>Mejoras realizadas en el inmueble</label>
-        <textarea id="mejoras"></textarea>
+</div>
 
-        <label>Observaciones adicionales</label>
-        <textarea id="observaciones"></textarea>
+<div class="section">
+<h3>2. DATOS DEL INMUEBLE</h3>
 
-        <label>Adjuntar fotos DNI (frente y dorso) - ENVIAR POR WHATSAPP LUEGO</label>
-        <input type="text" placeholder="Confirmo que enviaré fotos del DNI por WhatsApp" required>
+<label>Dirección completa</label>
+<input type="text" id="inmueble">
 
-        <button type="button" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+<label>Localidad / Provincia</label>
+<input type="text" id="ubicacion">
 
-    </form>
+<label>Nomenclatura catastral</label>
+<input type="text" id="nomenclatura">
+
+<label>Partida inmobiliaria</label>
+<input type="text" id="partida">
+
+<label>Superficie aproximada</label>
+<input type="text" id="superficie">
+
+<label>Linderos (frente, fondo, laterales)</label>
+<textarea id="linderos"></textarea>
+
+</div>
+
+<div class="section">
+<h3>3. POSESIÓN</h3>
+
+<label>Fecha aproximada de inicio de posesión</label>
+<input type="text" id="inicioPosesion">
+
+<label>Años de posesión</label>
+<input type="text" id="tiempo">
+
+<label>Forma de adquisición (compra, cesión, ocupación, etc.)</label>
+<textarea id="forma"></textarea>
+
+<label>Carácter de la posesión (pública, pacífica, continua)</label>
+<textarea id="caracter"></textarea>
+
+<label>Mejoras realizadas</label>
+<textarea id="mejoras"></textarea>
+
+<label>Pago de impuestos/servicios (detallar)</label>
+<textarea id="impuestos"></textarea>
+
+</div>
+
+<div class="section">
+<h3>4. TESTIGOS</h3>
+
+<label>Testigo 1 - Nombre completo</label>
+<input type="text" id="testigo1">
+
+<label>DNI</label>
+<input type="text" id="dni1">
+
+<label>Domicilio</label>
+<input type="text" id="dom1">
+
+<label>Testigo 2 - Nombre completo</label>
+<input type="text" id="testigo2">
+
+<label>DNI</label>
+<input type="text" id="dni2">
+
+<label>Domicilio</label>
+<input type="text" id="dom2">
+
+</div>
+
+<div class="section">
+<h3>5. DOCUMENTACIÓN</h3>
+
+<label>¿Posee boleto, cesión u otro documento?</label>
+<textarea id="documentacion"></textarea>
+
+<label>¿Existen conflictos o reclamos sobre el inmueble?</label>
+<textarea id="conflictos"></textarea>
+
+<label>Confirmación envío DNI (frente y dorso por WhatsApp)</label>
+<input type="text" placeholder="Confirmo que enviaré DNI por WhatsApp">
+
+</div>
+
+<button type="button" onclick="enviarWhatsApp()">Enviar Solicitud</button>
+
+</form>
 </div>
 
 <script>
-function enviarWhatsApp() {
-    let numero = "5491131602393";
+function enviarWhatsApp(){
 
-    let mensaje = "SOLICITUD ACTA DE POSESIÓN (USUCAPIÓN)%0A%0A";
+let numero="5491131602393";
 
-    mensaje += "*Datos del solicitante*%0A";
-    mensaje += "Nombre: " + document.getElementById("nombre").value + "%0A";
-    mensaje += "DNI: " + document.getElementById("dni").value + "%0A";
-    mensaje += "CUIT/CUIL: " + document.getElementById("cuit").value + "%0A";
-    mensaje += "Fecha de nacimiento: " + document.getElementById("nacimiento").value + "%0A";
-    mensaje += "Estado civil: " + document.getElementById("estadoCivil").value + "%0A";
-    mensaje += "Domicilio: " + document.getElementById("domicilio").value + "%0A";
-    mensaje += "Teléfono: " + document.getElementById("telefono").value + "%0A";
-    mensaje += "Email: " + document.getElementById("email").value + "%0A%0A";
+let m="SOLICITUD ACTA DE POSESIÓN - USUCAPIÓN%0A%0A";
 
-    mensaje += "*Datos del inmueble*%0A";
-    mensaje += "Dirección: " + document.getElementById("inmueble").value + "%0A";
-    mensaje += "Nomenclatura: " + document.getElementById("nomenclatura").value + "%0A";
-    mensaje += "Partida: " + document.getElementById("partida").value + "%0A";
-    mensaje += "Tiempo de posesión: " + document.getElementById("tiempo").value + "%0A";
-    mensaje += "Forma de posesión: " + document.getElementById("forma").value + "%0A";
-    mensaje += "Mejoras: " + document.getElementById("mejoras").value + "%0A";
-    mensaje += "Observaciones: " + document.getElementById("observaciones").value + "%0A%0A";
+m+="--- POSEEDOR --- %0A";
+m+="Nombre: "+nombre.value+"%0A";
+m+="DNI: "+dni.value+"%0A";
+m+="CUIT: "+cuit.value+"%0A";
+m+="Nacimiento: "+nacimiento.value+"%0A";
+m+="Nacionalidad: "+nacionalidad.value+"%0A";
+m+="Estado civil: "+estadoCivil.value+"%0A";
+m+="Profesión: "+profesion.value+"%0A";
+m+="Domicilio: "+domicilio.value+"%0A";
+m+="Tel: "+telefono.value+"%0A";
+m+="Email: "+email.value+"%0A";
+m+="Representación: "+representacion.value+"%0A%0A";
 
-    mensaje += "*Información del servicio*%0A";
-    mensaje += "Incluye certificados RPI, catastrales e inhibición.%0A";
-    mensaje += "Valor total: $1.500.000%0A";
-    mensaje += "Forma de pago: 50% inicial + 50% al finalizar.%0A%0A";
+m+="--- INMUEBLE --- %0A";
+m+="Dirección: "+inmueble.value+"%0A";
+m+="Ubicación: "+ubicacion.value+"%0A";
+m+="Nomenclatura: "+nomenclatura.value+"%0A";
+m+="Partida: "+partida.value+"%0A";
+m+="Superficie: "+superficie.value+"%0A";
+m+="Linderos: "+linderos.value+"%0A%0A";
 
-    mensaje += "El cliente enviará fotos del DNI por este medio.";
+m+="--- POSESIÓN --- %0A";
+m+="Inicio: "+inicioPosesion.value+"%0A";
+m+="Años: "+tiempo.value+"%0A";
+m+="Forma: "+forma.value+"%0A";
+m+="Carácter: "+caracter.value+"%0A";
+m+="Mejoras: "+mejoras.value+"%0A";
+m+="Impuestos: "+impuestos.value+"%0A%0A";
 
-    let url = "https://wa.me/" + numero + "?text=" + mensaje;
-    window.open(url, '_blank');
+m+="--- TESTIGOS --- %0A";
+m+="Testigo 1: "+testigo1.value+" DNI:"+dni1.value+" Dom:"+dom1.value+"%0A";
+m+="Testigo 2: "+testigo2.value+" DNI:"+dni2.value+" Dom:"+dom2.value+"%0A%0A";
+
+m+="--- DOCUMENTACIÓN --- %0A";
+m+="Documentación: "+documentacion.value+"%0A";
+m+="Conflictos: "+conflictos.value+"%0A%0A";
+
+m+="--- SERVICIO --- %0A";
+m+="Incluye certificados RPI, catastrales e inhibición.%0A";
+m+="Valor: $1.500.000%0A";
+m+="Pago: 50% inicio + 50% final.%0A%0A";
+
+m+="Adjuntará DNI por WhatsApp.";
+
+window.open("https://wa.me/"+numero+"?text="+m,"_blank");
 }
 </script>
 

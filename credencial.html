@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carnet Editable</title>
+<style>
+body{
+    background:#e6e6e6;
+    font-family: Arial, sans-serif;
+}
+.carnet{
+    width:500px;
+    height:300px;
+    background:#ffffff;
+    border:2px solid #000;
+    border-radius:10px;
+    margin:50px auto;
+    display:flex;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+.lado-izq{
+    width:35%;
+    background:#1c3d6e;
+    color:#fff;
+    padding:10px;
+    text-align:center;
+    border-top-left-radius:10px;
+    border-bottom-left-radius:10px;
+}
+.lado-izq img{
+    width:100px;
+    height:120px;
+    object-fit:cover;
+    border:2px solid #fff;
+    margin-top:10px;
+}
+.lado-der{
+    width:65%;
+    padding:15px;
+}
+.titulo{
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:10px;
+}
+.dato{
+    margin:5px 0;
+    font-size:14px;
+}
+.label{
+    font-weight:bold;
+}
+.codigo{
+    margin-top:15px;
+    font-size:12px;
+}
+</style>
+</head>
+<body><div class="carnet"><div class="lado-izq">
+    <div>REPRIV</div>
+    <!-- FOTO POR LINK -->
+    <img src="https://via.placeholder.com/100x120" alt="Foto">
+    <div class="codigo">ID: 000000</div>
+</div>
+
+<div class="lado-der">
+    <div class="titulo">CARNET DE REGISTRO</div>
+
+    <div class="dato"><span class="label">Nombre:</span> Juan</div>
+    <div class="dato"><span class="label">Apellido:</span> Pérez</div>
+    <div class="dato"><span class="label">DNI:</span> 00000000</div>
+    <div class="dato"><span class="label">Fecha de Nacimiento:</span> 00/00/0000</div>
+    <div class="dato"><span class="label">Nacionalidad:</span> Argentina</div>
+    <div class="dato"><span class="label">Registro:</span> Activo</div>
+    <div class="dato"><span class="label">Vencimiento:</span> 00/00/0000</div>
+
+</div>
+
+</div></body>
+</html>

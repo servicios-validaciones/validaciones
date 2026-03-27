@@ -2,176 +2,93 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Oficial Realista</title>
+<title>Sello Secundario Pro Vertical</title>
 
 <style>
 body {
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin: 0;
+  background: transparent;
 }
 
-/* CONTENEDOR */
+/* tinta más real */
 .sello {
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  position: relative;
-}
-
-/* DOBLE ARO NEGRO */
-.sello::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 5px solid black;
-  border-radius: 50%;
-}
-
-.sello::after {
-  content: "";
-  position: absolute;
-  width: 290px;
-  height: 290px;
-  border: 2px solid black;
-  border-radius: 50%;
-  top: 25px;
-  left: 25px;
-}
-
-/* TEXTO */
-.texto {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  font-family: Arial, sans-serif;
-  color: black;
-  text-align: center;
-}
-
-.texto span {
-  position: absolute;
-  left: 50%;
-  transform-origin: 0 170px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-/* ESCUDO */
-.escudo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.escudo img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  filter: grayscale(100%) contrast(300%) brightness(0);
-}
-
-/* ESTRELLAS */
-.estrella {
-  position: absolute;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.estrella.izq {
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.estrella.der {
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* EFECTO TINTA REAL */
-.tinta {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://www.transparenttextures.com/patterns/ink.png");
-  opacity: 0.25;
-  border-radius: 50%;
-  pointer-events: none;
+  filter: contrast(1.08) brightness(0.96);
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="sello">
+<svg class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- EFECTO TINTA -->
-  <div class="tinta"></div>
+  <!-- Grupo principal -->
+  <g stroke="#111" fill="none">
 
-  <!-- TEXTO SUPERIOR -->
-  <div class="texto" id="textoSuperior"></div>
+    <!-- Óvalo externo (más natural) -->
+    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
 
-  <!-- TEXTO INFERIOR -->
-  <div class="texto" id="textoInferior"></div>
+    <!-- Óvalo interno -->
+    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
 
-  <!-- ESTRELLAS -->
-  <div class="estrella izq">★</div>
-  <div class="estrella der">★</div>
+    <!-- Definiciones -->
+    <defs>
+      <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180" />
+      <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180" />
 
-  <!-- ESCUDO -->
-  <div class="escudo">
-    <img id="logo" src="https://via.placeholder.com/120">
-  </div>
+      <!-- desgaste sutil -->
+      <filter id="noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
+        <feComponentTransfer>
+          <feFuncA type="table" tableValues="0 0.10"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
 
-</div>
+    <!-- Texto superior -->
+    <text font-size="12.5" letter-spacing="1.8"
+          font-family="Arial, Helvetica, sans-serif">
+      <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+        ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
+      </textPath>
+    </text>
 
-<script>
-function textoCircular(id, texto, radio, inicio, direccion = 1) {
-  const contenedor = document.getElementById(id);
-  contenedor.innerHTML = "";
-  const letras = texto.split("");
+    <!-- Texto inferior -->
+    <text font-size="11.5" letter-spacing="1.5"
+          font-family="Arial, Helvetica, sans-serif">
+      <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+        CUE 06-12345678-0 · PROV. BS. AS.
+      </textPath>
+    </text>
 
-  letras.forEach((letra, i) => {
-    const span = document.createElement("span");
-    span.innerText = letra;
+    <!-- Nombre (más protagonista) -->
+    <text x="130" y="150"
+          text-anchor="middle"
+          font-size="16"
+          font-weight="bold"
+          font-family="Times New Roman, serif"
+          letter-spacing="1">
+      “JOSÉ HERNÁNDEZ”
+    </text>
 
-    let angulo = inicio + (i * (180 / (letras.length - 1))) * direccion;
+    <!-- Línea más fina -->
+    <line x1="65" y1="180" x2="195" y2="180"
+          stroke="#111"
+          stroke-width="0.8"/>
 
-    span.style.transform =
-      `rotate(${angulo}deg)
-       translate(${radio}px)
-       rotate(${angulo > 90 || angulo < -90 ? 180 : 0}deg)`;
+    <!-- Texto institucional -->
+    <text x="130" y="205"
+          text-anchor="middle"
+          font-size="11.5"
+          font-family="Arial, Helvetica, sans-serif">
+      DIR. GRAL. DE CULTURA Y EDUCACIÓN
+    </text>
 
-    contenedor.appendChild(span);
-  });
-}
+  </g>
 
-/* 🔧 TEXTO EDITABLE */
-textoCircular(
-  "textoSuperior",
-  "DIRECCION GENERAL DE CULTURA Y EDUCACION",
-  150,
-  -90,
-  1
-);
+  <!-- textura muy leve -->
+  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/>
 
-textoCircular(
-  "textoInferior",
-  "PROVINCIA DE BUENOS AIRES",
-  150,
-  90,
-  -1
-);
-
-/* 🔧 CAMBIAR ESCUDO */
-document.getElementById("logo").src = "https://via.placeholder.com/120";
-</script>
+</svg>
 
 </body>
 </html>

@@ -2,39 +2,54 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Pro Realista</title>
+<title>Sello Pro Final</title>
 
 <style>
 body {
   margin: 0;
   background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
-/* efecto general */
+/* estilo general */
 .sello {
-  filter: contrast(1.15) brightness(0.92);
+  filter: contrast(1.2) brightness(0.95);
+}
+
+/* botón */
+button {
+  padding: 10px 18px;
+  border: none;
+  background: black;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
 }
 </style>
 </head>
 
 <body>
 
-<svg class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
+<svg id="svgSello" class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
   <defs>
     <!-- textura tinta real -->
     <filter id="ink">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2"/>
-      <feDisplacementMap in="SourceGraphic" scale="1.2"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="0.8"/>
       <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.15"/>
+        <feFuncA type="table" tableValues="0 0.2"/>
       </feComponentTransfer>
     </filter>
 
-    <!-- leve deformación -->
-    <filter id="warp">
-      <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2"/>
-      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    <!-- leve imperfección -->
+    <filter id="rough">
+      <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="1.2"/>
     </filter>
 
     <!-- caminos -->
@@ -42,24 +57,22 @@ body {
     <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180"/>
   </defs>
 
-  <!-- grupo con leve deformación -->
-  <g stroke="#111" fill="none" filter="url(#warp)">
+  <!-- grupo principal -->
+  <g stroke="#000" fill="none" filter="url(#rough)">
 
-    <!-- óvalo externo irregular -->
+    <!-- óvalo externo (línea continua real) -->
     <ellipse cx="130" cy="180" rx="108" ry="158"
-      stroke-width="3.2"
-      stroke-dasharray="0.5 0.6"/>
+      stroke-width="3.2"/>
 
     <!-- óvalo interno -->
     <ellipse cx="130" cy="180" rx="96" ry="138"
-      stroke-width="1.1"
-      stroke-dasharray="0.3 0.7"/>
+      stroke-width="1.2"/>
 
     <!-- TEXTO SUPERIOR -->
     <text font-size="12.5"
-          letter-spacing="2"
+          letter-spacing="1.8"
           font-family="Arial, Helvetica, sans-serif"
-          fill="#111">
+          fill="#000">
       <textPath href="#topArc" startOffset="50%" text-anchor="middle">
         ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
       </textPath>
@@ -67,9 +80,9 @@ body {
 
     <!-- TEXTO INFERIOR -->
     <text font-size="11.2"
-          letter-spacing="1.6"
+          letter-spacing="1.4"
           font-family="Arial, Helvetica, sans-serif"
-          fill="#111">
+          fill="#000">
       <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
         CUE 06-12345678-0 · PROVINCIA DE BUENOS AIRES
       </textPath>
@@ -81,14 +94,14 @@ body {
           font-size="17"
           font-weight="bold"
           font-family="Times New Roman, serif"
-          letter-spacing="1.2"
-          fill="#111">
+          letter-spacing="1"
+          fill="#000">
       “JOSÉ HERNÁNDEZ”
     </text>
 
     <!-- línea -->
     <line x1="70" y1="180" x2="190" y2="180"
-          stroke="#111"
+          stroke="#000"
           stroke-width="0.9"/>
 
     <!-- TEXTO CENTRAL -->
@@ -96,22 +109,60 @@ body {
           text-anchor="middle"
           font-size="11.5"
           font-family="Arial, Helvetica, sans-serif"
-          fill="#111">
+          fill="#000">
       DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN
     </text>
 
-    <!-- ESCUDO (EDITABLE) -->
-    <image href="https://via.placeholder.com/80"
+    <!-- ESCUDO -->
+    <image id="logo"
+           href="https://via.placeholder.com/80"
            x="90" y="215"
-           width="80" height="80"
-           opacity="0.9"
-           style="filter: grayscale(100%) contrast(200%) brightness(0);"/>
+           width="80"
+           height="80"
+           style="filter: grayscale(100%) contrast(300%) brightness(0);"/>
   </g>
 
   <!-- capa tinta -->
-  <rect width="100%" height="100%" filter="url(#ink)" opacity="0.25"/>
+  <rect width="100%" height="100%" filter="url(#ink)" opacity="0.22"/>
 
 </svg>
+
+<button onclick="descargarPNG()">Descargar PNG</button>
+
+<script>
+function descargarPNG() {
+  const svg = document.getElementById("svgSello");
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
+
+  const img = new Image();
+  const svgBlob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+    canvas.width = 520;
+    canvas.height = 720;
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const png = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = png;
+    link.download = "sello.png";
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+}
+</script>
 
 </body>
 </html>

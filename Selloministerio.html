@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Oficial</title>
+<title>Sello Oficial Pro</title>
 
 <style>
 body {
@@ -13,52 +13,56 @@ body {
   height: 100vh;
 }
 
+/* CONTENEDOR */
 .sello {
-  width: 320px;
-  height: 320px;
-  border: 4px solid #ccc;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
   position: relative;
-  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+  filter: contrast(120%) brightness(110%);
+}
+
+/* DOBLE ARO */
+.sello::before,
+.sello::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
 }
 
 .sello::before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 290px;
-  height: 290px;
-  border: 2px solid #aaa;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border: 4px solid #ddd;
 }
 
+.sello::after {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #aaa;
+  top: 20px;
+  left: 20px;
+}
+
+/* TEXTO */
 .texto {
   position: absolute;
   width: 100%;
   height: 100%;
-  font-family: Arial, sans-serif;
-  color: #ddd;
+  font-family: "Arial Black", Arial, sans-serif;
+  color: #eee;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .texto span {
   position: absolute;
   left: 50%;
-  transform-origin: 0 160px;
-  font-size: 14px;
-  font-weight: bold;
+  transform-origin: 0 170px;
+  font-size: 13px;
 }
 
-.superior span {
-  top: 0;
-}
-
-.inferior span {
-  bottom: 0;
-  transform-origin: 0 -160px;
-}
-
+/* ESCUDO */
 .escudo {
   position: absolute;
   top: 50%;
@@ -67,33 +71,84 @@ body {
 }
 
 .escudo img {
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
-  filter: grayscale(100%) brightness(200%);
+  filter: grayscale(100%) contrast(200%) brightness(180%);
 }
-</style>
 
+/* EFECTO TINTA */
+.sello {
+  position: relative;
+}
+
+.sello::marker,
+.sello::selection {
+  display: none;
+}
+
+/* textura ruido */
+.sello::before {
+  box-shadow:
+    0 0 3px #fff,
+    inset 0 0 8px rgba(255,255,255,0.3);
+}
+
+.grano {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  opacity: 0.15;
+  border-radius: 50%;
+}
+
+/* ESTRELLAS */
+.estrella {
+  position: absolute;
+  color: #eee;
+  font-size: 18px;
+}
+
+.estrella.izq {
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.estrella.der {
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+</style>
 </head>
 <body>
 
 <div class="sello">
 
+  <div class="grano"></div>
+
   <!-- TEXTO SUPERIOR -->
-  <div class="texto superior" id="textoSuperior"></div>
+  <div class="texto" id="textoSuperior"></div>
 
   <!-- TEXTO INFERIOR -->
-  <div class="texto inferior" id="textoInferior"></div>
+  <div class="texto" id="textoInferior"></div>
+
+  <!-- ESTRELLAS -->
+  <div class="estrella izq">★</div>
+  <div class="estrella der">★</div>
 
   <!-- ESCUDO -->
   <div class="escudo">
-    <img id="logo" src="https://via.placeholder.com/100" alt="Escudo">
+    <img id="logo" src="https://via.placeholder.com/120">
   </div>
 
 </div>
 
 <script>
-function crearTextoCircular(id, texto, radio, invertido=false) {
+function crearTextoCircular(id, texto, radio, invertido=false, offset=0) {
   const contenedor = document.getElementById(id);
   contenedor.innerHTML = "";
   const letras = texto.split("");
@@ -102,21 +157,37 @@ function crearTextoCircular(id, texto, radio, invertido=false) {
     const span = document.createElement("span");
     span.innerText = letra;
 
-    let angulo = (i * (360 / letras.length));
+    let angulo = (i * (360 / letras.length)) + offset;
     if (invertido) angulo = -angulo;
 
-    span.style.transform = `rotate(${angulo}deg) translate(${radio}px) rotate(${invertido ? 180 : 0}deg)`;
+    span.style.transform =
+      `rotate(${angulo}deg)
+       translate(${radio}px)
+       rotate(${invertido ? 180 : 0}deg)`;
 
     contenedor.appendChild(span);
   });
 }
 
-// 🔧 EDITÁ ACÁ LOS TEXTOS
-crearTextoCircular("textoSuperior", "DIRECCION GENERAL DE CULTURA Y EDUCACION", 140);
-crearTextoCircular("textoInferior", "PROVINCIA DE BUENOS AIRES ★", 140, true);
+/* 🔧 EDITÁ ACÁ */
+crearTextoCircular(
+  "textoSuperior",
+  "DIRECCION GENERAL DE CULTURA Y EDUCACION",
+  150,
+  false,
+  -90
+);
 
-// 🔧 CAMBIÁ EL ESCUDO ACÁ
-document.getElementById("logo").src = "https://via.placeholder.com/100";
+crearTextoCircular(
+  "textoInferior",
+  "PROVINCIA DE BUENOS AIRES",
+  150,
+  true,
+  -90
+);
+
+/* 🔧 CAMBIAR ESCUDO */
+document.getElementById("logo").src = "https://via.placeholder.com/120";
 </script>
 
 </body>

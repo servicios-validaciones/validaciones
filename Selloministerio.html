@@ -2,17 +2,17 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Secundario Pro Vertical</title>
+<title>Sello Pro Realista</title>
 
 <style>
 body {
   margin: 0;
-  background: transparent;
+  background: white;
 }
 
-/* tinta más real */
+/* efecto general */
 .sello {
-  filter: contrast(1.08) brightness(0.96);
+  filter: contrast(1.15) brightness(0.92);
 }
 </style>
 </head>
@@ -21,72 +21,95 @@ body {
 
 <svg class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- Grupo principal -->
-  <g stroke="#111" fill="none">
+  <defs>
+    <!-- textura tinta real -->
+    <filter id="ink">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="1.2"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.15"/>
+      </feComponentTransfer>
+    </filter>
 
-    <!-- Óvalo externo (más natural) -->
-    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
+    <!-- leve deformación -->
+    <filter id="warp">
+      <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    </filter>
 
-    <!-- Óvalo interno -->
-    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+    <!-- caminos -->
+    <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180"/>
+    <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180"/>
+  </defs>
 
-    <!-- Definiciones -->
-    <defs>
-      <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180" />
-      <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180" />
+  <!-- grupo con leve deformación -->
+  <g stroke="#111" fill="none" filter="url(#warp)">
 
-      <!-- desgaste sutil -->
-      <filter id="noise">
-        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
-        <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 0.10"/>
-        </feComponentTransfer>
-      </filter>
-    </defs>
+    <!-- óvalo externo irregular -->
+    <ellipse cx="130" cy="180" rx="108" ry="158"
+      stroke-width="3.2"
+      stroke-dasharray="0.5 0.6"/>
 
-    <!-- Texto superior -->
-    <text font-size="12.5" letter-spacing="1.8"
-          font-family="Arial, Helvetica, sans-serif">
+    <!-- óvalo interno -->
+    <ellipse cx="130" cy="180" rx="96" ry="138"
+      stroke-width="1.1"
+      stroke-dasharray="0.3 0.7"/>
+
+    <!-- TEXTO SUPERIOR -->
+    <text font-size="12.5"
+          letter-spacing="2"
+          font-family="Arial, Helvetica, sans-serif"
+          fill="#111">
       <textPath href="#topArc" startOffset="50%" text-anchor="middle">
         ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
       </textPath>
     </text>
 
-    <!-- Texto inferior -->
-    <text font-size="11.5" letter-spacing="1.5"
-          font-family="Arial, Helvetica, sans-serif">
+    <!-- TEXTO INFERIOR -->
+    <text font-size="11.2"
+          letter-spacing="1.6"
+          font-family="Arial, Helvetica, sans-serif"
+          fill="#111">
       <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-        CUE 06-12345678-0 · PROV. BS. AS.
+        CUE 06-12345678-0 · PROVINCIA DE BUENOS AIRES
       </textPath>
     </text>
 
-    <!-- Nombre (más protagonista) -->
-    <text x="130" y="150"
+    <!-- NOMBRE -->
+    <text x="130" y="145"
           text-anchor="middle"
-          font-size="16"
+          font-size="17"
           font-weight="bold"
           font-family="Times New Roman, serif"
-          letter-spacing="1">
+          letter-spacing="1.2"
+          fill="#111">
       “JOSÉ HERNÁNDEZ”
     </text>
 
-    <!-- Línea más fina -->
-    <line x1="65" y1="180" x2="195" y2="180"
+    <!-- línea -->
+    <line x1="70" y1="180" x2="190" y2="180"
           stroke="#111"
-          stroke-width="0.8"/>
+          stroke-width="0.9"/>
 
-    <!-- Texto institucional -->
+    <!-- TEXTO CENTRAL -->
     <text x="130" y="205"
           text-anchor="middle"
           font-size="11.5"
-          font-family="Arial, Helvetica, sans-serif">
-      DIR. GRAL. DE CULTURA Y EDUCACIÓN
+          font-family="Arial, Helvetica, sans-serif"
+          fill="#111">
+      DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN
     </text>
 
+    <!-- ESCUDO (EDITABLE) -->
+    <image href="https://via.placeholder.com/80"
+           x="90" y="215"
+           width="80" height="80"
+           opacity="0.9"
+           style="filter: grayscale(100%) contrast(200%) brightness(0);"/>
   </g>
 
-  <!-- textura muy leve -->
-  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/>
+  <!-- capa tinta -->
+  <rect width="100%" height="100%" filter="url(#ink)" opacity="0.25"/>
 
 </svg>
 

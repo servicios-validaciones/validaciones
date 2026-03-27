@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Oficial Pro</title>
+<title>Sello Oficial Realista</title>
 
 <style>
 body {
-  background: black;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,29 +19,27 @@ body {
   height: 340px;
   border-radius: 50%;
   position: relative;
-  filter: contrast(120%) brightness(110%);
 }
 
-/* DOBLE ARO */
-.sello::before,
-.sello::after {
+/* DOBLE ARO NEGRO */
+.sello::before {
   content: "";
   position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 5px solid black;
   border-radius: 50%;
 }
 
-.sello::before {
-  width: 100%;
-  height: 100%;
-  border: 4px solid #ddd;
-}
-
 .sello::after {
-  width: 300px;
-  height: 300px;
-  border: 2px solid #aaa;
-  top: 20px;
-  left: 20px;
+  content: "";
+  position: absolute;
+  width: 290px;
+  height: 290px;
+  border: 2px solid black;
+  border-radius: 50%;
+  top: 25px;
+  left: 25px;
 }
 
 /* TEXTO */
@@ -49,10 +47,9 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  font-family: "Arial Black", Arial, sans-serif;
-  color: #eee;
+  font-family: Arial, sans-serif;
+  color: black;
   text-align: center;
-  letter-spacing: 1px;
 }
 
 .texto span {
@@ -60,6 +57,7 @@ body {
   left: 50%;
   transform-origin: 0 170px;
   font-size: 13px;
+  font-weight: bold;
 }
 
 /* ESCUDO */
@@ -74,40 +72,14 @@ body {
   width: 110px;
   height: 110px;
   object-fit: contain;
-  filter: grayscale(100%) contrast(200%) brightness(180%);
-}
-
-/* EFECTO TINTA */
-.sello {
-  position: relative;
-}
-
-.sello::marker,
-.sello::selection {
-  display: none;
-}
-
-/* textura ruido */
-.sello::before {
-  box-shadow:
-    0 0 3px #fff,
-    inset 0 0 8px rgba(255,255,255,0.3);
-}
-
-.grano {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
-  opacity: 0.15;
-  border-radius: 50%;
+  filter: grayscale(100%) contrast(300%) brightness(0);
 }
 
 /* ESTRELLAS */
 .estrella {
   position: absolute;
-  color: #eee;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .estrella.izq {
@@ -122,13 +94,25 @@ body {
   transform: translateY(-50%);
 }
 
+/* EFECTO TINTA REAL */
+.tinta {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/ink.png");
+  opacity: 0.25;
+  border-radius: 50%;
+  pointer-events: none;
+}
 </style>
+
 </head>
 <body>
 
 <div class="sello">
 
-  <div class="grano"></div>
+  <!-- EFECTO TINTA -->
+  <div class="tinta"></div>
 
   <!-- TEXTO SUPERIOR -->
   <div class="texto" id="textoSuperior"></div>
@@ -148,7 +132,7 @@ body {
 </div>
 
 <script>
-function crearTextoCircular(id, texto, radio, invertido=false, offset=0) {
+function textoCircular(id, texto, radio, inicio, direccion = 1) {
   const contenedor = document.getElementById(id);
   contenedor.innerHTML = "";
   const letras = texto.split("");
@@ -157,33 +141,32 @@ function crearTextoCircular(id, texto, radio, invertido=false, offset=0) {
     const span = document.createElement("span");
     span.innerText = letra;
 
-    let angulo = (i * (360 / letras.length)) + offset;
-    if (invertido) angulo = -angulo;
+    let angulo = inicio + (i * (180 / (letras.length - 1))) * direccion;
 
     span.style.transform =
       `rotate(${angulo}deg)
        translate(${radio}px)
-       rotate(${invertido ? 180 : 0}deg)`;
+       rotate(${angulo > 90 || angulo < -90 ? 180 : 0}deg)`;
 
     contenedor.appendChild(span);
   });
 }
 
-/* 🔧 EDITÁ ACÁ */
-crearTextoCircular(
+/* 🔧 TEXTO EDITABLE */
+textoCircular(
   "textoSuperior",
   "DIRECCION GENERAL DE CULTURA Y EDUCACION",
   150,
-  false,
-  -90
+  -90,
+  1
 );
 
-crearTextoCircular(
+textoCircular(
   "textoInferior",
   "PROVINCIA DE BUENOS AIRES",
   150,
-  true,
-  -90
+  90,
+  -1
 );
 
 /* 🔧 CAMBIAR ESCUDO */

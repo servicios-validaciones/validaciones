@@ -171,28 +171,40 @@ escudoInput.oninput = () => {
   escudoImg.setAttribute("href", escudoInput.value);
 };
 
+<script>
 function descargarPNG(){
   const svg = document.getElementById("svg");
+
+  // Clonar SVG
+  const clone = svg.cloneNode(true);
+
+  // Fondo blanco (clave para que no salga vacío)
+  const bg = document.createElementNS("http://www.w3.org/2000/svg","rect");
+  bg.setAttribute("width","100%");
+  bg.setAttribute("height","100%");
+  bg.setAttribute("fill","#ffffff");
+  clone.insertBefore(bg, clone.firstChild);
+
   const serializer = new XMLSerializer();
-  const svgString = serializer.serializeToString(svg);
+  let svgString = serializer.serializeToString(clone);
+
+  // FIX encoding
+  svgString = btoa(unescape(encodeURIComponent(svgString)));
+
+  const img = new Image();
+  img.src = "data:image/svg+xml;base64," + svgString;
 
   const canvas = document.createElement("canvas");
   canvas.width = 1000;
   canvas.height = 700;
 
   const ctx = canvas.getContext("2d");
-  const img = new Image();
-  img.crossOrigin = "anonymous";
-
-  const blob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
 
   img.onload = function(){
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    URL.revokeObjectURL(url);
 
     const a = document.createElement("a");
-    a.download = "sello_ovalado.png";
+    a.download = "sello.png";
     a.href = canvas.toDataURL("image/png");
     a.click();
   };

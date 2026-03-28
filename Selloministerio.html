@@ -1,7 +1,10 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Secundario Pro Vertical</title><style>
+<title>Sello Secundario Pro Vertical</title>
+
+<style>
 body {
   margin: 0;
   background: white;
@@ -13,7 +16,7 @@ body {
 }
 
 .sello {
-  filter: contrast(1.08) brightness(0.96);
+  filter: contrast(1.08) brightness(0.96) url(#inkBleed);
 }
 
 input {
@@ -25,55 +28,82 @@ button {
   padding: 8px 12px;
   cursor: pointer;
 }
-</style></head><body><input id="imgLink" placeholder="Pegá link de imagen (escudo)" />
-<button onclick="descargarPNG()">Descargar PNG</button><svg id="sello" class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">  <g stroke="#111" fill="none"><ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
-<ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+</style>
+</head>
 
-<defs>
-  <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180" />
-  <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180" />
+<body>
 
-  <filter id="noise">
-    <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
-    <feComponentTransfer>
-      <feFuncA type="table" tableValues="0 0.10"/>
-    </feComponentTransfer>
-  </filter>
-</defs>
+<input id="imgLink" placeholder="Pegá link de imagen (escudo)" />
+<button onclick="descargarPNG()">Descargar PNG</button>
 
-<!-- EDITABLE TEXTOS -->
-<text contenteditable="true" font-size="12.5" letter-spacing="1.9"
-      font-family="Arial, Helvetica, sans-serif">
-  <textPath href="#topArc" startOffset="50%" text-anchor="middle">
-    DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN 
-  </textPath>
-</text>
+<svg id="sello" class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
-<text contenteditable="true" font-size="11.5" letter-spacing="1.5"
-      font-family="Arial, Helvetica, sans-serif">
-  <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-    PROVINCIA DE BUENOS AIRES 
-  </textPath>
-</text>
+  <defs>
+    <!-- EFECTO PRESIÓN DE TINTA -->
+    <filter id="inkBleed">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="0.3"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.85 1"/>
+      </feComponentTransfer>
+    </filter>
 
-<!-- IMAGEN -->
-<foreignObject x="90" y="110" width="80" height="80">
-  <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;">
-    <img id="logo" src="https://logoeps.com/wp-content/uploads/2013/01/escudo-de-la-republica-argentina-logo-vector.png" 
-         style="width:80px; height:80px; object-fit:contain;" />
-  </body>
-</foreignObject>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.10"/>
+      </feComponentTransfer>
+    </filter>
 
-<line x1="65" y1="200" x2="195" y2="200" stroke="#111" stroke-width="0.8"/>
+    <!-- ARCOS AJUSTADOS AL BORDE REAL -->
+    <path id="topArc" d="M 22 180 A 108 158 0 0 1 238 180" />
+    <path id="bottomArc" d="M 22 180 A 108 158 0 0 0 238 180" />
+  </defs>
 
-<text contenteditable="true" x="130" y="225"
-      text-anchor="middle"
-      font-size="11.5"
-      font-family="Arial, Helvetica, sans-serif">
-  
-</text>
+  <g stroke="#111" fill="none">
 
-  </g>  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/></svg><script>
+    <!-- ELIPSES -->
+    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
+    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+
+    <!-- TEXTO SUPERIOR -->
+    <text contenteditable="true" font-size="12.5" letter-spacing="1.9"
+          font-family="Arial, Helvetica, sans-serif">
+      <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+        DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN 
+      </textPath>
+    </text>
+
+    <!-- TEXTO INFERIOR -->
+    <text contenteditable="true" font-size="11.5" letter-spacing="1.5"
+          font-family="Arial, Helvetica, sans-serif">
+      <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+        PROVINCIA DE BUENOS AIRES 
+      </textPath>
+    </text>
+
+    <!-- ESCUDO MÁS GRANDE -->
+    <foreignObject x="55" y="85" width="150" height="150">
+      <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;">
+        <img id="logo" src="https://logoeps.com/wp-content/uploads/2013/01/escudo-de-la-republica-argentina-logo-vector.png" 
+             style="width:150px; height:150px; object-fit:contain;" />
+      </body>
+    </foreignObject>
+
+    <!-- TEXTO CENTRAL -->
+    <text contenteditable="true" x="130" y="255"
+          text-anchor="middle"
+          font-size="11.5"
+          font-family="Arial, Helvetica, sans-serif">
+    </text>
+
+  </g>
+
+  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/>
+</svg>
+
+<script>
 // cambiar imagen en vivo
 const input = document.getElementById("imgLink");
 const logo = document.getElementById("logo");
@@ -111,5 +141,7 @@ function descargarPNG() {
 
   img.src = url;
 }
-</script></body>
+</script>
+
+</body>
 </html>

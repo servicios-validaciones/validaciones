@@ -9,22 +9,31 @@ body {
   margin: 0;
   background: black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   height: 100vh;
 }
 
 .sello {
   width: 260px;
   height: 360px;
-  filter: contrast(1.4) brightness(1.2);
+  filter: contrast(2) brightness(1.1) grayscale(1);
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<svg class="sello" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
+<button onclick="descargarPNG()">Descargar PNG</button>
+
+<svg id="sello" class="sello" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
 <defs>
 
@@ -82,10 +91,42 @@ body {
 
 </g>
 
-<!-- BRILLO LOCAL (mancha tipo foto) -->
+<!-- BRILLO LOCAL -->
 <ellipse cx="200" cy="270" rx="40" ry="20" fill="white" opacity="0.15" filter="url(#shine)"/>
 
 </svg>
+
+<script>
+function descargarPNG() {
+  const svg = document.getElementById("sello");
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
+
+  const img = new Image();
+  const svgBlob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = function() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 260;
+    canvas.height = 360;
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+
+    const a = document.createElement("a");
+    a.download = "sello.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  };
+
+  img.src = url;
+}
+</script>
 
 </body>
 </html>

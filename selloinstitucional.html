@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Editor de Sellos Universitarios v1.32.0</title>
+<title>Editor de Sellos v1.32.1</title>
 
 <style>
 body {
@@ -70,6 +70,10 @@ Editor de Sellos Universitarios v1.32.0
 <input id="innerInput" value="INSTITUTO SUPERIOR DE NIVEL TERCIARIO MACHAGAI">
 </label>
 
+<label>Texto adicional
+<input id="extraInput" value="RESOLUCIÓN 123/24">
+</label>
+
 <label>Link escudo (URL)
 <input id="escudoInput" placeholder="https://...">
 </label>
@@ -130,9 +134,15 @@ Editor de Sellos Universitarios v1.32.0
   </textPath>
 </text>
 
+<!-- NUEVO TEXTO -->
+<text id="extraText" x="210" y="150" text-anchor="middle"
+      font-size="12"
+      font-family="Georgia, serif">
+  RESOLUCIÓN 123/24
+</text>
+
 </g>
 
-<!-- ESCUDO DINÁMICO -->
 <image id="escudoImg"
   x="165" y="85"
   width="90" height="130"
@@ -152,22 +162,24 @@ const bottomOuterInput = document.getElementById("bottomOuterInput");
 const innerInput = document.getElementById("innerInput");
 const colorInput = document.getElementById("colorInput");
 const escudoInput = document.getElementById("escudoInput");
+const extraInput = document.getElementById("extraInput");
 
 const topOuter = document.getElementById("topOuter");
 const bottomOuter = document.getElementById("bottomOuter");
 const innerText = document.getElementById("innerText");
 const grupo = document.getElementById("grupo");
 const escudoImg = document.getElementById("escudoImg");
+const extraText = document.getElementById("extraText");
 
 topOuterInput.oninput = () => topOuter.textContent = topOuterInput.value;
 bottomOuterInput.oninput = () => bottomOuter.textContent = bottomOuterInput.value;
 innerInput.oninput = () => innerText.textContent = innerInput.value;
+extraInput.oninput = () => extraText.textContent = extraInput.value;
 
 colorInput.oninput = () => {
   grupo.setAttribute("stroke", colorInput.value);
 };
 
-// NUEVO: cargar escudo por URL
 escudoInput.oninput = () => {
   escudoImg.setAttribute("href", escudoInput.value);
 };

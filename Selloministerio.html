@@ -1,172 +1,115 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Ministerio Editable</title>
-
-<style>
+<title>Sello Secundario Pro Vertical</title><style>
 body {
   margin: 0;
   background: white;
-  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  font-family: Arial;
 }
 
-/* PANEL */
-.panel {
-  background: #f5f5f5;
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 260px;
+.sello {
+  filter: contrast(1.08) brightness(0.96);
 }
 
 input {
-  padding: 5px;
-  font-size: 12px;
+  padding: 6px;
+  width: 260px;
 }
 
-/* BOTÓN */
 button {
-  padding: 8px;
-  border: none;
-  background: black;
-  color: white;
-  font-weight: bold;
+  padding: 8px 12px;
   cursor: pointer;
 }
+</style></head><body><input id="imgLink" placeholder="Pegá link de imagen (escudo)" />
+<button onclick="descargarPNG()">Descargar PNG</button><svg id="sello" class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">  <g stroke="#111" fill="none"><ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
+<ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
 
-/* SELLO */
-.sello {
-  filter: contrast(1.2) brightness(0.95);
-}
-</style>
-</head>
+<defs>
+  <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180" />
+  <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180" />
 
-<body>
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
+    <feComponentTransfer>
+      <feFuncA type="table" tableValues="0 0.10"/>
+    </feComponentTransfer>
+  </filter>
+</defs>
 
-<div class="panel">
-  <input id="sup" value="MINISTERIO DE EDUCACIÓN">
-  <input id="mid" value="DIRECCIÓN DE EDUCACIÓN SECUNDARIA">
-  <input id="inf" value="REPÚBLICA ARGENTINA">
-  <button onclick="actualizar()">Actualizar</button>
-  <button onclick="descargarPNG()">Descargar PNG</button>
-</div>
+<!-- EDITABLE TEXTOS -->
+<text contenteditable="true" font-size="12.5" letter-spacing="1.8"
+      font-family="Arial, Helvetica, sans-serif">
+  <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+    ESCUELA DE EDUCACIÓN SECUNDARIA N° 12
+  </textPath>
+</text>
 
-<svg id="svgSello" class="sello" width="260" height="360" viewBox="0 0 260 360">
+<text contenteditable="true" font-size="11.5" letter-spacing="1.5"
+      font-family="Arial, Helvetica, sans-serif">
+  <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+    CUE 06-12345678-0 · PROV. BS. AS.
+  </textPath>
+</text>
 
-  <defs>
-    <!-- textura tinta -->
-    <filter id="ink">
-      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3"/>
-      <feDisplacementMap in="SourceGraphic" scale="0.8"/>
-      <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.2"/>
-      </feComponentTransfer>
-    </filter>
+<!-- IMAGEN -->
+<foreignObject x="90" y="110" width="80" height="80">
+  <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;">
+    <img id="logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhuVeSst17hH3WCZQ_9HgWuIUYrCjuCpX30ISy7l6ANj7xYx_MwiNsCaEd6rsW5z0nsywP8NSEHsiyxpXzQ00ZkF3ra1XLDbPAiglTGNiTFK7AzR_NKjh2muKfY3oRfF6LLs47Bcasm5opZ/s1600/1227507319742906.gif" 
+         style="width:80px; height:80px; object-fit:contain;" />
+  </body>
+</foreignObject>
 
-    <filter id="rough">
-      <feTurbulence type="turbulence" baseFrequency="0.015"/>
-      <feDisplacementMap in="SourceGraphic" scale="1.2"/>
-    </filter>
+<line x1="65" y1="200" x2="195" y2="200" stroke="#111" stroke-width="0.8"/>
 
-    <path id="topArc" d="M 45 180 A 85 135 0 0 1 215 180"/>
-    <path id="bottomArc" d="M 45 180 A 85 135 0 0 0 215 180"/>
-  </defs>
+<text contenteditable="true" x="130" y="225"
+      text-anchor="middle"
+      font-size="11.5"
+      font-family="Arial, Helvetica, sans-serif">
+  DIR. GRAL. DE CULTURA Y EDUCACIÓN
+</text>
 
-  <g stroke="#000" fill="none" filter="url(#rough)">
+  </g>  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/></svg><script>
+// cambiar imagen en vivo
+const input = document.getElementById("imgLink");
+const logo = document.getElementById("logo");
 
-    <!-- Óvalos -->
-    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.2"/>
-    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+input.addEventListener("input", () => {
+  if(input.value.trim() !== ""){
+    logo.src = input.value;
+  }
+});
 
-    <!-- TEXTO SUPERIOR -->
-    <text font-size="12.5" letter-spacing="1.8" fill="#000">
-      <textPath id="textSup" href="#topArc" startOffset="50%" text-anchor="middle">
-        MINISTERIO DE EDUCACIÓN
-      </textPath>
-    </text>
-
-    <!-- TEXTO INFERIOR -->
-    <text font-size="11.5" letter-spacing="1.4" fill="#000">
-      <textPath id="textInf" href="#bottomArc" startOffset="50%" text-anchor="middle">
-        REPÚBLICA ARGENTINA
-      </textPath>
-    </text>
-
-    <!-- TEXTO CENTRAL -->
-    <text id="textMid"
-          x="130" y="165"
-          text-anchor="middle"
-          font-size="11"
-          font-weight="bold"
-          fill="#000">
-      DIRECCIÓN DE EDUCACIÓN SECUNDARIA
-    </text>
-
-    <!-- línea -->
-    <line x1="70" y1="185" x2="190" y2="185" stroke="#000" stroke-width="1"/>
-
-    <!-- ESCUDO ARGENTINO -->
-    <image href="https://upload.wikimedia.org/wikipedia/commons/1/1a/Coat_of_arms_of_Argentina.svg"
-           x="90" y="200"
-           width="80"
-           height="80"
-           style="filter: grayscale(100%) contrast(300%) brightness(0);"/>
-  </g>
-
-  <!-- tinta -->
-  <rect width="100%" height="100%" filter="url(#ink)" opacity="0.2"/>
-
-</svg>
-
-<script>
-function actualizar() {
-  document.getElementById("textSup").textContent =
-    document.getElementById("sup").value;
-
-  document.getElementById("textMid").textContent =
-    document.getElementById("mid").value;
-
-  document.getElementById("textInf").textContent =
-    document.getElementById("inf").value;
-}
-
+// descargar PNG
 function descargarPNG() {
-  const svg = document.getElementById("svgSello");
-  const data = new XMLSerializer().serializeToString(svg);
+  const svg = document.getElementById("sello");
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
 
   const img = new Image();
-  const blob = new Blob([data], {type: "image/svg+xml"});
-  const url = URL.createObjectURL(blob);
+  const svgBlob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(svgBlob);
 
-  img.onload = function () {
+  img.onload = function() {
     const canvas = document.createElement("canvas");
-    canvas.width = 520;
-    canvas.height = 720;
+    canvas.width = 260;
+    canvas.height = 360;
     const ctx = canvas.getContext("2d");
 
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
 
     const a = document.createElement("a");
-    a.href = canvas.toDataURL("image/png");
     a.download = "sello.png";
+    a.href = canvas.toDataURL("image/png");
     a.click();
-
-    URL.revokeObjectURL(url);
   };
 
   img.src = url;
 }
-</script>
-
-</body>
+</script></body>
 </html>

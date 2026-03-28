@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Editor de Sellos v1.32.1</title>
+<title>Editor de Sellos Universitarios v1.32.0</title>
 
 <style>
 body {
@@ -34,10 +34,6 @@ body {
   flex-direction:column;
 }
 
-.panel input{
-  padding:5px;
-}
-
 .container{
   display:flex;
   justify-content:center;
@@ -58,15 +54,15 @@ Editor de Sellos Universitarios v1.32.0
 
 <div class="panel">
 
-<label>Texto aro exterior arriba
+<label>Texto aro superior
 <input id="topOuterInput" value="Ministerio de Educación, Cultura, Ciencia y Tecnología">
 </label>
 
-<label>Texto aro exterior abajo
+<label>Texto aro inferior
 <input id="bottomOuterInput" value="PROVINCIA DEL CHACO">
 </label>
 
-<label>Texto aro interior
+<label>Texto interior
 <input id="innerInput" value="INSTITUTO SUPERIOR DE NIVEL TERCIARIO MACHAGAI">
 </label>
 
@@ -74,8 +70,8 @@ Editor de Sellos Universitarios v1.32.0
 <input id="extraInput" value="RESOLUCIÓN 123/24">
 </label>
 
-<label>Link escudo (URL)
-<input id="escudoInput" placeholder="https://...">
+<label>Subir escudo
+<input type="file" id="fileInput" accept="image/*">
 </label>
 
 <label>Color
@@ -93,7 +89,6 @@ Editor de Sellos Universitarios v1.32.0
 <defs>
   <path id="outerTop" d="M 40 150 A 170 100 0 0 1 380 150"/>
   <path id="outerBottom" d="M 40 150 A 170 100 0 0 0 380 150"/>
-  <path id="innerTop" d="M 70 150 A 140 75 0 0 1 350 150"/>
   <path id="innerBottom" d="M 70 150 A 140 75 0 0 0 350 150"/>
 
   <filter id="grain">
@@ -128,12 +123,19 @@ Editor de Sellos Universitarios v1.32.0
   </textPath>
 </text>
 
+<text id="extraText" x="210" y="150" text-anchor="middle"
+      font-size="12"
+      font-family="Georgia, serif">
+  RESOLUCIÓN 123/24
+</text>
+
 </g>
 
+<!-- ESCUDO -->
 <image id="escudoImg"
   x="165" y="85"
-  width="90" height="130"
-  crossorigin="anonymous"
+  width="90"
+  height="130"
 />
 
 <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
@@ -144,41 +146,51 @@ Editor de Sellos Universitarios v1.32.0
 
 <script>
 
+// inputs
 const topOuterInput = document.getElementById("topOuterInput");
 const bottomOuterInput = document.getElementById("bottomOuterInput");
 const innerInput = document.getElementById("innerInput");
-const colorInput = document.getElementById("colorInput");
-const escudoInput = document.getElementById("escudoInput");
 const extraInput = document.getElementById("extraInput");
+const colorInput = document.getElementById("colorInput");
+const fileInput = document.getElementById("fileInput");
 
+// elementos
 const topOuter = document.getElementById("topOuter");
 const bottomOuter = document.getElementById("bottomOuter");
 const innerText = document.getElementById("innerText");
+const extraText = document.getElementById("extraText");
 const grupo = document.getElementById("grupo");
 const escudoImg = document.getElementById("escudoImg");
-const extraText = document.getElementById("extraText");
 
+// textos
 topOuterInput.oninput = () => topOuter.textContent = topOuterInput.value;
 bottomOuterInput.oninput = () => bottomOuter.textContent = bottomOuterInput.value;
 innerInput.oninput = () => innerText.textContent = innerInput.value;
 extraInput.oninput = () => extraText.textContent = extraInput.value;
 
+// color
 colorInput.oninput = () => {
   grupo.setAttribute("stroke", colorInput.value);
 };
 
-escudoInput.oninput = () => {
-  escudoImg.setAttribute("href", escudoInput.value);
+// subir imagen (SIN CORS)
+fileInput.onchange = function(){
+  const file = fileInput.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    escudoImg.setAttribute("href", e.target.result);
+  };
+  reader.readAsDataURL(file);
 };
 
-<script>
+// DESCARGA PNG (FIX REAL)
 function descargarPNG(){
   const svg = document.getElementById("svg");
-
-  // Clonar SVG
   const clone = svg.cloneNode(true);
 
-  // Fondo blanco (clave para que no salga vacío)
+  // fondo blanco
   const bg = document.createElementNS("http://www.w3.org/2000/svg","rect");
   bg.setAttribute("width","100%");
   bg.setAttribute("height","100%");
@@ -186,27 +198,25 @@ function descargarPNG(){
   clone.insertBefore(bg, clone.firstChild);
 
   const serializer = new XMLSerializer();
-  let svgString = serializer.serializeToString(clone);
-
-  // FIX encoding
-  svgString = btoa(unescape(encodeURIComponent(svgString)));
+  const svgData = serializer.serializeToString(clone);
+  const svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(svgBlob);
 
   const img = new Image();
-  img.src = "data:image/svg+xml;base64," + svgString;
-
-  const canvas = document.createElement("canvas");
-  canvas.width = 1000;
-  canvas.height = 700;
-
-  const ctx = canvas.getContext("2d");
 
   img.onload = function(){
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const canvas = document.createElement("canvas");
+    canvas.width = 1000;
+    canvas.height = 700;
+    const ctx = canvas.getContext("2d");
 
-    const a = document.createElement("a");
-    a.download = "sello.png";
-    a.href = canvas.toDataURL("image/png");
-    a.click();
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+
+    const link = document.createElement("a");
+    link.download = "sello.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
   };
 
   img.src = url;

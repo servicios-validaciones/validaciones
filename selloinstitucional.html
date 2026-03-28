@@ -74,10 +74,19 @@ Editor de Sellos Universitarios v1.32.0
 <input type="file" id="fileInput" accept="image/*">
 </label>
 
+<label>Tamaño
+<input type="range" id="sizeInput" min="40" max="200" value="90">
+</label>
+
+<label>Rotación
+<input type="range" id="rotateInput" min="-180" max="180" value="0">
+</label>
+
 <label>Color
 <input type="color" id="colorInput" value="#333333">
 </label>
 
+<button onclick="centrarEscudo()">Centrar escudo</button>
 <button onclick="descargarPNG()">Descargar PNG</button>
 
 </div>
@@ -90,6 +99,10 @@ Editor de Sellos Universitarios v1.32.0
   <path id="outerTop" d="M 40 150 A 170 100 0 0 1 380 150"/>
   <path id="outerBottom" d="M 40 150 A 170 100 0 0 0 380 150"/>
   <path id="innerBottom" d="M 70 150 A 140 75 0 0 0 350 150"/>
+
+  <clipPath id="clipEscudo">
+    <ellipse cx="210" cy="150" rx="45" ry="65"/>
+  </clipPath>
 
   <filter id="grain">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
@@ -132,11 +145,14 @@ Editor de Sellos Universitarios v1.32.0
 </g>
 
 <!-- ESCUDO -->
-<image id="escudoImg"
-  x="165" y="85"
-  width="90"
-  height="130"
-/>
+<g id="escudoGroup" clip-path="url(#clipEscudo)">
+  <image id="escudoImg"
+    x="165"
+    y="85"
+    width="90"
+    height="130"
+  />
+</g>
 
 <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
 
@@ -153,6 +169,8 @@ const innerInput = document.getElementById("innerInput");
 const extraInput = document.getElementById("extraInput");
 const colorInput = document.getElementById("colorInput");
 const fileInput = document.getElementById("fileInput");
+const sizeInput = document.getElementById("sizeInput");
+const rotateInput = document.getElementById("rotateInput");
 
 // elementos
 const topOuter = document.getElementById("topOuter");
@@ -162,7 +180,7 @@ const extraText = document.getElementById("extraText");
 const grupo = document.getElementById("grupo");
 const escudoImg = document.getElementById("escudoImg");
 
-// textos
+// texto
 topOuterInput.oninput = () => topOuter.textContent = topOuterInput.value;
 bottomOuterInput.oninput = () => bottomOuter.textContent = bottomOuterInput.value;
 innerInput.oninput = () => innerText.textContent = innerInput.value;
@@ -173,52 +191,114 @@ colorInput.oninput = () => {
   grupo.setAttribute("stroke", colorInput.value);
 };
 
-// subir imagen (SIN CORS)
+// subir imagen
 fileInput.onchange = function(){
-  const file = fileInput.files[0];
-  if(!file) return;
-
   const reader = new FileReader();
-  reader.onload = function(e){
-    escudoImg.setAttribute("href", e.target.result);
-  };
-  reader.readAsDataURL(file);
+  reader.onload = e => escudoImg.setAttribute("href", e.target.result);
+  reader.readAsDataURL(fileInput.files[0]);
 };
 
-// DESCARGA PNG (FIX REAL)
+// estado escudo
+let x=165,y=85,scale=1,rotation=0;
+let dragging=false;
+
+// tamaño
+sizeInput.oninput = () => {
+  const val = sizeInput.value;
+  escudoImg.setAttribute("width", val);
+  escudoImg.setAttribute("height", val*1.4);
+};
+
+// rotación
+rotateInput.oninput = () => {
+  rotation = rotateInput.value;
+  actualizarTransform();
+};
+
+function actualizarTransform(){
+  escudoImg.setAttribute("transform",
+    `rotate(${rotation} 210 150) scale(${scale})`);
+}
+
+// mover
+escudoImg.addEventListener("mousedown",()=>dragging=true);
+document.addEventListener("mouseup",()=>dragging=false);
+document.addEventListener("mousemove",(e)=>{
+  if(!dragging)return;
+  x=e.clientX-200;
+  y=e.clientY-150;
+  escudoImg.setAttribute("x",x);
+  escudoImg.setAttribute("y",y);
+});
+
+// touch + pinch
+let distInicial=0;
+
+escudoImg.addEventListener("touchstart",(e)=>{
+  dragging=true;
+  if(e.touches.length===2){
+    distInicial = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  }
+});
+
+document.addEventListener("touchmove",(e)=>{
+  if(e.touches.length===2){
+    let dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    scale = dist/distInicial;
+    actualizarTransform();
+  } else if(dragging){
+    x=e.touches[0].clientX-200;
+    y=e.touches[0].clientY-150;
+    escudoImg.setAttribute("x",x);
+    escudoImg.setAttribute("y",y);
+  }
+});
+
+document.addEventListener("touchend",()=>dragging=false);
+
+// centrar
+function centrarEscudo(){
+  x=165;y=85;scale=1;rotation=0;
+  escudoImg.setAttribute("x",x);
+  escudoImg.setAttribute("y",y);
+  actualizarTransform();
+  rotateInput.value=0;
+}
+
+// PNG FIX
 function descargarPNG(){
   const svg = document.getElementById("svg");
   const clone = svg.cloneNode(true);
 
-  // fondo blanco
   const bg = document.createElementNS("http://www.w3.org/2000/svg","rect");
   bg.setAttribute("width","100%");
   bg.setAttribute("height","100%");
   bg.setAttribute("fill","#ffffff");
   clone.insertBefore(bg, clone.firstChild);
 
-  const serializer = new XMLSerializer();
-  const svgData = serializer.serializeToString(clone);
-  const svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
-  const url = URL.createObjectURL(svgBlob);
+  const data = new XMLSerializer().serializeToString(clone);
+  const blob = new Blob([data], {type:"image/svg+xml"});
+  const url = URL.createObjectURL(blob);
 
   const img = new Image();
-
-  img.onload = function(){
+  img.onload = ()=>{
     const canvas = document.createElement("canvas");
     canvas.width = 1000;
     canvas.height = 700;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    URL.revokeObjectURL(url);
+    canvas.getContext("2d").drawImage(img,0,0,1000,700);
 
     const link = document.createElement("a");
-    link.download = "sello.png";
-    link.href = canvas.toDataURL("image/png");
+    link.download="sello.png";
+    link.href=canvas.toDataURL();
     link.click();
+    URL.revokeObjectURL(url);
   };
-
   img.src = url;
 }
 

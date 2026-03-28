@@ -2,146 +2,90 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Sello Secundario Pro Vertical</title>
+<title>Sello estilo real invertido</title>
 
 <style>
 body {
   margin: 0;
-  background: white;
+  background: black;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  font-family: Arial;
+  height: 100vh;
 }
 
 .sello {
-  filter: contrast(1.08) brightness(0.96) url(#inkBleed);
-}
-
-input {
-  padding: 6px;
   width: 260px;
-}
-
-button {
-  padding: 8px 12px;
-  cursor: pointer;
+  height: 360px;
+  filter: contrast(1.4) brightness(1.2);
 }
 </style>
 </head>
 
 <body>
 
-<input id="imgLink" placeholder="Pegá link de imagen (escudo)" />
-<button onclick="descargarPNG()">Descargar PNG</button>
+<svg class="sello" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
 
-<svg id="sello" class="sello" width="260" height="360" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
+<defs>
 
-  <defs>
-    <!-- EFECTO PRESIÓN DE TINTA -->
-    <filter id="inkBleed">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
-      <feGaussianBlur stdDeviation="0.3"/>
-      <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.85 1"/>
-      </feComponentTransfer>
-    </filter>
+<!-- TEXTURA FUERTE -->
+<filter id="ink">
+  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise"/>
+  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2"/>
+  <feGaussianBlur stdDeviation="0.6"/>
+  <feComponentTransfer>
+    <feFuncR type="table" tableValues="0 1"/>
+    <feFuncG type="table" tableValues="0 1"/>
+    <feFuncB type="table" tableValues="0 1"/>
+  </feComponentTransfer>
+</filter>
 
-    <filter id="noise">
-      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2"/>
-      <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.10"/>
-      </feComponentTransfer>
-    </filter>
+<!-- BRILLO DESPAREJO -->
+<filter id="shine">
+  <feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="2" result="t"/>
+  <feBlend in="SourceGraphic" in2="t" mode="screen"/>
+</filter>
 
-    <!-- ARCOS AJUSTADOS AL BORDE REAL -->
-    <path id="topArc" d="M 22 180 A 108 158 0 0 1 238 180" />
-    <path id="bottomArc" d="M 22 180 A 108 158 0 0 0 238 180" />
-  </defs>
+<!-- ARCOS -->
+<path id="topArc" d="M 22 180 A 108 158 0 0 1 238 180" />
+<path id="bottomArc" d="M 22 180 A 108 158 0 0 0 238 180" />
 
-  <g stroke="#111" fill="none">
+</defs>
 
-    <!-- ELIPSES -->
-    <ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
-    <ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
+<g stroke="white" fill="none" filter="url(#ink)">
 
-    <!-- TEXTO SUPERIOR -->
-    <text contenteditable="true" font-size="12.5" letter-spacing="1.9"
-          font-family="Arial, Helvetica, sans-serif">
-      <textPath href="#topArc" startOffset="50%" text-anchor="middle">
-        DIRECCIÓN GENERAL DE CULTURA Y EDUCACIÓN 
-      </textPath>
-    </text>
+<!-- DOBLE BORDE -->
+<ellipse cx="130" cy="180" rx="108" ry="158" stroke-width="3.5"/>
+<ellipse cx="130" cy="180" rx="96" ry="138" stroke-width="1.2"/>
 
-    <!-- TEXTO INFERIOR -->
-    <text contenteditable="true" font-size="11.5" letter-spacing="1.5"
-          font-family="Arial, Helvetica, sans-serif">
-      <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-        PROVINCIA DE BUENOS AIRES 
-      </textPath>
-    </text>
+<!-- TEXTO SUPERIOR -->
+<text font-size="13" letter-spacing="2" fill="white">
+  <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+    DIRECCION GENERAL DE CULTURA Y EDUCACION
+  </textPath>
+</text>
 
-    <!-- ESCUDO MÁS GRANDE -->
-    <foreignObject x="55" y="85" width="150" height="150">
-      <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;">
-        <img id="logo" src="https://logoeps.com/wp-content/uploads/2013/01/escudo-de-la-republica-argentina-logo-vector.png" 
-             style="width:150px; height:150px; object-fit:contain;" />
-      </body>
-    </foreignObject>
+<!-- TEXTO INFERIOR -->
+<text font-size="12" letter-spacing="1.8" fill="white">
+  <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+    ★ PROVINCIA DE BUENOS AIRES ★
+  </textPath>
+</text>
 
-    <!-- TEXTO CENTRAL -->
-    <text contenteditable="true" x="130" y="255"
-          text-anchor="middle"
-          font-size="11.5"
-          font-family="Arial, Helvetica, sans-serif">
-    </text>
+<!-- ESCUDO (SIMPLIFICADO BLANCO) -->
+<g transform="translate(130,180) scale(0.9)" stroke="white" fill="none">
+  <ellipse cx="0" cy="0" rx="30" ry="45" stroke-width="1.5"/>
+  <line x1="-15" y1="0" x2="15" y2="0" stroke-width="1"/>
+  <line x1="0" y1="-30" x2="0" y2="30" stroke-width="1"/>
+  <circle cx="0" cy="-40" r="3" fill="white"/>
+</g>
 
-  </g>
+</g>
 
-  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.25"/>
+<!-- BRILLO LOCAL (mancha tipo foto) -->
+<ellipse cx="200" cy="270" rx="40" ry="20" fill="white" opacity="0.15" filter="url(#shine)"/>
+
 </svg>
-
-<script>
-// cambiar imagen en vivo
-const input = document.getElementById("imgLink");
-const logo = document.getElementById("logo");
-
-input.addEventListener("input", () => {
-  if(input.value.trim() !== ""){
-    logo.src = input.value;
-  }
-});
-
-// descargar PNG
-function descargarPNG() {
-  const svg = document.getElementById("sello");
-  const serializer = new XMLSerializer();
-  const source = serializer.serializeToString(svg);
-
-  const img = new Image();
-  const svgBlob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
-  const url = URL.createObjectURL(svgBlob);
-
-  img.onload = function() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 260;
-    canvas.height = 360;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(img, 0, 0);
-    URL.revokeObjectURL(url);
-
-    const a = document.createElement("a");
-    a.download = "sello.png";
-    a.href = canvas.toDataURL("image/png");
-    a.click();
-  };
-
-  img.src = url;
-}
-</script>
 
 </body>
 </html>

@@ -70,6 +70,10 @@ Editor de Sellos Universitarios v1.32.0
 <input id="innerInput" value="INSTITUTO SUPERIOR DE NIVEL TERCIARIO MACHAGAI">
 </label>
 
+<label>Link escudo (URL)
+<input id="escudoInput" placeholder="https://...">
+</label>
+
 <label>Color
 <input type="color" id="colorInput" value="#333333">
 </label>
@@ -128,13 +132,12 @@ Editor de Sellos Universitarios v1.32.0
 
 </g>
 
-<!-- ESCUDO ARGENTINO INLINE (sin CORS) -->
-<g transform="translate(210,150) scale(0.6)">
-  <ellipse cx="0" cy="0" rx="40" ry="55" fill="#ffffff" stroke="#333"/>
-  <path d="M -40 0 H 40" stroke="#333"/>
-  <path d="M 0 -55 V 55" stroke="#333"/>
-  <circle cx="0" cy="-60" r="6" fill="#333"/>
-</g>
+<!-- ESCUDO DINÁMICO -->
+<image id="escudoImg"
+  x="165" y="85"
+  width="90" height="130"
+  crossorigin="anonymous"
+/>
 
 <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
 
@@ -148,11 +151,13 @@ const topOuterInput = document.getElementById("topOuterInput");
 const bottomOuterInput = document.getElementById("bottomOuterInput");
 const innerInput = document.getElementById("innerInput");
 const colorInput = document.getElementById("colorInput");
+const escudoInput = document.getElementById("escudoInput");
 
 const topOuter = document.getElementById("topOuter");
 const bottomOuter = document.getElementById("bottomOuter");
 const innerText = document.getElementById("innerText");
 const grupo = document.getElementById("grupo");
+const escudoImg = document.getElementById("escudoImg");
 
 topOuterInput.oninput = () => topOuter.textContent = topOuterInput.value;
 bottomOuterInput.oninput = () => bottomOuter.textContent = bottomOuterInput.value;
@@ -160,6 +165,11 @@ innerInput.oninput = () => innerText.textContent = innerInput.value;
 
 colorInput.oninput = () => {
   grupo.setAttribute("stroke", colorInput.value);
+};
+
+// NUEVO: cargar escudo por URL
+escudoInput.oninput = () => {
+  escudoImg.setAttribute("href", escudoInput.value);
 };
 
 function descargarPNG(){
@@ -173,6 +183,7 @@ function descargarPNG(){
 
   const ctx = canvas.getContext("2d");
   const img = new Image();
+  img.crossOrigin = "anonymous";
 
   const blob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
   const url = URL.createObjectURL(blob);

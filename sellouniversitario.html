@@ -34,7 +34,7 @@ body {
   flex-direction:column;
 }
 
-.panel input{
+.panel input, .panel select{
   padding:5px;
 }
 
@@ -70,9 +70,15 @@ Editor de Sellos Universitarios v1.32.0
     <input id="centerInput" value="SIGLO 21">
   </label>
 
-  <!-- NUEVO -->
-  <label>Segundo renglón
-    <input id="center2Input" value="">
+  <!-- NUEVO: selector tipografía -->
+  <label>Tipografía central
+    <select id="fontSelect">
+      <option value="Times New Roman, serif">Times New Roman</option>
+      <option value="Georgia, serif">Georgia</option>
+      <option value="Garamond, serif">Garamond</option>
+      <option value="Arial, sans-serif">Arial</option>
+      <option value="Verdana, sans-serif">Verdana</option>
+    </select>
   </label>
 
   <label>Subtexto
@@ -82,14 +88,11 @@ Editor de Sellos Universitarios v1.32.0
   <label>Color
     <input type="color" id="colorInput" value="#1c2e8a">
   </label>
-
-  <!-- NUEVO -->
-  <button onclick="descargarPNG()">Descargar PNG</button>
 </div>
 
 <div class="container">
 
-<svg id="svg" class="sello" width="320" height="320" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">  
+<svg class="sello" width="320" height="320" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">  
 
   <g id="grupo" stroke="#1c2e8a" fill="none">  
 
@@ -123,25 +126,19 @@ Editor de Sellos Universitarios v1.32.0
       </textPath>  
     </text>  
 
-    <!-- Centro -->
+    <!-- Centro -->  
     <text id="centerText" x="150" y="138" text-anchor="middle"  
-      font-size="24"  
-      font-weight="700"  
-      font-family="Georgia, serif">
-  SIGLO 21  
-    </text>  
-
-    <!-- NUEVO segundo renglón -->
-    <text id="centerText2" x="150" y="150" text-anchor="middle"  
-          font-size="16"  
+          font-size="24"  
+          font-weight="bold"  
           font-family="Times New Roman, serif"  
-          letter-spacing="1.5">  
+          letter-spacing="2">  
+      SIGLO 21  
     </text>  
 
-    <line x1="95" y1="162" x2="205" y2="162" stroke-width="1.2"/>  
+    <line x1="95" y1="152" x2="205" y2="152" stroke-width="1.2"/>  
 
     <!-- Subtexto -->  
-    <text id="subText" x="150" y="184" text-anchor="middle"  
+    <text id="subText" x="150" y="174" text-anchor="middle"  
           font-size="13"  
           font-family="Times New Roman, serif"  
           letter-spacing="1.5">  
@@ -162,15 +159,14 @@ Editor de Sellos Universitarios v1.32.0
 const topInput = document.getElementById("topInput");
 const bottomInput = document.getElementById("bottomInput");
 const centerInput = document.getElementById("centerInput");
-const center2Input = document.getElementById("center2Input"); // nuevo
 const subInput = document.getElementById("subInput");
 const colorInput = document.getElementById("colorInput");
+const fontSelect = document.getElementById("fontSelect"); // nuevo
 
 // elementos svg
 const topText = document.getElementById("topText");
 const bottomText = document.getElementById("bottomText");
 const centerText = document.getElementById("centerText");
-const centerText2 = document.getElementById("centerText2"); // nuevo
 const subText = document.getElementById("subText");
 const grupo = document.getElementById("grupo");
 
@@ -178,7 +174,6 @@ const grupo = document.getElementById("grupo");
 topInput.oninput = () => topText.textContent = topInput.value;
 bottomInput.oninput = () => bottomText.textContent = bottomInput.value;
 centerInput.oninput = () => centerText.textContent = centerInput.value;
-center2Input.oninput = () => centerText2.textContent = center2Input.value; // nuevo
 subInput.oninput = () => subText.textContent = subInput.value;
 
 colorInput.oninput = () => {
@@ -186,34 +181,10 @@ colorInput.oninput = () => {
   grupo.setAttribute("fill", colorInput.value);
 };
 
-// descarga PNG (nuevo)
-function descargarPNG(){
-  const svg = document.getElementById("svg");
-  const serializer = new XMLSerializer();
-  const svgString = serializer.serializeToString(svg);
-
-  const canvas = document.createElement("canvas");
-  canvas.width = 600;
-  canvas.height = 600;
-
-  const ctx = canvas.getContext("2d");
-  const img = new Image();
-
-  const blob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-  const url = URL.createObjectURL(blob);
-
-  img.onload = function(){
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    URL.revokeObjectURL(url);
-
-    const a = document.createElement("a");
-    a.download = "sello.png";
-    a.href = canvas.toDataURL("image/png");
-    a.click();
-  };
-
-  img.src = url;
-}
+// NUEVO: cambio de tipografía en vivo
+fontSelect.onchange = () => {
+  centerText.setAttribute("font-family", fontSelect.value);
+};
 
 </script>
 

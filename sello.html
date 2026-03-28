@@ -1,96 +1,175 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Sello Universitario Ultra</title>
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+<meta charset="UTF-8">  
+<title>Editor de Sellos Universitarios v1.32.0</title>  
 
-<style>
-body {
-  margin: 0;
-  background: transparent;
+<style>  
+body {  
+  margin: 0;  
+  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+}  
+
+.header{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:12px;
+  font-weight:bold;
 }
 
-/* efecto tinta más realista */
-.sello {
-  filter: contrast(1.15) brightness(0.95);
+.panel{
+  background:#fff;
+  padding:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
 }
-</style>
-</head>
 
-<body>
+.panel label{
+  font-size:12px;
+  display:flex;
+  flex-direction:column;
+}
 
-<svg class="sello" width="320" height="320" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+.panel input{
+  padding:5px;
+}
 
-  <!-- Color institucional más sobrio -->
-  <g stroke="#1c2e8a" fill="none">
+.container{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
 
-    <!-- Aro externo (más dominante) -->
-    <circle cx="150" cy="150" r="138" stroke-width="4.5"/>
+/* efecto tinta más realista */  
+.sello {  
+  filter: contrast(1.15) brightness(0.95);  
+}  
+</style>  
+</head>  
 
-    <!-- Aro medio -->
-    <circle cx="150" cy="150" r="122" stroke-width="1.8"/>
+<body>  
 
-    <!-- Aro interno fino -->
-    <circle cx="150" cy="150" r="118" stroke-width="0.8"/>
+<div class="header">
+Editor de Sellos Universitarios v1.32.0
+</div>
 
-    <!-- Definiciones -->
-    <defs>
-      <path id="topArc" d="M 45 150 A 105 105 0 0 1 255 150" />
-      <path id="bottomArc" d="M 45 150 A 105 105 0 0 0 255 150" />
+<div class="panel">
+  <label>Texto superior
+    <input id="topInput" value="UNIVERSIDAD EMPRESARIAL">
+  </label>
 
-      <!-- textura sutil -->
-      <filter id="grain">
-        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2"/>
-        <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 0.12"/>
-        </feComponentTransfer>
-      </filter>
-    </defs>
+  <label>Texto inferior
+    <input id="bottomInput" value="REPÚBLICA ARGENTINA">
+  </label>
 
-    <!-- Texto superior -->
-    <text font-size="13" fill="#1c2e8a" letter-spacing="2.5" font-family="Times New Roman, serif">
-      <textPath href="#topArc" startOffset="50%" text-anchor="middle">
-        UNIVERSIDAD EMPRESARIAL
-      </textPath>
-    </text>
+  <label>Texto central
+    <input id="centerInput" value="SIGLO 21">
+  </label>
 
-    <!-- Texto inferior -->
-    <text font-size="13" fill="#1c2e8a" letter-spacing="2.5" font-family="Times New Roman, serif">
-      <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
-        REPÚBLICA ARGENTINA
-      </textPath>
-    </text>
+  <label>Subtexto
+    <input id="subInput" value="CÓRDOBA">
+  </label>
 
-    <!-- Centro principal -->
-    <text x="150" y="138" text-anchor="middle"
-          font-size="24"
-          font-weight="bold"
-          fill="#1c2e8a"
-          font-family="Times New Roman, serif"
-          letter-spacing="2">
-      SIGLO 21
-    </text>
+  <label>Color
+    <input type="color" id="colorInput" value="#1c2e8a">
+  </label>
+</div>
 
-    <!-- Línea institucional -->
-    <line x1="95" y1="152" x2="205" y2="152"
-          stroke="#1c2e8a"
-          stroke-width="1.2"/>
+<div class="container">
 
-    <!-- Subtexto -->
-    <text x="150" y="174" text-anchor="middle"
-          font-size="13"
-          fill="#1c2e8a"
-          font-family="Times New Roman, serif"
-          letter-spacing="1.5">
-      CÓRDOBA
-    </text>
+<svg class="sello" width="320" height="320" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">  
 
-  </g>
+  <g id="grupo" stroke="#1c2e8a" fill="none">  
 
-  <!-- textura desgaste MUY sutil -->
-  <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
+    <circle cx="150" cy="150" r="138" stroke-width="4.5"/>  
+    <circle cx="150" cy="150" r="122" stroke-width="1.8"/>  
+    <circle cx="150" cy="150" r="118" stroke-width="0.8"/>  
 
-</svg>
+    <defs>  
+      <path id="topArc" d="M 45 150 A 105 105 0 0 1 255 150" />  
+      <path id="bottomArc" d="M 45 150 A 105 105 0 0 0 255 150" />  
 
-</body>
+      <filter id="grain">  
+        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2"/>  
+        <feComponentTransfer>  
+          <feFuncA type="table" tableValues="0 0.12"/>  
+        </feComponentTransfer>  
+      </filter>  
+    </defs>  
+
+    <!-- Texto superior -->  
+    <text font-size="13" letter-spacing="2.5" font-family="Times New Roman, serif">  
+      <textPath id="topText" href="#topArc" startOffset="50%" text-anchor="middle">  
+        UNIVERSIDAD EMPRESARIAL  
+      </textPath>  
+    </text>  
+
+    <!-- Texto inferior -->  
+    <text font-size="13" letter-spacing="2.5" font-family="Times New Roman, serif">  
+      <textPath id="bottomText" href="#bottomArc" startOffset="50%" text-anchor="middle">  
+        REPÚBLICA ARGENTINA  
+      </textPath>  
+    </text>  
+
+    <!-- Centro -->  
+    <text id="centerText" x="150" y="138" text-anchor="middle"  
+          font-size="24"  
+          font-weight="bold"  
+          font-family="Times New Roman, serif"  
+          letter-spacing="2">  
+      SIGLO 21  
+    </text>  
+
+    <line x1="95" y1="152" x2="205" y2="152" stroke-width="1.2"/>  
+
+    <!-- Subtexto -->  
+    <text id="subText" x="150" y="174" text-anchor="middle"  
+          font-size="13"  
+          font-family="Times New Roman, serif"  
+          letter-spacing="1.5">  
+      CÓRDOBA  
+    </text>  
+
+  </g>  
+
+  <rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>  
+
+</svg>  
+
+</div>
+
+<script>
+
+// inputs
+const topInput = document.getElementById("topInput");
+const bottomInput = document.getElementById("bottomInput");
+const centerInput = document.getElementById("centerInput");
+const subInput = document.getElementById("subInput");
+const colorInput = document.getElementById("colorInput");
+
+// elementos svg
+const topText = document.getElementById("topText");
+const bottomText = document.getElementById("bottomText");
+const centerText = document.getElementById("centerText");
+const subText = document.getElementById("subText");
+const grupo = document.getElementById("grupo");
+
+// eventos
+topInput.oninput = () => topText.textContent = topInput.value;
+bottomInput.oninput = () => bottomText.textContent = bottomInput.value;
+centerInput.oninput = () => centerText.textContent = centerInput.value;
+subInput.oninput = () => subText.textContent = subInput.value;
+
+colorInput.oninput = () => {
+  grupo.setAttribute("stroke", colorInput.value);
+  grupo.setAttribute("fill", colorInput.value);
+};
+
+</script>
+
+</body>  
 </html>

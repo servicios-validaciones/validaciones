@@ -55,15 +55,15 @@ Editor de Sellos Universitarios v1.32.0
 <div class="panel">
 
 <label>Texto aro superior
-<input id="topOuterInput" value="Ministerio de Educación, Cultura, Ciencia y Tecnología">
+<input id="topOuterInput" value="Ministerio de Educación">
 </label>
 
 <label>Texto aro inferior
-<input id="bottomOuterInput" value="PROVINCIA DEL CHACO">
+<input id="bottomOuterInput" value="REPÚBLICA ARGENTINA">
 </label>
 
 <label>Texto interior
-<input id="innerInput" value="INSTITUTO SUPERIOR DE NIVEL TERCIARIO MACHAGAI">
+<input id="innerInput" value="INSTITUTO SUPERIOR">
 </label>
 
 <label>Texto adicional
@@ -71,7 +71,7 @@ Editor de Sellos Universitarios v1.32.0
 </label>
 
 <label>Subir escudo
-<input type="file" id="fileInput" accept="image/*">
+<input type="file" id="fileInput">
 </label>
 
 <label>Tamaño
@@ -86,30 +86,23 @@ Editor de Sellos Universitarios v1.32.0
 <input type="color" id="colorInput" value="#333333">
 </label>
 
-<button onclick="centrarEscudo()">Centrar escudo</button>
+<button onclick="centrarEscudo()">Centrar</button>
 <button onclick="descargarPNG()">Descargar PNG</button>
 
 </div>
 
 <div class="container">
 
-<svg id="svg" class="sello" width="420" height="320" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
+<svg id="svg" width="420" height="320" viewBox="0 0 420 300">
 
 <defs>
-  <path id="outerTop" d="M 40 150 A 170 100 0 0 1 380 150"/>
-  <path id="outerBottom" d="M 40 150 A 170 100 0 0 0 380 150"/>
-  <path id="innerBottom" d="M 70 150 A 140 75 0 0 0 350 150"/>
+<path id="outerTop" d="M 40 150 A 170 100 0 0 1 380 150"/>
+<path id="outerBottom" d="M 40 150 A 170 100 0 0 0 380 150"/>
+<path id="innerBottom" d="M 70 150 A 140 75 0 0 0 350 150"/>
 
-  <clipPath id="clipEscudo">
-    <ellipse cx="210" cy="150" rx="45" ry="65"/>
-  </clipPath>
-
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
-    <feComponentTransfer>
-      <feFuncA type="table" tableValues="0 0.18"/>
-    </feComponentTransfer>
-  </filter>
+<clipPath id="clipEscudo">
+<ellipse cx="210" cy="150" rx="45" ry="65"/>
+</clipPath>
 </defs>
 
 <g id="grupo" stroke="#333" fill="none">
@@ -118,43 +111,33 @@ Editor de Sellos Universitarios v1.32.0
 <ellipse cx="210" cy="150" rx="175" ry="110" stroke-width="1.5"/>
 <ellipse cx="210" cy="150" rx="150" ry="90" stroke-width="2"/>
 
-<text font-size="12" letter-spacing="1.5" font-family="Georgia, serif">
-  <textPath id="topOuter" href="#outerTop" startOffset="50%" text-anchor="middle">
-    Ministerio de Educación, Cultura, Ciencia y Tecnología
-  </textPath>
+<text font-size="12">
+<textPath id="topOuter" href="#outerTop" startOffset="50%" text-anchor="middle">
+Ministerio de Educación
+</textPath>
 </text>
 
-<text font-size="13" letter-spacing="2" font-family="Georgia, serif">
-  <textPath id="bottomOuter" href="#outerBottom" startOffset="50%" text-anchor="middle">
-    PROVINCIA DEL CHACO
-  </textPath>
+<text font-size="13">
+<textPath id="bottomOuter" href="#outerBottom" startOffset="50%" text-anchor="middle">
+REPÚBLICA ARGENTINA
+</textPath>
 </text>
 
-<text font-size="12.5" letter-spacing="2" font-family="Georgia, serif">
-  <textPath id="innerText" href="#innerBottom" startOffset="50%" text-anchor="middle">
-    INSTITUTO SUPERIOR DE NIVEL TERCIARIO MACHAGAI
-  </textPath>
+<text font-size="12">
+<textPath id="innerText" href="#innerBottom" startOffset="50%" text-anchor="middle">
+INSTITUTO SUPERIOR
+</textPath>
 </text>
 
-<text id="extraText" x="210" y="150" text-anchor="middle"
-      font-size="12"
-      font-family="Georgia, serif">
-  RESOLUCIÓN 123/24
+<text id="extraText" x="210" y="150" text-anchor="middle">
+RESOLUCIÓN 123/24
 </text>
 
 </g>
 
-<!-- ESCUDO -->
-<g id="escudoGroup" clip-path="url(#clipEscudo)">
-  <image id="escudoImg"
-    x="165"
-    y="85"
-    width="90"
-    height="130"
-  />
+<g clip-path="url(#clipEscudo)">
+<image id="escudoImg" x="165" y="85" width="90" height="130"/>
 </g>
-
-<rect width="100%" height="100%" filter="url(#grain)" opacity="0.25"/>
 
 </svg>
 
@@ -162,144 +145,70 @@ Editor de Sellos Universitarios v1.32.0
 
 <script>
 
-// inputs
-const topOuterInput = document.getElementById("topOuterInput");
-const bottomOuterInput = document.getElementById("bottomOuterInput");
-const innerInput = document.getElementById("innerInput");
-const extraInput = document.getElementById("extraInput");
-const colorInput = document.getElementById("colorInput");
-const fileInput = document.getElementById("fileInput");
+const escudo = document.getElementById("escudoImg");
 const sizeInput = document.getElementById("sizeInput");
 const rotateInput = document.getElementById("rotateInput");
+const fileInput = document.getElementById("fileInput");
 
-// elementos
-const topOuter = document.getElementById("topOuter");
-const bottomOuter = document.getElementById("bottomOuter");
-const innerText = document.getElementById("innerText");
-const extraText = document.getElementById("extraText");
-const grupo = document.getElementById("grupo");
-const escudoImg = document.getElementById("escudoImg");
-
-// texto
-topOuterInput.oninput = () => topOuter.textContent = topOuterInput.value;
-bottomOuterInput.oninput = () => bottomOuter.textContent = bottomOuterInput.value;
-innerInput.oninput = () => innerText.textContent = innerInput.value;
-extraInput.oninput = () => extraText.textContent = extraInput.value;
-
-// color
-colorInput.oninput = () => {
-  grupo.setAttribute("stroke", colorInput.value);
-};
+let x=165,y=85,scale=1,rot=0,drag=false;
 
 // subir imagen
-fileInput.onchange = function(){
-  const reader = new FileReader();
-  reader.onload = e => escudoImg.setAttribute("href", e.target.result);
-  reader.readAsDataURL(fileInput.files[0]);
+fileInput.onchange = e=>{
+  const r = new FileReader();
+  r.onload = ev=>escudo.setAttribute("href",ev.target.result);
+  r.readAsDataURL(e.target.files[0]);
 };
-
-// estado escudo
-let x=165,y=85,scale=1,rotation=0;
-let dragging=false;
-
-// tamaño
-sizeInput.oninput = () => {
-  const val = sizeInput.value;
-  escudoImg.setAttribute("width", val);
-  escudoImg.setAttribute("height", val*1.4);
-};
-
-// rotación
-rotateInput.oninput = () => {
-  rotation = rotateInput.value;
-  actualizarTransform();
-};
-
-function actualizarTransform(){
-  escudoImg.setAttribute("transform",
-    `rotate(${rotation} 210 150) scale(${scale})`);
-}
 
 // mover
-escudoImg.addEventListener("mousedown",()=>dragging=true);
-document.addEventListener("mouseup",()=>dragging=false);
-document.addEventListener("mousemove",(e)=>{
-  if(!dragging)return;
+escudo.onmousedown=()=>drag=true;
+document.onmouseup=()=>drag=false;
+document.onmousemove=e=>{
+  if(!drag)return;
   x=e.clientX-200;
   y=e.clientY-150;
-  escudoImg.setAttribute("x",x);
-  escudoImg.setAttribute("y",y);
-});
+  escudo.setAttribute("x",x);
+  escudo.setAttribute("y",y);
+};
 
-// touch + pinch
-let distInicial=0;
+// tamaño
+sizeInput.oninput=()=>{
+  let v=sizeInput.value;
+  escudo.setAttribute("width",v);
+  escudo.setAttribute("height",v*1.4);
+};
 
-escudoImg.addEventListener("touchstart",(e)=>{
-  dragging=true;
-  if(e.touches.length===2){
-    distInicial = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
-
-document.addEventListener("touchmove",(e)=>{
-  if(e.touches.length===2){
-    let dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-    scale = dist/distInicial;
-    actualizarTransform();
-  } else if(dragging){
-    x=e.touches[0].clientX-200;
-    y=e.touches[0].clientY-150;
-    escudoImg.setAttribute("x",x);
-    escudoImg.setAttribute("y",y);
-  }
-});
-
-document.addEventListener("touchend",()=>dragging=false);
+// rotar
+rotateInput.oninput=()=>{
+  rot=rotateInput.value;
+  escudo.setAttribute("transform",`rotate(${rot} 210 150) scale(${scale})`);
+};
 
 // centrar
 function centrarEscudo(){
-  x=165;y=85;scale=1;rotation=0;
-  escudoImg.setAttribute("x",x);
-  escudoImg.setAttribute("y",y);
-  actualizarTransform();
-  rotateInput.value=0;
+  x=165;y=85;rot=0;scale=1;
+  escudo.setAttribute("x",x);
+  escudo.setAttribute("y",y);
+  escudo.setAttribute("transform","");
 }
 
-// PNG FIX
+// PNG
 function descargarPNG(){
   const svg = document.getElementById("svg");
-  const clone = svg.cloneNode(true);
-
-  const bg = document.createElementNS("http://www.w3.org/2000/svg","rect");
-  bg.setAttribute("width","100%");
-  bg.setAttribute("height","100%");
-  bg.setAttribute("fill","#ffffff");
-  clone.insertBefore(bg, clone.firstChild);
-
-  const data = new XMLSerializer().serializeToString(clone);
-  const blob = new Blob([data], {type:"image/svg+xml"});
-  const url = URL.createObjectURL(blob);
-
+  const data = new XMLSerializer().serializeToString(svg);
   const img = new Image();
+  img.src = "data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(data)));
+
   img.onload = ()=>{
     const canvas = document.createElement("canvas");
-    canvas.width = 1000;
-    canvas.height = 700;
+    canvas.width=1000;
+    canvas.height=700;
     canvas.getContext("2d").drawImage(img,0,0,1000,700);
 
-    const link = document.createElement("a");
-    link.download="sello.png";
-    link.href=canvas.toDataURL();
-    link.click();
-    URL.revokeObjectURL(url);
+    const a=document.createElement("a");
+    a.download="sello.png";
+    a.href=canvas.toDataURL();
+    a.click();
   };
-  img.src = url;
 }
 
 </script>

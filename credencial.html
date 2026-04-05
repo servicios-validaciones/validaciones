@@ -3,177 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnet Digital Modificable</title>
+    <title>Editor de Carnet de Conducir - Río Negro</title>
     <style>
-        /* --- ESTILOS GENERALES (Cuerpo de la página) --- */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente limpia */
-            background-color: #f0f2f5; /* Color de fondo suave para la pantalla */
-            display: flex;
-            justify-content: center; /* Centra el carnet horizontalmente */
-            align-items: center; /* Centra el carnet verticalmente */
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* --- ESTILOS DEL CARNET (El rectángulo principal) --- */
-        .carnet-container {
-            width: 450px; /* Ancho del carnet */
-            height: 280px; /* Alto del carnet */
-            background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Fondo degradado profesional */
-            color: white; /* Color de letra general */
-            border-radius: 20px; /* *** BORDES REDONDEADOS *** */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Sombra para dar efecto 3D */
-            overflow: hidden; /* Asegura que nada sobresalga de los bordes redondeados */
-            position: relative; /* Necesario para posicionar elementos internos */
-            border: 2px solid rgba(255,255,255,0.2); /* Borde sutil */
-        }
-
-        /* --- ENCABEZADO (Franja superior) --- */
-        .carnet-header {
-            background-color: rgba(0,0,0,0.2); /* Fondo más oscuro para el título */
-            padding: 10px 20px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        /* --- CUERPO DEL CARNET (Área de foto y datos) --- */
-        .carnet-body {
-            display: flex; /* Alinea foto y datos en fila */
-            padding: 20px;
-            align-items: center;
-            height: calc(100% - 70px); /* Ajusta altura restando encabezado y pie */
-        }
-
-        /* --- SECCIÓN DE LA FOTO --- */
-        .foto-seccion {
-            flex: 0 0 120px; /* Ancho fijo para la zona de la foto */
-            text-align: center;
-            margin-right: 20px;
-        }
-
-        .foto-placeholder {
-            width: 110px; /* Ancho de la foto */
-            height: 130px; /* Alto de la foto (proporción carnet) */
-            background-color: #e0e0e0; /* Color gris si no hay foto */
-            border: 3px solid white;
-            border-radius: 10px; /* Bordes de la foto también redondeados */
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #7f8c8d;
-            font-size: 0.8rem;
-            overflow: hidden; /* Para que la foto real se corte si es grande */
+            height: 100vh;
+            margin: 0;
         }
 
-        /* ESTILO PARA CUANDO PONGAS LA FOTO REAL */
-        .foto-placeholder img {
+        .carnet-container {
+            width: 500px;
+            height: 315px; /* Proporción similar a una tarjeta de crédito */
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden; /* Para que el fondo azul no se salga de los bordes redondeados */
+            position: relative;
+            border: 1px solid #ccc;
+        }
+
+        /* Franja superior azul */
+        .header {
+            background-color: #005691; /* Azul similar al original */
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+        }
+
+        .header-logos {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: auto;
+        }
+
+        .shield-icon {
+            width: 25px;
+            height: auto;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        /* Área de contenido principal */
+        .content {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 120px 1fr; /* Columna para foto y columna para datos */
+            gap: 15px;
+            height: calc(100% - 100px); /* Resta el alto del header y footer */
+        }
+
+        /* Espacio para la foto */
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo-placeholder {
+            width: 110px;
+            height: 135px;
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer; /* Indica que se puede hacer clic */
+            overflow: hidden; /* Para que la imagen cargada no se salga */
+        }
+
+        .photo-placeholder img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ajusta la foto sin deformarla */
+            object-fit: cover; /* Ajusta la imagen al contenedor */
+            display: none; /* Oculta la imagen por defecto */
         }
 
-        /* --- SECCIÓN DE DATOS --- */
-        .datos-seccion {
-            flex: 1; /* Ocupa el resto del espacio */
+        .photo-instructions {
+            font-size: 10px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
         }
 
-        .dato-grupo {
-            margin-bottom: 10px; /* Espacio entre cada dato */
+        /* Sección de datos editables */
+        .data-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Dos columnas para los datos */
+            gap: 8px;
+            font-size: 11px;
         }
 
-        /* Las etiquetas (ej: "NOMBRE:") */
+        .data-item {
+            display: flex;
+            flex-direction: column;
+        }
+
         .label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.7); /* Color más tenue */
             font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 1px;
+            color: #333;
+            margin-bottom: 2px;
         }
 
-        /* Los valores (ej: "JUAN PÉREZ") */
-        .valor {
-            font-size: 1.1rem;
-            font-weight: 600;
+        /* Estilo para los campos de entrada de texto */
+        .editable-input {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 4px;
+            font-size: 11px;
+            width: 100%;
+            box-sizing: border-box; /* Incluye el padding en el ancho total */
         }
 
-        /* Estilo especial para el ID o número principal */
-        .valor-id {
-            font-family: 'Courier New', Courier, monospace; /* Fuente tipo máquina */
-            font-size: 1.2rem;
-            color: #f1c40f; /* Color amarillo/dorado */
+        .editable-input:focus {
+            outline: none;
+            border-color: #005691;
+            box-shadow: 0 0 3px rgba(0,86,145,0.3);
         }
 
-        /* --- PIE DEL CARNET (Franja inferior) --- */
-        .carnet-footer {
+        /* Clases de conducir y firma */
+        .classes-signature {
+            grid-column: 1 / -1; /* Ocupa las dos columnas */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .signature-placeholder {
+            height: 30px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-style: italic;
+        }
+
+        /* Franja inferior azul */
+        .footer {
+            background-color: #005691;
+            color: white;
+            padding: 10px;
+            height: 40px;
             position: absolute;
             bottom: 0;
-            left: 0;
             width: 100%;
-            background-color: rgba(0,0,0,0.2);
-            padding: 5px 20px;
-            font-size: 0.75rem;
-            text-align: right;
             box-sizing: border-box;
-            color: rgba(255,255,255,0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
         }
 
+        .footer-logo {
+            width: 25px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
 
     <div class="carnet-container">
-
-        <div class="carnet-header">
-            Carnet de Identificación
+        <div class="header">
+            <div class="header-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" alt="Bandera Argentina" class="flag-icon">
+            </div>
+            <div class="header-title">
+                REPÚBLICA ARGENTINA<br>
+                Río Negro - General Roca
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" alt="Escudo Argentina" class="shield-icon">
         </div>
 
-        <div class="carnet-body">
-            
-            <div class="foto-seccion">
-                <div class="foto-placeholder">
-                    ) la línea de la imagen -->
-                    
-                    <span>Espacio<br>para Foto</span>
-                    
-                    </div>
+        <div class="content">
+            <div class="photo-section">
+                <div class="photo-placeholder" onclick="document.getElementById('fileInput').click();">
+                    <span id="placeholderText">Hacé click para<br>subir foto</span>
+                    <img id="photoPreview" src="#" alt="Previsualización de foto">
+                </div>
+                <div class="photo-instructions">(Formato ideal: 110x135px)</div>
+                <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="previewImage(this);">
             </div>
 
-            <div class="datos-seccion">
-                
-                <div class="dato-grupo">
-                    <span class="label">Nombre Completo</span>
-                    <div class="valor">JUAN PÉREZ GARCÍA</div>
+            <div class="data-section">
+                <div class="data-item">
+                    <span class="label">1. Apellido / Last Name</span>
+                    <input type="text" class="editable-input" value="Ceballos">
+                </div>
+                <div class="data-item">
+                    <span class="label">2. Nombre / First Name</span>
+                    <input type="text" class="editable-input" value="Angel Ceferino">
+                </div>
+                <div class="data-item" style="grid-column: 1 / -1;">
+                    <span class="label">8. Domicilio / Address</span>
+                    <input type="text" class="editable-input" value="PUBLICA D25 5029 CHACRA MONTE - GENERAL ROCA">
+                </div>
+                <div class="data-item">
+                    <span class="label">3. Fecha de Nac. / Date of birth</span>
+                    <input type="text" class="editable-input" value="21 jul 1981">
+                </div>
+                <div class="data-item">
+                    <span class="label">4a. Otorgamiento / Date of issue</span>
+                    <input type="text" class="editable-input" value="25/03/2026">
+                </div>
+                <div class="data-item">
+                    <span class="label">4b. Vencimiento / Expires</span>
+                    <input type="text" class="editable-input" value="25/03/2031">
                 </div>
 
-                <div class="dato-grupo">
-                    <span class="label">Número de Identificación</span>
-                    <div class="valor valor-id">ID-87.543.210-K</div>
-                </div>
-
-                <div class="dato-grupo" style="display: flex; gap: 20px;">
-                    <div>
-                        <span class="label">Fecha Emisión</span>
-                        <div class="valor" style="font-size: 0.9rem;">15/05/2023</div>
+                <div class="classes-signature">
+                    <div class="data-item">
+                        <span class="label">9. Clases / Class</span>
+                        <input type="text" class="editable-input" value="E1 E2 D3 D1 A1.4">
                     </div>
-                    <div>
-                        <span class="label">Vencimiento</span>
-                        <div class="valor" style="font-size: 0.9rem;">15/05/2028</div>
+                    <div class="data-item">
+                        <span class="label">7. Firma del titular / Signature</span>
+                        <div class="signature-placeholder">Firma aquí</div>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <div class="carnet-footer">
-            Válido solo con firma y sello oficial | © 2023 Sistema Central
+        <div class="footer">
+            <div style="font-weight: bold;">SEGURIDAD VIAL</div>
+            <div style="text-align: right; display: flex; align-items: center; gap: 5px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" alt="Escudo Argentina" class="footer-logo">
+                <div>
+                    Ministerio de Transporte<br>
+                    República Argentina
+                </div>
+            </div>
         </div>
-
     </div>
-    </body>
+
+    <script>
+        // Función para previsualizar la imagen subida
+        function previewImage(input) {
+            var preview = document.getElementById('photoPreview');
+            var placeholderText = document.getElementById('placeholderText');
+            
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block'; // Muestra la imagen
+                    placeholderText.style.display = 'none'; // Oculta el texto
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+</body>
 </html>

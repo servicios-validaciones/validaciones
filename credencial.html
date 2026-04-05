@@ -5,17 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Carnet de Conducir - Río Negro</title>
 
+<!-- Librerías PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
+/* BOTÓN PDF */
+.btn {
+    margin: 15px;
+    padding: 10px 20px;
+    background: #005691;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* CONTENEDOR */
 .carnet-container {
     width: 500px;
     height: 315px;
@@ -31,30 +46,28 @@ body {
 .header {
     background-color: #005691;
     color: white;
-    padding: 8px;
+    padding: 6px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    height: 35px;
 }
 
-.flag-icon { width: 30px; }
-.shield-icon { width: 25px; }
-
 .header-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     text-align: center;
     flex-grow: 1;
 }
 
-/* CONTENT */
+/* CONTENIDO */
 .content {
     padding: 10px;
     display: grid;
     grid-template-columns: 110px 1fr;
     gap: 10px;
-    height: calc(100% - 90px);
+    height: calc(100% - 70px); /* CORREGIDO */
+    box-sizing: border-box;
 }
 
 /* FOTO */
@@ -67,8 +80,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 11px;
-    text-align: center;
+    font-size: 10px;
     cursor: pointer;
     overflow: hidden;
 }
@@ -82,26 +94,19 @@ body {
 
 .photo-instructions {
     font-size: 9px;
-    margin-top: 3px;
-    text-align: center;
 }
 
 /* DATOS */
 .data-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    gap: 6px;
     font-size: 10px;
-}
-
-.data-item {
-    display: flex;
-    flex-direction: column;
 }
 
 .label {
     font-weight: bold;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
 }
 
 .editable-input {
@@ -109,6 +114,7 @@ body {
     border-radius: 3px;
     padding: 2px;
     font-size: 10px;
+    width: 100%;
 }
 
 /* CLASES + FIRMA */
@@ -133,119 +139,148 @@ body {
 .footer {
     background-color: #005691;
     color: white;
-    padding: 8px;
-    height: 40px;
+    padding: 6px 10px;
+    height: 35px;
     position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11px;
+    font-size: 10px;
 }
 
-.footer-logo { width: 22px; }
-
+.footer-logo {
+    width: 20px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="carnet-container">
+<button class="btn" onclick="generarPDF()">Descargar PDF</button>
 
-<div class="header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">
-    <div class="header-title">
-        REPÚBLICA ARGENTINA<br>
-        Río Negro - General Roca
+<div class="carnet-container" id="carnet">
+
+    <div class="header">
+        <div class="header-logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">
+        </div>
+
+        <div class="header-title">
+            REPÚBLICA ARGENTINA<br>
+            Río Negro - General Roca
+        </div>
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">
     </div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">
-</div>
 
-<div class="content">
+    <div class="content">
 
-<div>
-    <div class="photo-placeholder" onclick="document.getElementById('fileInput').click();">
-        <span id="placeholderText">Subir foto</span>
-        <img id="photoPreview">
+        <!-- FOTO -->
+        <div class="photo-section">
+            <div class="photo-placeholder" onclick="document.getElementById('fileInput').click();">
+                <span id="placeholderText">Subir foto</span>
+                <img id="photoPreview">
+            </div>
+
+            <div class="photo-instructions">(110x135px)</div>
+
+            <input type="file" id="fileInput" hidden accept="image/*" onchange="previewImage(this);">
+        </div>
+
+        <!-- DATOS -->
+        <div class="data-section">
+
+            <div class="data-item">
+                <span class="label">Apellido</span>
+                <input class="editable-input" value="Ceballos">
+            </div>
+
+            <div class="data-item">
+                <span class="label">Nombre</span>
+                <input class="editable-input" value="Angel Ceferino">
+            </div>
+
+            <div style="grid-column:1/-1;">
+                <span class="label">Domicilio</span>
+                <input class="editable-input" value="GENERAL ROCA">
+            </div>
+
+            <div>
+                <span class="label">Nacimiento</span>
+                <input class="editable-input" value="21/07/1981">
+            </div>
+
+            <div>
+                <span class="label">Otorgamiento</span>
+                <input class="editable-input" value="25/03/2026">
+            </div>
+
+            <div>
+                <span class="label">Vencimiento</span>
+                <input class="editable-input" value="25/03/2031">
+            </div>
+
+            <div class="classes-signature">
+                <div>
+                    <span class="label">Clases</span>
+                    <input class="editable-input" value="E1 E2 D3">
+                </div>
+
+                <div>
+                    <span class="label">Firma</span>
+                    <div class="signature-placeholder">Firma</div>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="photo-instructions">(110x135)</div>
-    <input type="file" id="fileInput" style="display:none" onchange="previewImage(this)">
-</div>
 
-<div class="data-section">
+    <div class="footer">
+        <div><b>SEGURIDAD VIAL</b></div>
 
-<div class="data-item">
-<label class="label">Apellido</label>
-<input class="editable-input" value="Ceballos">
-</div>
-
-<div class="data-item">
-<label class="label">Nombre</label>
-<input class="editable-input" value="Angel Ceferino">
-</div>
-
-<div class="data-item" style="grid-column:1/-1;">
-<label class="label">Domicilio</label>
-<input class="editable-input" value="PUBLICA D25 5029 CHACRA MONTE">
-</div>
-
-<div class="data-item">
-<label class="label">Nacimiento</label>
-<input class="editable-input" value="21/07/1981">
-</div>
-
-<div class="data-item">
-<label class="label">Otorgamiento</label>
-<input class="editable-input" value="25/03/2026">
-</div>
-
-<div class="data-item">
-<label class="label">Vencimiento</label>
-<input class="editable-input" value="25/03/2031">
-</div>
-
-<div class="classes-signature">
-
-<div class="data-item">
-<label class="label">Clases</label>
-<input class="editable-input" value="E1 E2 D3 D1 A1.4">
-</div>
-
-<div class="data-item">
-<label class="label">Firma</label>
-<div class="signature-placeholder">Firma</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-<div class="footer">
-<div><b>SEGURIDAD VIAL</b></div>
-<div style="display:flex;align-items:center;gap:5px;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">
-<div>Ministerio de Transporte</div>
-</div>
-</div>
+        <div style="display:flex;align-items:center;gap:5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">
+            <div>Ministerio de Transporte</div>
+        </div>
+    </div>
 
 </div>
 
 <script>
+// FOTO
 function previewImage(input) {
-    const preview = document.getElementById('photoPreview');
-    const text = document.getElementById('placeholderText');
+    let preview = document.getElementById('photoPreview');
+    let text = document.getElementById('placeholderText');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-            text.style.display = 'none';
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
+    let reader = new FileReader();
+    reader.onload = e => {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        text.style.display = 'none';
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+
+// PDF
+async function generarPDF() {
+    const { jsPDF } = window.jspdf;
+
+    let carnet = document.getElementById("carnet");
+
+    const canvas = await html2canvas(carnet, { scale: 3 });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: [85.6, 54]
+    });
+
+    pdf.addImage(imgData, "PNG", 0, 0, 85.6, 54);
+    pdf.save("carnet.pdf");
 }
 </script>
 

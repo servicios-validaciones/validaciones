@@ -3,281 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Carnet de Conducir - Río Negro</title>
     <style>
+        /* Estilos Base */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-        }
-
-        .carnet-container {
-            width: 500px;
-            height: 315px; /* Proporción similar a una tarjeta de crédito */
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            overflow: hidden; /* Para que el fondo azul no se salga de los bordes redondeados */
-            position: relative;
-            border: 1px solid #ccc;
-        }
-
-        /* Franja superior azul */
-        .header {
-            background-color: #005691; /* Azul similar al original */
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 40px;
-        }
-
-        .header-logos {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .flag-icon {
-            width: 30px;
-            height: auto;
-        }
-
-        .shield-icon {
-            width: 25px;
-            height: auto;
-        }
-
-        .header-title {
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        /* Área de contenido principal */
-        .content {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 120px 1fr; /* Columna para foto y columna para datos */
-            gap: 15px;
-            height: calc(100% - 100px); /* Resta el alto del header y footer */
-        }
-
-        /* Espacio para la foto */
-        .photo-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .photo-placeholder {
-            width: 110px;
-            height: 135px;
-            background-color: #e0e0e0;
-            border: 2px dashed #999;
-            border-radius: 5px;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #666;
-            font-size: 12px;
-            text-align: center;
-            cursor: pointer; /* Indica que se puede hacer clic */
-            overflow: hidden; /* Para que la imagen cargada no se salga */
+            min-height: 100vh;
+            background-color: #f0f0f0;
         }
 
-        .photo-placeholder img {
+        /* Contenedor Principal (La "Tarjeta") */
+        .card-container {
+            width: 800px;
+            height: 500px;
+            position: relative;
+            background-image: url('TU_IMAGEN_DE_FONDO.jpg'); /* Cambia esto por tu URL */
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            color: white; /* Color de texto por defecto */
+        }
+
+        /* Capa para organizar los datos */
+        .overlay-content {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ajusta la imagen al contenedor */
-            display: none; /* Oculta la imagen por defecto */
-        }
-
-        .photo-instructions {
-            font-size: 10px;
-            color: #666;
-            margin-top: 5px;
-            text-align: center;
-        }
-
-        /* Sección de datos editables */
-        .data-section {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Dos columnas para los datos */
-            gap: 8px;
-            font-size: 11px;
+            grid-template-columns: 1fr 1fr; /* Divide en dos columnas */
+            grid-template-rows: auto 1fr auto;
+            padding: 40px;
+            box-sizing: border-box;
         }
 
-        .data-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .label {
+        /* Ejemplo de posicionamiento específico */
+        .header-data {
+            grid-column: 1 / span 2;
+            text-align: right;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: #333;
+        }
+
+        .main-info {
+            align-self: center;
+        }
+
+        .secondary-info {
+            align-self: center;
+            text-align: right;
+        }
+
+        .footer-data {
+            grid-column: 1 / span 2;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Clase para etiquetas de datos */
+        .label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            opacity: 0.8;
             margin-bottom: 2px;
         }
 
-        /* Estilo para los campos de entrada de texto */
-        .editable-input {
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            padding: 4px;
-            font-size: 11px;
-            width: 100%;
-            box-sizing: border-box; /* Incluye el padding en el ancho total */
-        }
-
-        .editable-input:focus {
-            outline: none;
-            border-color: #005691;
-            box-shadow: 0 0 3px rgba(0,86,145,0.3);
-        }
-
-        /* Clases de conducir y firma */
-        .classes-signature {
-            grid-column: 1 / -1; /* Ocupa las dos columnas */
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 5px;
-        }
-
-        .signature-placeholder {
-            height: 30px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #aaa;
-            font-style: italic;
-        }
-
-        /* Franja inferior azul */
-        .footer {
-            background-color: #005691;
-            color: white;
-            padding: 10px;
-            height: 40px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-        }
-
-        .footer-logo {
-            width: 25px;
-            height: auto;
+        .value {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="carnet-container">
-        <div class="header">
-            <div class="header-logos">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" alt="Bandera Argentina" class="flag-icon">
-            </div>
-            <div class="header-title">
-                REPÚBLICA ARGENTINA<br>
-                Río Negro - General Roca
-            </div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" alt="Escudo Argentina" class="shield-icon">
-        </div>
-
-        <div class="content">
-            <div class="photo-section">
-                <div class="photo-placeholder" onclick="document.getElementById('fileInput').click();">
-                    <span id="placeholderText">Hacé click para<br>subir foto</span>
-                    <img id="photoPreview" src="#" alt="Previsualización de foto">
-                </div>
-                <div class="photo-instructions">(Formato ideal: 110x135px)</div>
-                <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="previewImage(this);">
+    <div class="card-container">
+        <div class="overlay-content">
+            
+            <div class="header-data">
+                N° DE REGISTRO: 001-2024
             </div>
 
-            <div class="data-section">
-                <div class="data-item">
-                    <span class="label">1. Apellido / Last Name</span>
-                    <input type="text" class="editable-input" value="Ceballos">
-                </div>
-                <div class="data-item">
-                    <span class="label">2. Nombre / First Name</span>
-                    <input type="text" class="editable-input" value="Angel Ceferino">
-                </div>
-                <div class="data-item" style="grid-column: 1 / -1;">
-                    <span class="label">8. Domicilio / Address</span>
-                    <input type="text" class="editable-input" value="PUBLICA D25 5029 CHACRA MONTE - GENERAL ROCA">
-                </div>
-                <div class="data-item">
-                    <span class="label">3. Fecha de Nac. / Date of birth</span>
-                    <input type="text" class="editable-input" value="21 jul 1981">
-                </div>
-                <div class="data-item">
-                    <span class="label">4a. Otorgamiento / Date of issue</span>
-                    <input type="text" class="editable-input" value="25/03/2026">
-                </div>
-                <div class="data-item">
-                    <span class="label">4b. Vencimiento / Expires</span>
-                    <input type="text" class="editable-input" value="25/03/2031">
-                </div>
-
-                <div class="classes-signature">
-                    <div class="data-item">
-                        <span class="label">9. Clases / Class</span>
-                        <input type="text" class="editable-input" value="E1 E2 D3 D1 A1.4">
-                    </div>
-                    <div class="data-item">
-                        <span class="label">7. Firma del titular / Signature</span>
-                        <div class="signature-placeholder">Firma aquí</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div style="font-weight: bold;">SEGURIDAD VIAL</div>
-            <div style="text-align: right; display: flex; align-items: center; gap: 5px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" alt="Escudo Argentina" class="footer-logo">
+            <div class="main-info">
                 <div>
-                    Ministerio de Transporte<br>
-                    República Argentina
+                    <span class="label">Nombre Completo</span>
+                    <div class="value">Juan Pérez García</div>
+                </div>
+                <div>
+                    <span class="label">Identificación</span>
+                    <div class="value">ID-987654321</div>
                 </div>
             </div>
+
+            <div class="secondary-info">
+                <div>
+                    <span class="label">Fecha de Emisión</span>
+                    <div class="value">05/04/2024</div>
+                </div>
+                <div>
+                    <span class="label">Vencimiento</span>
+                    <div class="value">05/04/2026</div>
+                </div>
+            </div>
+
+            <div class="footer-data">
+                Validado por el sistema de gestión de datos - 2026
+            </div>
+
         </div>
     </div>
-
-    <script>
-        // Función para previsualizar la imagen subida
-        function previewImage(input) {
-            var preview = document.getElementById('photoPreview');
-            var placeholderText = document.getElementById('placeholderText');
-            
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block'; // Muestra la imagen
-                    placeholderText.style.display = 'none'; // Oculta el texto
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 
 </body>
 </html>

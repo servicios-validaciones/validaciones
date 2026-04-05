@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Carnet de Conducir - Río Negro</title>
 
-<!-- Librerías PDF -->
+<!-- PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -14,20 +14,24 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
     margin: 0;
 }
 
-/* BOTÓN PDF */
-.btn {
-    margin: 15px;
-    padding: 10px 20px;
-    background: #005691;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* BOTÓN */
+.btn-pdf{
+    position:absolute;
+    top:10px;
+    left:10px;
+    z-index:100;
+    padding:8px 12px;
+    background:#005691;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
 }
 
 /* CONTENEDOR */
@@ -46,15 +50,24 @@ body {
 .header {
     background-color: #005691;
     color: white;
-    padding: 6px 10px;
+    padding: 6px 10px; /* ajustado */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 35px;
+    height: 35px; /* ajustado */
 }
 
+.header-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flag-icon { width: 28px; }
+.shield-icon { width: 23px; }
+
 .header-title {
-    font-size: 12px;
+    font-size: 12px; /* ajustado */
     font-weight: bold;
     text-align: center;
     flex-grow: 1;
@@ -66,11 +79,17 @@ body {
     display: grid;
     grid-template-columns: 110px 1fr;
     gap: 10px;
-    height: calc(100% - 70px); /* CORREGIDO */
+    height: calc(100% - 70px); /* CLAVE */
     box-sizing: border-box;
 }
 
 /* FOTO */
+.photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .photo-placeholder {
     width: 100px;
     height: 120px;
@@ -81,6 +100,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 10px;
+    text-align: center;
     cursor: pointer;
     overflow: hidden;
 }
@@ -104,6 +124,11 @@ body {
     font-size: 10px;
 }
 
+.data-item {
+    display: flex;
+    flex-direction: column;
+}
+
 .label {
     font-weight: bold;
     margin-bottom: 2px;
@@ -115,14 +140,16 @@ body {
     padding: 2px;
     font-size: 10px;
     width: 100%;
+    box-sizing: border-box;
 }
 
-/* CLASES + FIRMA */
+/* CLASES Y FIRMA */
 .classes-signature {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
+    margin-top: 2px;
 }
 
 .signature-placeholder {
@@ -144,6 +171,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -158,7 +186,7 @@ body {
 
 <body>
 
-<button class="btn" onclick="generarPDF()">Descargar PDF</button>
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>
 
 <div class="carnet-container" id="carnet">
 
@@ -177,60 +205,56 @@ body {
 
     <div class="content">
 
-        <!-- FOTO -->
         <div class="photo-section">
             <div class="photo-placeholder" onclick="document.getElementById('fileInput').click();">
-                <span id="placeholderText">Subir foto</span>
+                <span id="placeholderText">Hacé click<br>para subir foto</span>
                 <img id="photoPreview">
             </div>
-
             <div class="photo-instructions">(110x135px)</div>
-
             <input type="file" id="fileInput" hidden accept="image/*" onchange="previewImage(this);">
         </div>
 
-        <!-- DATOS -->
         <div class="data-section">
 
             <div class="data-item">
-                <span class="label">Apellido</span>
-                <input class="editable-input" value="Ceballos">
+                <span class="label">1. Apellido / Last Name</span>
+                <input type="text" class="editable-input" value="Ceballos">
             </div>
 
             <div class="data-item">
-                <span class="label">Nombre</span>
-                <input class="editable-input" value="Angel Ceferino">
+                <span class="label">2. Nombre / First Name</span>
+                <input type="text" class="editable-input" value="Angel Ceferino">
             </div>
 
-            <div style="grid-column:1/-1;">
-                <span class="label">Domicilio</span>
-                <input class="editable-input" value="GENERAL ROCA">
+            <div class="data-item" style="grid-column:1/-1;">
+                <span class="label">8. Domicilio / Address</span>
+                <input type="text" class="editable-input" value="PUBLICA D25 5029 CHACRA MONTE - GENERAL ROCA">
             </div>
 
-            <div>
-                <span class="label">Nacimiento</span>
-                <input class="editable-input" value="21/07/1981">
+            <div class="data-item">
+                <span class="label">3. Fecha de Nac.</span>
+                <input type="text" class="editable-input" value="21 jul 1981">
             </div>
 
-            <div>
-                <span class="label">Otorgamiento</span>
-                <input class="editable-input" value="25/03/2026">
+            <div class="data-item">
+                <span class="label">4a. Otorgamiento</span>
+                <input type="text" class="editable-input" value="25/03/2026">
             </div>
 
-            <div>
-                <span class="label">Vencimiento</span>
-                <input class="editable-input" value="25/03/2031">
+            <div class="data-item">
+                <span class="label">4b. Vencimiento</span>
+                <input type="text" class="editable-input" value="25/03/2031">
             </div>
 
             <div class="classes-signature">
-                <div>
-                    <span class="label">Clases</span>
-                    <input class="editable-input" value="E1 E2 D3">
+                <div class="data-item">
+                    <span class="label">9. Clases</span>
+                    <input type="text" class="editable-input" value="E1 E2 D3 D1 A1.4">
                 </div>
 
-                <div>
-                    <span class="label">Firma</span>
-                    <div class="signature-placeholder">Firma</div>
+                <div class="data-item">
+                    <span class="label">7. Firma</span>
+                    <div class="signature-placeholder">Firma aquí</div>
                 </div>
             </div>
 
@@ -239,7 +263,6 @@ body {
 
     <div class="footer">
         <div><b>SEGURIDAD VIAL</b></div>
-
         <div style="display:flex;align-items:center;gap:5px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">
             <div>Ministerio de Transporte</div>
@@ -249,7 +272,6 @@ body {
 </div>
 
 <script>
-// FOTO
 function previewImage(input) {
     let preview = document.getElementById('photoPreview');
     let text = document.getElementById('placeholderText');
@@ -263,14 +285,10 @@ function previewImage(input) {
     reader.readAsDataURL(input.files[0]);
 }
 
-// PDF
 async function generarPDF() {
     const { jsPDF } = window.jspdf;
 
-    let carnet = document.getElementById("carnet");
-
-    const canvas = await html2canvas(carnet, { scale: 3 });
-
+    const canvas = await html2canvas(document.getElementById("carnet"), { scale: 3 });
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF({

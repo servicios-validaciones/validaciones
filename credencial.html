@@ -3,123 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnet Digital Modificable</title>
     <style>
-        /* Estilos Base */
+        /* --- ESTILOS GENERALES (Cuerpo de la página) --- */
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente limpia */
+            background-color: #f0f2f5; /* Color de fondo suave para la pantalla */
+            display: flex;
+            justify-content: center; /* Centra el carnet horizontalmente */
+            align-items: center; /* Centra el carnet verticalmente */
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- ESTILOS DEL CARNET (El rectángulo principal) --- */
+        .carnet-container {
+            width: 450px; /* Ancho del carnet */
+            height: 280px; /* Alto del carnet */
+            background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Fondo degradado profesional */
+            color: white; /* Color de letra general */
+            border-radius: 20px; /* *** BORDES REDONDEADOS *** */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Sombra para dar efecto 3D */
+            overflow: hidden; /* Asegura que nada sobresalga de los bordes redondeados */
+            position: relative; /* Necesario para posicionar elementos internos */
+            border: 2px solid rgba(255,255,255,0.2); /* Borde sutil */
+        }
+
+        /* --- ENCABEZADO (Franja superior) --- */
+        .carnet-header {
+            background-color: rgba(0,0,0,0.2); /* Fondo más oscuro para el título */
+            padding: 10px 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* --- CUERPO DEL CARNET (Área de foto y datos) --- */
+        .carnet-body {
+            display: flex; /* Alinea foto y datos en fila */
+            padding: 20px;
+            align-items: center;
+            height: calc(100% - 70px); /* Ajusta altura restando encabezado y pie */
+        }
+
+        /* --- SECCIÓN DE LA FOTO --- */
+        .foto-seccion {
+            flex: 0 0 120px; /* Ancho fijo para la zona de la foto */
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        .foto-placeholder {
+            width: 110px; /* Ancho de la foto */
+            height: 130px; /* Alto de la foto (proporción carnet) */
+            background-color: #e0e0e0; /* Color gris si no hay foto */
+            border: 3px solid white;
+            border-radius: 10px; /* Bordes de la foto también redondeados */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            overflow: hidden; /* Para que la foto real se corte si es grande */
         }
 
-        /* Contenedor Principal (La "Tarjeta") */
-        .card-container {
-            width: 800px;
-            height: 500px;
-            position: relative;
-            background-image: url('TU_IMAGEN_DE_FONDO.jpg'); /* Cambia esto por tu URL */
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            overflow: hidden;
-            color: white; /* Color de texto por defecto */
-        }
-
-        /* Capa para organizar los datos */
-        .overlay-content {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* ESTILO PARA CUANDO PONGAS LA FOTO REAL */
+        .foto-placeholder img {
             width: 100%;
             height: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Divide en dos columnas */
-            grid-template-rows: auto 1fr auto;
-            padding: 40px;
-            box-sizing: border-box;
+            object-fit: cover; /* Ajusta la foto sin deformarla */
         }
 
-        /* Ejemplo de posicionamiento específico */
-        .header-data {
-            grid-column: 1 / span 2;
-            text-align: right;
-            font-size: 1.2rem;
-            font-weight: bold;
+        /* --- SECCIÓN DE DATOS --- */
+        .datos-seccion {
+            flex: 1; /* Ocupa el resto del espacio */
         }
 
-        .main-info {
-            align-self: center;
+        .dato-grupo {
+            margin-bottom: 10px; /* Espacio entre cada dato */
         }
 
-        .secondary-info {
-            align-self: center;
-            text-align: right;
-        }
-
-        .footer-data {
-            grid-column: 1 / span 2;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            padding-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        /* Clase para etiquetas de datos */
+        /* Las etiquetas (ej: "NOMBRE:") */
         .label {
             display: block;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.7rem;
-            opacity: 0.8;
-            margin-bottom: 2px;
+            color: rgba(255,255,255,0.7); /* Color más tenue */
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 1px;
         }
 
-        .value {
+        /* Los valores (ej: "JUAN PÉREZ") */
+        .valor {
             font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-weight: 600;
         }
+
+        /* Estilo especial para el ID o número principal */
+        .valor-id {
+            font-family: 'Courier New', Courier, monospace; /* Fuente tipo máquina */
+            font-size: 1.2rem;
+            color: #f1c40f; /* Color amarillo/dorado */
+        }
+
+        /* --- PIE DEL CARNET (Franja inferior) --- */
+        .carnet-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.2);
+            padding: 5px 20px;
+            font-size: 0.75rem;
+            text-align: right;
+            box-sizing: border-box;
+            color: rgba(255,255,255,0.6);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="card-container">
-        <div class="overlay-content">
-            
-            <div class="header-data">
-                N° DE REGISTRO: 001-2024
-            </div>
+    <div class="carnet-container">
 
-            <div class="main-info">
-                <div>
-                    <span class="label">Nombre Completo</span>
-                    <div class="value">Juan Pérez García</div>
-                </div>
-                <div>
-                    <span class="label">Identificación</span>
-                    <div class="value">ID-987654321</div>
-                </div>
-            </div>
-
-            <div class="secondary-info">
-                <div>
-                    <span class="label">Fecha de Emisión</span>
-                    <div class="value">05/04/2024</div>
-                </div>
-                <div>
-                    <span class="label">Vencimiento</span>
-                    <div class="value">05/04/2026</div>
-                </div>
-            </div>
-
-            <div class="footer-data">
-                Validado por el sistema de gestión de datos - 2026
-            </div>
-
+        <div class="carnet-header">
+            Carnet de Identificación
         </div>
-    </div>
 
-</body>
+        <div class="carnet-body">
+            
+            <div class="foto-seccion">
+                <div class="foto-placeholder">
+                    ) la línea de la imagen -->
+                    
+                    <span>Espacio<br>para Foto</span>
+                    
+                    </div>
+            </div>
+
+            <div class="datos-seccion">
+                
+                <div class="dato-grupo">
+                    <span class="label">Nombre Completo</span>
+                    <div class="valor">JUAN PÉREZ GARCÍA</div>
+                </div>
+
+                <div class="dato-grupo">
+                    <span class="label">Número de Identificación</span>
+                    <div class="valor valor-id">ID-87.543.210-K</div>
+                </div>
+
+                <div class="dato-grupo" style="display: flex; gap: 20px;">
+                    <div>
+                        <span class="label">Fecha Emisión</span>
+                        <div class="valor" style="font-size: 0.9rem;">15/05/2023</div>
+                    </div>
+                    <div>
+                        <span class="label">Vencimiento</span>
+                        <div class="valor" style="font-size: 0.9rem;">15/05/2028</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="carnet-footer">
+            Válido solo con firma y sello oficial | © 2023 Sistema Central
+        </div>
+
+    </div>
+    </body>
 </html>

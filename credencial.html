@@ -68,7 +68,6 @@ body {
 .flag-icon { width:30px; }  
 .shield-icon { width:25px; }  
 
-/* 👇 FIX para que no tape el footer */
 .content {  
     display:grid;  
     grid-template-columns:130px 1fr;  
@@ -122,7 +121,7 @@ body {
     align-items:center;
 }
 
-/* FIRMA */
+/* FIRMA (más grande) */
 .signature-container{
     display:flex;
     flex-direction:column;
@@ -130,8 +129,8 @@ body {
 }
 
 .signature-box {
-    width:100px;
-    height:35px;
+    width:120px;
+    height:45px;
     border:1px dashed #999;
     position:relative;
     cursor:pointer;
@@ -167,11 +166,11 @@ body {
     width:20px;  
 }  
 
-/* 👇 NUEVO BLOQUE DERECHO */
 .footer-right{
     display:flex;
     align-items:center;
     gap:5px;
+    margin-right:20px;
 }
 
 .footer-text{
@@ -364,4 +363,4 @@ async function generarPDF(){
 </script>  
 
 </body>  
-</html>
+    </html>

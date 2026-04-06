@@ -1,212 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dorso - Tarjeta de Conducción</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maqueta Licencia LNC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        .card-back {
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            /* Fondo sutil simulando seguridad vial */
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://www.argentina.gob.ar/sites/default/files/vignette_seguridad_vial.png');
+            background-size: cover;
+        }
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#e6e6e6,#f7f7f7);
-    font-family:"Inter","Segoe UI",Roboto,Arial,sans-serif;
-}
+        /* Sección de categorías superiores */
+        .categories-container {
+            margin: 15px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+        }
 
-/* botones */
-.btn{
-    position:absolute;
-    left:10px;
-    padding:8px 12px;
-    background:#4aa3df;
-    color:#fff;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:12px;
-}
+        .category-row {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-bottom: 1px solid #333;
+            font-size: 11px;
+            color: #333;
+        }
 
-.btn:nth-child(1){ top:10px; }
-.btn:nth-child(2){ top:45px; }
+        .category-row:last-child { border-bottom: none; }
 
-.card{
-    width:500px;
-    height:300px;
-    background:#fff;
-    border-radius:14px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.18);
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    border:1px solid rgba(0,0,0,0.15);
-}
+        .icon {
+            width: 40px;
+            font-size: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
 
-/* HEADER estilo LNC */
-.header{
-    background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(6px);
-    color:#0072bb;
-    padding:10px;
-    font-weight:600;
-    font-size:14px;
-    position:relative;
-    text-align:center;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
+        /* Información personal central */
+        .info-section {
+            padding: 0 20px;
+            font-size: 12px;
+            color: #444;
+        }
 
-.header::after{
-    content:"";
-    position:absolute;
-    bottom:0;
-    left:15px;
-    right:15px;
-    height:3px;
-    background:#00a3ff;
-}
+        .info-row {
+            margin-bottom: 5px;
+            display: flex;
+            gap: 15px;
+        }
 
-/* contenido */
-.items{
-    flex:1;
-    padding:10px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
+        /* Barra inferior azul */
+        .footer-bar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #a3d5e0; /* Color celeste característico */
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+            border-top: 2px solid #8cbcc7;
+        }
 
-.item{
-    border:1px solid rgba(0,0,0,0.12);
-    border-radius:10px;
-    padding:8px;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    background:#fff;
-}
+        .lnc-logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: #1a4a7c;
+            margin-right: 10px;
+        }
 
-.icon{
-    font-size:20px;
-}
+        .barcode-placeholder {
+            flex-grow: 1;
+            height: 40px;
+            background: repeating-linear-gradient(
+                90deg,
+                #000,
+                #000 2px,
+                #fff 2px,
+                #fff 4px
+            );
+            margin: 0 10px;
+        }
 
-.text{
-    font-size:11.5px;
-    color:#1a1a1a;
-}
+        .signature-area {
+            text-align: center;
+            font-size: 9px;
+            color: #333;
+            width: 100px;
+        }
 
-.text b{
-    font-size:12px;
-    font-weight:600;
-}
-
-/* footer */
-.footer{
-    background:#4aa3df;
-    color:#fff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:8px 10px;
-    font-size:10px;
-}
-
-.qr{
-    width:60px;
-    height:60px;
-    background:#fff;
-    border-radius:6px;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.qr img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:none;
-}
-</style>
+        .name-label {
+            font-weight: bold;
+            display: block;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2px;
+        }
+    </style>
 </head>
-
 <body>
 
-<button class="btn" onclick="bgInput.click()">Fondo</button>
-<button class="btn" style="top:45px;" onclick="qrInput.click()">Cargar QR</button>
-
-<input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">
-<input type="file" id="qrInput" hidden onchange="cargarQR(this)">
-
-<div class="card" id="card">
-
-    <div class="header">
-        Categorías habilitadas de conducción
-    </div>
-
-    <div class="items">
-
-        <div class="item">
-            <div class="icon">🏍️</div>
-            <div class="text">
-                <b>A2.1</b> Motocicletas, ciclomotores y triciclos livianos.
+    <div class="card-back">
+        <div class="categories-container">
+            <div class="category-row">
+                <span class="icon">🏍️</span>
+                <span><strong>A2.1.</strong> Motocicleta, ciclomotor y triciclo hasta 150cc.</span>
+            </div>
+            <div class="category-row">
+                <span class="icon">🚗</span>
+                <span><strong>B1.</strong> Automóviles, utilitarios, camioneta y casa rodante con motor hasta 3500kg de peso total.</span>
             </div>
         </div>
 
-        <div class="item">
-            <div class="icon">🚗</div>
-            <div class="text">
-                <b>B1</b> Automóviles, utilitarios y camionetas hasta 3500 kg.
+        <div class="info-section">
+            <div class="info-row">
+                <span><strong>Grupo y factor:</strong> RH+</span>
+                <span><strong>Cuil:</strong> -- - -------- - -</span>
+            </div>
+            <div class="info-row">
+                <span><strong>Observaciones:</strong> NINGUNA -</span>
             </div>
         </div>
 
-    </div>
+        <div class="footer-bar">
+            <div class="lnc-logo">LNC</div>
+            
+            <div class="barcode-placeholder"></div>
 
-    <div class="footer">
-        <div>
-            Observaciones: Ninguna
+            <div class="signature-area">
+                <span style="font-size: 8px;">NICOLAS NAIDICH</span>
+                <span class="name-label"></span>
+                <strong>Responsable</strong><br>
+                responsible, in charge
+            </div>
         </div>
-
-        <div class="qr">
-            <img id="qrPreview">
-        </div>
     </div>
-
-</div>
-
-<script>
-
-function cambiarFondo(input){
-    const card = document.getElementById("card");
-    const reader = new FileReader();
-
-    reader.onload = e=>{
-        card.style.backgroundImage = `url('${e.target.result}')`;
-        card.style.backgroundSize = "cover";
-        card.style.backgroundPosition = "center";
-        card.style.backgroundRepeat = "no-repeat";
-    };
-
-    reader.readAsDataURL(input.files[0]);
-}
-
-function cargarQR(input){
-    const img = document.getElementById("qrPreview");
-    const reader = new FileReader();
-
-    reader.onload = e=>{
-        img.src = e.target.result;
-        img.style.display = "block";
-    };
-
-    reader.readAsDataURL(input.files[0]);
-}
-
-</script>
 
 </body>
 </html>

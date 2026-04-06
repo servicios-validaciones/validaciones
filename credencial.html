@@ -146,29 +146,6 @@ body {
     color:#333;
 }  
 
-.signature-container{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.signature-box {
-    width:115px;
-    height:42px;
-    border:1px dashed #999;
-    position:relative;
-    cursor:pointer;
-    overflow:hidden;
-}
-
-.signature-box img{
-    position:absolute;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    display:none;
-}
-
 .item-dates{
     display:flex;
     justify-content:space-between;
@@ -229,7 +206,7 @@ body {
     display:flex;
     align-items:center;
     gap:5px;
-    transform: translateX(-10px);
+    transform: translateX(-15px);
 }
 
 .footer-text span:last-child{
@@ -319,14 +296,8 @@ body {
             </div>
         </div>
 
-        <div class="item firma-row right-align">
-            <div class="signature-container">
-                <div class="signature-box" onclick="firmaInput.click()">
-                    <img id="firmaPreview">
-                </div>
-                <span class="label"><b>Firma</b> / Signature</span>
-            </div>
-            <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
+        <div class="item right-align">
+            <span class="label"><b>Firma</b> / Signature</span>
         </div>
 
         <div class="item item-dates right-align">
@@ -375,16 +346,6 @@ function previewImage(input){
         txt.style.display="none";  
     }  
     reader.readAsDataURL(input.files[0]);  
-}
-
-function previewFirma(input){
-    const img = document.getElementById('firmaPreview');
-    const reader = new FileReader();
-    reader.onload = e=>{
-        img.src = e.target.result;
-        img.style.display="block";
-    }
-    reader.readAsDataURL(input.files[0]);
 }
 
 function cambiarFondo(input){

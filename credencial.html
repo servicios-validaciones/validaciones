@@ -11,7 +11,7 @@
 <style>  
 body {  
     font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;  
-    background-color: #f0f0f0;  
+    background: linear-gradient(135deg, #e6e6e6, #f7f7f7);
     display:flex;  
     justify-content:center;  
     align-items:center;  
@@ -34,12 +34,19 @@ body {
     cursor:pointer;  
 }  
 
+/* 🔥 CARNET ESTILO REAL */
 .carnet-container {
     width:500px;
     height:315px;
     overflow:hidden;
     display:flex;
     flex-direction:column;
+
+    border-radius:14px;
+    border:1px solid rgba(0,0,0,0.15);
+    box-shadow:0 8px 25px rgba(0,0,0,0.18);
+
+    background:#fff;
 }
 
 .header {  
@@ -385,4 +392,4 @@ async function generarPDF(){
 </script>  
 
 </body>  
-</html>
+            </html>

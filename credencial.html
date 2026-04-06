@@ -120,7 +120,7 @@ body {
     align-items:center;
 }
 
-/* 🔥 FIRMA (CUADRO ARRIBA DEL TEXTO) */
+/* FIRMA */
 .signature-container{
     display:flex;
     flex-direction:column;
@@ -128,8 +128,8 @@ body {
 }
 
 .signature-box {
-    width:80px;
-    height:25px;
+    width:100px; /* 👈 más grande */
+    height:35px; /* 👈 más grande */
     border:1px dashed #999;
     position:relative;
     cursor:pointer;
@@ -236,7 +236,7 @@ body {
                 </div>
 
                 <div class="signature-container">
-                    <div class="signature-box" onclick="firmaInput.click()">
+                    <div class="signature-box" id="firmaBox" onclick="firmaInput.click()">
                         <img id="firmaPreview">
                     </div>
                     <span class="label"><b>7. Firma</b> / Signature</span>
@@ -313,7 +313,17 @@ function cambiarFondo(input){
 
 async function generarPDF(){  
     const { jsPDF } = window.jspdf;  
-    const canvas = await html2canvas(document.getElementById("carnet"), {scale:3});  
+
+    const firmaBox = document.getElementById("firmaBox");
+    const bordeOriginal = firmaBox.style.border;
+
+    firmaBox.style.border = "none"; // ❌ ocultar borde
+
+    const canvas = await html2canvas(document.getElementById("carnet"), {
+        scale:4, // 👈 mejor calidad
+        useCORS:true
+    });  
+
     const img = canvas.toDataURL("image/png");  
 
     const pdf = new jsPDF({  
@@ -323,6 +333,9 @@ async function generarPDF(){
     });  
 
     pdf.addImage(img,"PNG",0,0,85.6,54);  
+
+    firmaBox.style.border = bordeOriginal; // 🔁 restaurar borde
+
     pdf.save("carnet.pdf");  
 }  
 </script>  

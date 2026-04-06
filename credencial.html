@@ -99,15 +99,24 @@ body {
 
 .data {  
     font-size:11px;  
+    line-height:1.1; /* 👈 agregado */
 }  
 
 .item {  
-    margin-bottom:6px;  
-    padding-bottom:2px;  
+    margin-bottom:4px; /* 👈 reducido */
+    padding-bottom:1px;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }  
+
+.item:last-child{
+    margin-bottom:0;
+}
+
+.item:nth-last-child(2){
+    margin-bottom:2px;
+}
 
 .label {  
     font-weight:bold;  
@@ -387,4 +396,4 @@ async function generarPDF(){
 </script>  
 
 </body>  
-    </html>
+</html>

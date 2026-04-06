@@ -353,6 +353,9 @@ function cambiarFondo(input){
     const reader = new FileReader();
     reader.onload = e=>{
         carnet.style.backgroundImage = `url('${e.target.result}')`;
+        carnet.style.backgroundSize = "contain";
+        carnet.style.backgroundPosition = "center";
+        carnet.style.backgroundRepeat = "no-repeat";
     }
     reader.readAsDataURL(input.files[0]);
 }

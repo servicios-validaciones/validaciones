@@ -151,21 +151,21 @@ body {
 
 .item-dates{  
     display:flex;  
-    justify-content:space-between;  
-    gap:10px;  
+    justify-content:flex-start;  
+    gap:40px;  
     width:100%;  
     margin-top:-4px;  
 }  
 
 .item-dates > div{  
-    flex:1;  
+    flex:none;  
 }  
 
 .right-align{  
     display:flex;  
-    justify-content:flex-end;  
+    justify-content:flex-start;  
     width:100%;  
-    gap:25px;  
+    gap:40px;  
 }  
 
 .footer {    
@@ -220,11 +220,6 @@ body {
 
 .clases{  
     margin-left: auto;  
-}  
-
-.item-dates > div:last-child{  
-    margin-left: auto;  
-    text-align: right;  
 }  
 
 .footer-text{  
@@ -294,19 +289,19 @@ body {
             </div>  
         </div>  
 
-        <div class="item" style="display:flex; justify-content:space-between; width:100%; align-items:flex-start;">  
+        <div class="item" style="display:flex; justify-content:space-between; width:100%; align-items:center;">  
             <div>  
                 <span class="label"><b>3. Fecha de Nac.</b> / Date of birth</span>  
                 <b>21/07/1981</b>  
             </div>  
 
             <div style="text-align:right;">  
-                <b style="display:block; margin-bottom:3px;">________________</b>  
+                <b style="display:block; margin-bottom:-2px;">________________</b>  
                 <span class="label"><b>5. Firma</b> / Signature</span>  
             </div>  
         </div>  
 
-        <div class="item item-dates right-align">  
+        <div class="item item-dates">  
             <div>  
                 <span class="label"><b>4a. Otorgamiento</b> / Issue</span>  
                 <b>25/03/2026</b>  

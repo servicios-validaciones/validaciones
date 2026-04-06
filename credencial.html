@@ -232,6 +232,31 @@ body {
     font-weight:400;
     color:#444;
 }
+    .item-dates{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    width:100%;
+    gap:20px;
+}
+
+/* mejora visual de columnas 4a / 4b */
+.item-dates > div{
+    flex:1;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px){
+
+    body{
+        align-items:flex-start;
+        padding-top:20px;
+    }
+
+    .carnet-container{
+        transform: scale(0.75);
+        transform-origin: top center;
+    }
 </style>  
 </head>  
 
@@ -312,7 +337,7 @@ body {
                 <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
             </div>
 
-            <div class="item">
+            <div class="item item-dates">
                 <div>
                     <span class="label"><b>4a. Otorgamiento</b> / <span class="en">Date of issue</span></span>
                     <b>25/03/2026</b>

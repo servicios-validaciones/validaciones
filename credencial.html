@@ -1,229 +1,242 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carnet</title>
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Carnet</title>  
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-}
+<style>  
+body {  
+    font-family: Arial, sans-serif;  
+    background-color: #f0f0f0;  
+    display:flex;  
+    justify-content:center;  
+    align-items:center;  
+    height:100vh;  
+    margin:0;  
+}  
 
-.btn-pdf{
-    position:absolute;
-    top:10px;
-    left:10px;
-    padding:8px 12px;
-    background:#4aa3df;
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
+.btn-pdf{  
+    position:absolute;  
+    top:10px;  
+    left:10px;  
+    padding:8px 12px;  
+    background:#4aa3df;  
+    color:#fff;  
+    border:none;  
+    border-radius:5px;  
+    cursor:pointer;  
+}  
 
-.carnet-container {
-    width:500px;
-    height:315px;
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    position:relative;
-}
+.carnet-container {  
+    width:500px;  
+    height:315px;  
+    background:#fff;  
+    border-radius:15px;  
+    overflow:hidden;  
+    position:relative;  
+}  
 
 /* HEADER */
-.header {
-    background:#4aa3df;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:5px 10px;
-    height:40px;
-}
+.header {  
+    background:#ffffff;  
+    color:#008c8c;  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    padding:5px 10px;  
+    height:40px;  
+}  
 
-.header-title {
-    font-size:15px;
-    font-weight:bold;
-    text-align:center;
-    flex-grow:1;
-    line-height:1.1;
-}
+.header-title {  
+    font-size:15px;  
+    font-weight:bold;  
+    text-align:center;  
+    flex-grow:1;  
+    line-height:1.1;  
+}  
 
-.flag-icon { width:30px; }
-.shield-icon { width:25px; }
+.flag-icon { width:30px; }  
+.shield-icon { width:25px; }  
 
-/* CONTENT */
-.content {
-    display:grid;
-    grid-template-columns:130px 1fr;
-    padding:10px;
-    gap:10px;
-}
+/* CONTENT */  
+.content {  
+    display:grid;  
+    grid-template-columns:130px 1fr;  
+    padding:10px;  
+    gap:10px;  
+}  
 
-/* FOTO */
-.photo-placeholder {
-    width:120px;
-    height:140px;
-    background:#e0e0e0;
-    border-radius:5px;
-    cursor:pointer;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:10px;
-    text-align:center;
-}
+/* FOTO */  
+.photo-placeholder {  
+    width:120px;  
+    height:140px;  
+    background:#e0e0e0;  
+    border-radius:5px;  
+    cursor:pointer;  
+    overflow:hidden;  
+    display:flex;  
+    justify-content:center;  
+    align-items:center;  
+    font-size:10px;  
+    text-align:center;  
+}  
 
-.photo-placeholder img {
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:none;
-}
+.photo-placeholder img {  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+    display:none;  
+}  
 
 /* DATOS */
-.data {
-    font-size:11px;
-}
+.data {  
+    font-size:11px;  
+}  
 
-.row {
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:5px;
-}
+.item {  
+    margin-bottom:6px;  
+    border-bottom:1px solid #000;  
+    padding-bottom:2px;  
+}  
 
-.label {
-    font-weight:bold;
-}
+.label {  
+    font-weight:bold;  
+    display:block;  
+    font-size:10px;  
+}  
 
-.value {
-    margin-left:5px;
-}
+/* FOOTER */  
+.footer {  
+    background:#4aa3df;  
+    color:#fff;  
+    position:absolute;  
+    bottom:0;  
+    width:100%;  
+    height:35px;  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    padding:5px 10px;  
+    font-size:10px;  
+}  
 
-/* FOOTER */
-.footer {
-    background:#4aa3df;
-    color:#fff;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:35px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:5px 10px;
-    font-size:10px;
-}
+.footer-logo {  
+    width:20px;  
+}  
+</style>  
+</head>  
 
-.footer-logo {
-    width:20px;
-}
-</style>
-</head>
+<body>  
 
-<body>
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>  
 
-<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>
+<div class="carnet-container" id="carnet">  
 
-<div class="carnet-container" id="carnet">
+    <div class="header">  
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">  
 
-    <div class="header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">
+        <div class="header-title">  
+            REPÚBLICA ARGENTINA<br>  
+            Río Negro - General Roca  
+        </div>  
 
-        <div class="header-title">
-            REPÚBLICA ARGENTINA<br>
-            Río Negro - General Roca
-        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">  
+    </div>  
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">
-    </div>
+    <div class="content">  
 
-    <div class="content">
+        <!-- FOTO -->  
+        <div class="photo-placeholder" onclick="fileInput.click()">  
+            <span id="txtFoto">Subir foto</span>  
+            <img id="preview">  
+        </div>  
+        <input type="file" id="fileInput" hidden onchange="previewImage(this)">  
 
-        <!-- FOTO -->
-        <div class="photo-placeholder" onclick="fileInput.click()">
-            <span id="txtFoto">Subir foto</span>
-            <img id="preview">
-        </div>
-        <input type="file" id="fileInput" hidden onchange="previewImage(this)">
+        <!-- DATOS -->  
+        <div class="data">  
 
-        <!-- DATOS -->
-        <div class="data">
-
-            <div class="row">
-                <div><span class="label">N° Licencia:</span> <span class="value">123456</span></div>
-                <div><span class="label">Clases:</span> <span class="value">A1 B1</span></div>
+            <div class="item">
+                <span class="label">N° Licencia</span>
+                123456
             </div>
 
-            <div><span class="label">Apellido:</span> CEBALLOS</div>
-            <div><span class="label">Nombre:</span> ANGEL CEFERINO</div>
-            <div><span class="label">Domicilio:</span> CHACRA MONTE - GRAL ROCA</div>
-
-            <div class="row">
-                <div><span class="label">Fecha Nac:</span> 21/07/1981</div>
-                <div><span class="label">Firma:</span> __________</div>
+            <div class="item">
+                <span class="label">Apellido</span>
+                CEBALLOS
             </div>
 
-            <div><span class="label">Otorgamiento:</span> 25/03/2026</div>
-
-            <div style="margin-top:8px;">
-                <span class="label">Vencimiento:</span> 25/03/2031
+            <div class="item">
+                <span class="label">Nombre</span>
+                ANGEL CEFERINO
             </div>
 
+            <div class="item">
+                <span class="label">Domicilio</span>
+                CHACRA MONTE - GRAL ROCA
+            </div>
+
+            <div class="item">
+                <span class="label">Fecha Nacimiento</span>
+                21/07/1981
+            </div>
+
+            <div class="item">
+                <span class="label">Otorgamiento</span>
+                25/03/2026
+            </div>
+
+        </div>  
+
+    </div>  
+
+    <div class="footer">  
+        <div>
+            |<br>
+            <b>SEGURIDAD</b><br>
+            <b>VIAL</b>
         </div>
 
-    </div>
+        <div style="display:flex;align-items:center;gap:5px;">  
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">  
+            Ministerio de Transporte  
+        </div>  
+    </div>  
 
-    <div class="footer">
-        <div><b>SEGURIDAD VIAL</b></div>
-        <div style="display:flex;align-items:center;gap:5px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">
-            Ministerio de Transporte
-        </div>
-    </div>
+</div>  
 
-</div>
+<script>  
+function previewImage(input){  
+    const img = document.getElementById('preview');  
+    const txt = document.getElementById('txtFoto');  
 
-<script>
-function previewImage(input){
-    const img = document.getElementById('preview');
-    const txt = document.getElementById('txtFoto');
+    const reader = new FileReader();  
+    reader.onload = e=>{  
+        img.src = e.target.result;  
+        img.style.display="block";  
+        txt.style.display="none";  
+    }  
+    reader.readAsDataURL(input.files[0]);  
+}  
 
-    const reader = new FileReader();
-    reader.onload = e=>{
-        img.src = e.target.result;
-        img.style.display="block";
-        txt.style.display="none";
-    }
-    reader.readAsDataURL(input.files[0]);
-}
+async function generarPDF(){  
+    const { jsPDF } = window.jspdf;  
+    const canvas = await html2canvas(document.getElementById("carnet"), {scale:3});  
+    const img = canvas.toDataURL("image/png");  
 
-async function generarPDF(){
-    const { jsPDF } = window.jspdf;
-    const canvas = await html2canvas(document.getElementById("carnet"), {scale:3});
-    const img = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({  
+        orientation:"landscape",  
+        unit:"mm",  
+        format:[85.6,54]  
+    });  
 
-    const pdf = new jsPDF({
-        orientation:"landscape",
-        unit:"mm",
-        format:[85.6,54]
-    });
+    pdf.addImage(img,"PNG",0,0,85.6,54);  
+    pdf.save("carnet.pdf");  
+}  
+</script>  
 
-    pdf.addImage(img,"PNG",0,0,85.6,54);
-    pdf.save("carnet.pdf");
-}
-</script>
-
-</body>
+</body>  
 </html>

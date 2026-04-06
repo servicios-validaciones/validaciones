@@ -1,158 +1,242 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maqueta Licencia LNC</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
+<!DOCTYPE html>    
+<html lang="es">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>LNC - Reverso</title>    
 
-        .card-back {
-            width: 500px;
-            height: 300px;
-            background-color: #fff;
-            border-radius: 15px;
-            border: 1px solid #ccc;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            /* Fondo sutil simulando seguridad vial */
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                        url('https://www.argentina.gob.ar/sites/default/files/vignette_seguridad_vial.png');
-            background-size: cover;
-        }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>    
 
-        /* Sección de categorías superiores */
-        .categories-container {
-            margin: 15px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.8);
-        }
+<style>    
+body {    
+    font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;    
+    background: linear-gradient(135deg, #e6e6e6, #f7f7f7);  
+    display:flex;    
+    justify-content:center;    
+    align-items:center;    
+    height:100vh;    
+    margin:0;    
+    -webkit-font-smoothing: antialiased;  
+    -moz-osx-font-smoothing: grayscale;  
+    text-rendering: optimizeLegibility;  
+}    
 
-        .category-row {
-            display: flex;
-            align-items: center;
-            padding: 5px 10px;
-            border-bottom: 1px solid #333;
-            font-size: 11px;
-            color: #333;
-        }
+.btn-pdf{    
+    position:absolute;    
+    top:10px;    
+    left:10px;    
+    padding:8px 12px;    
+    background:#4aa3df;    
+    color:#fff;    
+    border:none;    
+    border-radius:5px;    
+    cursor:pointer;    
+    z-index: 10;
+}    
 
-        .category-row:last-child { border-bottom: none; }
+.carnet-container {  
+    width:500px;  
+    height:315px;  
+    overflow:hidden;  
+    display:flex;  
+    flex-direction:column;  
+    border-radius:14px;  
+    border:1px solid rgba(0,0,0,0.15);  
+    box-shadow:0 8px 25px rgba(0,0,0,0.18);  
+    background:#fff;  
+    position: relative;
+}  
 
-        .icon {
-            width: 40px;
-            font-size: 20px;
-            margin-right: 10px;
-            text-align: center;
-        }
+/* Estilos específicos para el reverso */
+.categories-box {
+    margin: 15px;
+    border: 1.5px solid #333;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.7);
+}
 
-        /* Información personal central */
-        .info-section {
-            padding: 0 20px;
-            font-size: 12px;
-            color: #444;
-        }
+.category-row {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1.5px solid #333;
+    font-size: 11px;
+    color: #1a1a1a;
+}
 
-        .info-row {
-            margin-bottom: 5px;
-            display: flex;
-            gap: 15px;
-        }
+.category-row:last-child { border-bottom: none; }
 
-        /* Barra inferior azul */
-        .footer-bar {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #a3d5e0; /* Color celeste característico */
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            box-sizing: border-box;
-            border-top: 2px solid #8cbcc7;
-        }
+.category-icon {
+    width: 45px;
+    font-size: 22px;
+    text-align: center;
+    margin-right: 12px;
+}
 
-        .lnc-logo {
-            font-weight: bold;
-            font-size: 24px;
-            color: #1a4a7c;
-            margin-right: 10px;
-        }
+.category-text b { font-weight: 700; }
 
-        .barcode-placeholder {
-            flex-grow: 1;
-            height: 40px;
-            background: repeating-linear-gradient(
-                90deg,
-                #000,
-                #000 2px,
-                #fff 2px,
-                #fff 4px
-            );
-            margin: 0 10px;
-        }
+.observations-section {
+    padding: 0 20px;
+    font-size: 11.5px;
+    color: #1a1a1a;
+    flex-grow: 1;
+}
 
-        .signature-area {
-            text-align: center;
-            font-size: 9px;
-            color: #333;
-            width: 100px;
-        }
+.obs-item {
+    margin-bottom: 8px;
+}
 
-        .name-label {
-            font-weight: bold;
-            display: block;
-            border-bottom: 1px solid #333;
-            margin-bottom: 2px;
-        }
-    </style>
-</head>
-<body>
+.obs-label {
+    font-weight: 600;
+    font-size: 10px;
+    color: #333;
+}
 
-    <div class="card-back">
-        <div class="categories-container">
-            <div class="category-row">
-                <span class="icon">🏍️</span>
-                <span><strong>A2.1.</strong> Motocicleta, ciclomotor y triciclo hasta 150cc.</span>
-            </div>
-            <div class="category-row">
-                <span class="icon">🚗</span>
-                <span><strong>B1.</strong> Automóviles, utilitarios, camioneta y casa rodante con motor hasta 3500kg de peso total.</span>
-            </div>
+/* Barra inferior con código de barras */
+.footer-reverso {    
+    background:#a3d5e0; /* Celeste del reverso */
+    width:100%;    
+    height:55px;    
+    display:flex;    
+    align-items:center;    
+    padding:0 15px;    
+    box-sizing: border-box;
+}    
+
+.lnc-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #005a8d;
+    margin-right: 10px;
+}
+
+.barcode {
+    flex-grow: 1;
+    height: 38px;
+    background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 1px,
+        #fff 1px,
+        #fff 3px,
+        #000 3px,
+        #000 4px,
+        #fff 4px,
+        #fff 5px
+    );
+    margin: 0 15px;
+}
+
+.signature-box {
+    text-align: center;
+    font-size: 8.5px;
+    color: #000;
+    min-width: 90px;
+}
+
+.sig-name {
+    display: block;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+/* Marca de agua central */
+.watermark {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-weight: 900;
+    color: rgba(0, 140, 140, 0.08);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    text-align: center;
+}
+
+</style>    
+</head>    
+
+<body>    
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
+<button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
+<input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
+
+<div class="carnet-container" id="carnet">    
+    
+    <div class="watermark">SEGURIDAD<br>VIAL</div>
+
+    <div class="categories-box" style="z-index: 1;">
+        <div class="category-row">
+            <span class="category-icon">🏍️</span>
+            <span class="category-text"><b>A2.1.</b> Motocicleta, ciclomotor y triciclo hasta 150cc.</span>
         </div>
-
-        <div class="info-section">
-            <div class="info-row">
-                <span><strong>Grupo y factor:</strong> RH+</span>
-                <span><strong>Cuil:</strong> -- - -------- - -</span>
-            </div>
-            <div class="info-row">
-                <span><strong>Observaciones:</strong> NINGUNA -</span>
-            </div>
-        </div>
-
-        <div class="footer-bar">
-            <div class="lnc-logo">LNC</div>
-            
-            <div class="barcode-placeholder"></div>
-
-            <div class="signature-area">
-                <span style="font-size: 8px;">NICOLAS NAIDICH</span>
-                <span class="name-label"></span>
-                <strong>Responsable</strong><br>
-                responsible, in charge
-            </div>
+        <div class="category-row">
+            <span class="category-icon">🚗</span>
+            <span class="category-text"><b>B1.</b> Automóviles, utilitarios, camioneta y casa rodante con motor hasta 3500kg. de peso total.</span>
         </div>
     </div>
 
-</body>
+    <div class="observations-section" style="z-index: 1;">
+        <div style="display: flex; gap: 40px; margin-bottom: 10px;">
+            <div class="obs-item">
+                <span class="obs-label">Grupo y factor:</span><br>
+                <b>RH+</b>
+            </div>
+            <div class="obs-item">
+                <span class="obs-label">Cuil:</span><br>
+                <b>-- - -------- - -</b>
+            </div>
+        </div>
+        
+        <div class="obs-item">
+            <span class="obs-label">Observaciones / <i>Observations</i>:</span><br>
+            <b>NINGUNA -</b>
+        </div>
+    </div>
+
+    <div class="footer-reverso">    
+        <div class="lnc-text">LNC</div>
+        <div class="barcode"></div>
+        <div class="signature-box">
+            <span class="sig-name">NICOLAS NAIDICH</span>
+            <b>Responsable</b><br>
+            <span style="font-size: 7px;">responsible, in charge</span>
+        </div>
+    </div>    
+
+</div>    
+
+<script>    
+function cambiarFondo(input){  
+    const carnet = document.getElementById('carnet');  
+    const reader = new FileReader();  
+    reader.onload = e=>{  
+        carnet.style.backgroundImage = `url('${e.target.result}')`;  
+        carnet.style.backgroundSize = "cover";  
+        carnet.style.backgroundPosition = "center";  
+        carnet.style.backgroundRepeat = "no-repeat";  
+    }  
+    reader.readAsDataURL(input.files[0]);  
+}  
+
+async function generarPDF(){    
+    const { jsPDF } = window.jspdf;    
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });    
+    const img = canvas.toDataURL("image/png");    
+    const pdf = new jsPDF({ orientation:"landscape", unit:"mm", format:[85.6,54] });    
+    pdf.addImage(img,"PNG",0,0,85.6,54);    
+    pdf.save("reverso_lnc.pdf");    
+}    
+</script>    
+
+</body>    
 </html>

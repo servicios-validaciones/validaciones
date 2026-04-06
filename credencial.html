@@ -260,6 +260,10 @@ body {
         transform-origin: top center;
         align-items:flex-start;
     }
+    .firma-row{
+    justify-content:flex-end;
+    margin-top:5px;
+    }
 </style>  
 </head>  
 
@@ -325,20 +329,22 @@ body {
             </div>
 
             <div class="item">
-                <div>
-                    <span class="label"><b>3. Fecha de Nac.</b> / <span class="en">Date of birth</span></span>
-                    <b>21/07/1981</b>
-                </div>
+    <div>
+        <span class="label"><b>3. Fecha de Nac.</b> / <span class="en">Date of birth</span></span>
+        <b>21/07/1981</b>
+    </div>
+</div>
 
-                <div class="signature-container">
-                    <div class="signature-box" id="firmaBox" onclick="firmaInput.click()">
-                        <img id="firmaPreview">
-                    </div>
-                    <span class="label"><b>7. Firma</b> / <span class="en">Signature</span></span>
-                </div>
+<div class="item firma-row">
+    <div class="signature-container">
+        <div class="signature-box" id="firmaBox" onclick="firmaInput.click()">
+            <img id="firmaPreview">
+        </div>
+        <span class="label"><b>7. Firma</b> / <span class="en">Signature</span></span>
+    </div>
 
-                <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
-            </div>
+    <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
+</div>
 
             <div class="item item-dates">
                 <div>

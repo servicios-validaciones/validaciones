@@ -52,7 +52,7 @@ body {
 .categories-box {
     margin: 15px;
     border: 1.5px solid #333;
-    border-radius: 6px;
+    border-radius: 0px; /* Cambio a puntas rectas */
     background: rgba(255, 255, 255, 0.7);
 }
 
@@ -93,15 +93,16 @@ body {
     color: #333;
 }
 
-/* Barra inferior con código de barras */
+/* Barra inferior modificada */
 .footer-reverso {    
-    background:#a3d5e0; /* Celeste del reverso */
+    background:#ffffff; /* Color de fondo quitado (blanco) */
     width:100%;    
     height:55px;    
     display:flex;    
     align-items:center;    
     padding:0 15px;    
     box-sizing: border-box;
+    border-top: 1px solid #4aa3df; /* Línea azul fina y sutil */
 }    
 
 .lnc-text {
@@ -143,19 +144,32 @@ body {
     text-transform: uppercase;
 }
 
-/* Marca de agua central */
+/* Marca de agua central modificada */
 .watermark {
     position: absolute;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 40px;
-    font-weight: 900;
-    color: rgba(0, 140, 140, 0.08);
-    white-space: nowrap;
     z-index: 0;
     pointer-events: none;
     text-align: center;
+    opacity: 0.1; /* Sutil */
+}
+
+.linea {
+    height: 2px;
+    background-color: #008c8c;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.texto {
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    font-weight: 900;
+    color: #008c8c;
+    line-height: 0.9;
 }
 
 </style>    
@@ -169,7 +183,13 @@ body {
 
 <div class="carnet-container" id="carnet">    
     
-    <div class="watermark">SEGURIDAD<br>VIAL</div>
+    <div class="watermark">
+        <div class="linea"></div>  
+        <div class="texto">  
+            <span>SEGURIDAD</span>  
+            <span>VIAL</span>  
+        </div>
+    </div>
 
     <div class="categories-box" style="z-index: 1;">
         <div class="category-row">

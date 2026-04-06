@@ -56,7 +56,6 @@ body {
     position:relative;
 }  
 
-/* LINEA TURQUESA */
 .header::after{
     content:"";
     position:absolute;
@@ -89,7 +88,6 @@ body {
     gap:10px;  
 }  
 
-/* FOTO MEJORADA */
 .photo-placeholder {  
     width:120px;  
     height:140px;  
@@ -103,7 +101,7 @@ body {
     align-items:center;  
     box-sizing:border-box;
 
-    transform: translate(10px, 8px); /* 👉 derecha, abajo */
+    transform: translate(10px, 8px);
 }  
 
 .photo-placeholder img {  
@@ -161,7 +159,6 @@ body {
     display:none;
 }
 
-/* SEGURIDAD VIAL */
 .seguridad-vial{
     display:flex;
     align-items:center;
@@ -183,7 +180,6 @@ body {
     line-height:1;
 }
 
-/* FOOTER */  
 .footer {  
     background:#4aa3df;  
     color:#fff;  
@@ -219,6 +215,11 @@ body {
     font-size:12px;
     font-weight:bold;
 }
+
+/* 👇 SOLO ESTO CAMBIÉ: inglés sin negrita */
+.en{
+    font-weight: normal;
+}
 </style>  
 </head>  
 
@@ -252,39 +253,39 @@ body {
         <div class="data">  
             <div class="item">
                 <div>
-                    <span class="label"><b>5. N° Licencia</b> / Licence N°</span>
+                    <span class="label"><b>5. N° Licencia</b> / <span class="en">Licence N°</span></span>
                     <b>23743980</b>
                 </div>
                 <div>
-                    <span class="label"><b>9. Clases</b> / Class</span>
+                    <span class="label"><b>9. Clases</b> / <span class="en">Class</span></span>
                     <b>A1 B1</b>
                 </div>
             </div>
 
             <div class="item">
                 <div>
-                    <span class="label"><b>1. Apellido</b> / Last name</span>
+                    <span class="label"><b>1. Apellido</b> / <span class="en">Last name</span></span>
                     <b>PANIAGUA</b>
                 </div>
             </div>
 
             <div class="item">
                 <div>
-                    <span class="label"><b>2. Nombre</b> / First name</span>
+                    <span class="label"><b>2. Nombre</b> / <span class="en">First name</span></span>
                     <b>CLAUDIO NAHUEL</b>
                 </div>
             </div>
 
             <div class="item">
                 <div>
-                    <span class="label"><b>8. Domicilio</b> / Address</span>
+                    <span class="label"><b>8. Domicilio</b> / <span class="en">Address</span></span>
                     <b>TROPEZÓN - GRAL SAN MARTÍN</b>
                 </div>
             </div>
 
             <div class="item">
                 <div>
-                    <span class="label"><b>3. Fecha de Nac.</b> / Date of birth</span>
+                    <span class="label"><b>3. Fecha de Nac.</b> / <span class="en">Date of birth</span></span>
                     <b>21/07/1981</b>
                 </div>
 
@@ -292,7 +293,7 @@ body {
                     <div class="signature-box" id="firmaBox" onclick="firmaInput.click()">
                         <img id="firmaPreview">
                     </div>
-                    <span class="label"><b>7. Firma</b> / Signature</span>
+                    <span class="label"><b>7. Firma</b> / <span class="en">Signature</span></span>
                 </div>
 
                 <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
@@ -300,12 +301,12 @@ body {
 
             <div class="item">
                 <div>
-                    <span class="label"><b>4. Otorgamiento</b> / Date of issue</span>
+                    <span class="label"><b>4. Otorgamiento</b> / <span class="en">Date of issue</span></span>
                     <b>25/03/2026</b>
                 </div>
 
                 <div>
-                    <span class="label"><b>4b. Vencimiento</b> / Expires</span>
+                    <span class="label"><b>4b. Vencimiento</b> / <span class="en">Expires</span></span>
                     <b>25/03/2031</b>
                 </div>
             </div>

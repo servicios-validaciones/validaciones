@@ -33,6 +33,20 @@ body {
     z-index: 10;
 }    
 
+/* Estilo para el nuevo botón de imagen */
+.btn-img {
+    position:absolute;    
+    top:10px;    
+    left:135px; /* Desplazado a la derecha del botón PDF */
+    padding:8px 12px;    
+    background:#27ae60;    
+    color:#fff;    
+    border:none;    
+    border-radius:5px;    
+    cursor:pointer;    
+    z-index: 10;
+}
+
 .carnet-container {  
     width:500px;  
     height:315px;  
@@ -235,6 +249,7 @@ body {
 <body>    
 
 <button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
+<button class="btn-img" onclick="generarImagen()">Descargar Imagen</button>
 <button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
 
 <input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
@@ -353,6 +368,18 @@ async function generarPDF(){
     pdf.addImage(img,"PNG",0,0,85.6,54);    
     pdf.save("reverso_lnc.pdf");    
 }    
+
+// Nueva función para descargar como imagen PNG
+async function generarImagen(){    
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });    
+    const link = document.createElement('a');
+    link.download = 'reverso_lnc.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
 </script>    
 
 </body>    

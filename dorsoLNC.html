@@ -74,9 +74,9 @@ body {
     justify-content: center;
     margin-right: 12px;
     flex-shrink: 0;
+    cursor: pointer; /* Indica que se puede hacer clic */
 }
 
-/* Estilo para los nuevos iconos de imagen */
 .category-icon img {
     width: 28px;
     height: 22px;
@@ -219,10 +219,9 @@ body {
 
 <button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
 <button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
-<button class="btn-pdf" style="top:80px;" onclick="iconInput.click()">Iconos</button>  
 
 <input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
-<input type="file" id="iconInput" hidden onchange="cambiarIconos(this)">  
+<input type="file" id="individualIconInput" hidden onchange="procesarNuevoIcono(this)">
 
 <div class="carnet-container" id="carnet">    
     
@@ -236,35 +235,35 @@ body {
 
     <div class="categories-box" style="z-index: 1;">
         <div class="category-row">
-            <span class="category-icon">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
                 <img src="https://cdn-icons-png.flaticon.com/512/3198/3198336.png" class="cat-img" alt="moto">
             </span>
             <span class="category-text"><b>A1-A3.</b> Motocicletas de cualquier cilindrada, triciclos y cuatriciclos con/sin cabina.</span>
         </div>
 
         <div class="category-row">
-            <span class="category-icon">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
                 <img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="cat-img" alt="auto">
             </span>
             <span class="category-text"><b>B1-B2.</b> Automóviles, camionetas y casas rodantes hasta 3.500kg (con acoplado hasta 750kg).</span>
         </div>
 
         <div class="category-row">
-            <span class="category-icon">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
                 <img src="https://cdn-icons-png.flaticon.com/512/2151/2151326.png" class="cat-img" alt="camion">
             </span>
             <span class="category-text"><b>C1-C3.</b> Camiones sin acoplado o casa rodante motorizada de más de 24.000kg.</span>
         </div>
 
         <div class="category-row">
-            <span class="category-icon">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
                 <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" class="cat-img" alt="bus">
             </span>
             <span class="category-text"><b>D1-D3.</b> Transporte de pasajeros de 8 hasta más de 20 plazas.</span>
         </div>
 
         <div class="category-row">
-            <span class="category-icon">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
                 <img src="https://cdn-icons-png.flaticon.com/512/564/564440.png" class="cat-img" alt="emergencia">
             </span>
             <span class="category-text"><b>D4.</b> Servicio de urgencia, emergencia y similares.</span>
@@ -296,7 +295,9 @@ body {
 
 </div>    
 
-<script>    
+<script>
+let iconoSeleccionadoActual = null;
+
 function cambiarFondo(input){  
     const carnet = document.getElementById('carnet');  
     const reader = new FileReader();  
@@ -306,16 +307,21 @@ function cambiarFondo(input){
     reader.readAsDataURL(input.files[0]);  
 }  
 
-// Nueva función para cambiar todos los iconos a la vez
-function cambiarIconos(input){
-    const imgs = document.querySelectorAll('.cat-img');
-    const reader = new FileReader();
-    reader.onload = e=>{
-        imgs.forEach(img => {
-            img.src = e.target.result;
-        });
+// Abre el explorador de archivos al hacer clic en un icono específico
+function seleccionarIcono(elemento) {
+    iconoSeleccionadoActual = elemento.querySelector('img');
+    document.getElementById('individualIconInput').click();
+}
+
+// Procesa la imagen cargada solo para el icono seleccionado
+function procesarNuevoIcono(input) {
+    if (input.files && input.files[0] && iconoSeleccionadoActual) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            iconoSeleccionadoActual.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
     }
-    reader.readAsDataURL(input.files[0]);
 }
 
 async function generarPDF(){    

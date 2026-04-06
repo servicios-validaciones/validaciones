@@ -34,7 +34,6 @@ body {
     cursor:pointer;  
 }  
 
-/* 🔥 CARNET ESTILO REAL */
 .carnet-container {
     width:500px;
     height:315px;
@@ -181,6 +180,14 @@ body {
     flex:1;
 }
 
+/* 🔥 ajuste derecha */
+.right-align{
+    display:flex;
+    justify-content:flex-end;
+    width:100%;
+    gap:25px;
+}
+
 .footer {  
     background:#4aa3df;  
     color:#fff;  
@@ -228,6 +235,14 @@ body {
     font-weight:700;
 }
 
+/* REPÚBLICA ARGENTINA debajo */
+.footer-country{
+    display:block;
+    font-size:11px;
+    margin-top:1px;
+    font-weight:500;
+}
+
 .en{ color:#444; font-weight:400; }
 
 </style>  
@@ -262,63 +277,64 @@ body {
 
     <div class="data">  
 
-        <div class="item">
+        <div class="item right-align">
             <div>
-                <span class="label"><b>5. N° Licencia</b></span>
+                <span class="label">5. N° License / Número de Licencia</span>
                 <b>23743980</b>
             </div>
+
             <div>
-                <span class="label"><b>9. Clases</b></span>
+                <span class="label">9. Classes / Clases</span>
                 <b>A1 B1</b>
             </div>
         </div>
 
         <div class="item">
             <div>
-                <span class="label"><b>1. Apellido</b></span>
+                <span class="label">1. Last Name / Apellido</span>
                 <b>PANIAGUA</b>
             </div>
         </div>
 
         <div class="item">
             <div>
-                <span class="label"><b>2. Nombre</b></span>
+                <span class="label">2. First Name / Nombre</span>
                 <b>CLAUDIO NAHUEL</b>
             </div>
         </div>
 
         <div class="item">
             <div>
-                <span class="label"><b>8. Domicilio</b></span>
+                <span class="label">8. Address / Domicilio</span>
                 <b>TROPEZÓN - GRAL SAN MARTÍN</b>
             </div>
         </div>
 
         <div class="item">
             <div>
-                <span class="label"><b>3. Fecha de Nac.</b></span>
+                <span class="label">3. Date of Birth / Fecha de Nac.</span>
                 <b>21/07/1981</b>
             </div>
         </div>
 
-        <div class="item firma-row">
+        <div class="item firma-row right-align">
             <div class="signature-container">
                 <div class="signature-box" onclick="firmaInput.click()">
                     <img id="firmaPreview">
                 </div>
-                <span class="label"><b>7. Firma</b></span>
+                <span class="label">7. Signature / Firma</span>
             </div>
             <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
         </div>
 
-        <div class="item item-dates">
+        <div class="item item-dates right-align">
             <div>
-                <span class="label"><b>4a. Otorgamiento</b></span>
+                <span class="label">4a. Issue / Otorgamiento</span>
                 <b>25/03/2026</b>
             </div>
 
             <div>
-                <span class="label"><b>4b. Vencimiento</b></span>
+                <span class="label">4b. Expiry / Vencimiento</span>
                 <b>25/03/2031</b>
             </div>
         </div>
@@ -339,7 +355,7 @@ body {
         <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">  
         <div class="footer-text">
             <span>Ministerio de Transporte</span>
-            <span>República Argentina</span>
+            <span class="footer-country">República Argentina</span>
         </div>
     </div>  
 </div>  
@@ -392,4 +408,4 @@ async function generarPDF(){
 </script>  
 
 </body>  
-            </html>
+</html>

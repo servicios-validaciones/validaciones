@@ -38,6 +38,11 @@ body {
     border-radius:15px;  
     overflow:hidden;  
     position:relative;  
+
+    /* FONDO AGREGADO */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }  
 
 .header {  
@@ -157,6 +162,10 @@ body {
 <body>  
 
 <button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>  
+
+<!-- BOTÓN FONDO -->
+<button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>
+<input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">
 
 <div class="carnet-container" id="carnet">  
 
@@ -280,6 +289,17 @@ function previewFirma(input){
         img.src = e.target.result;
         img.style.display="block";
         txt.style.display="none";
+    }
+    reader.readAsDataURL(input.files[0]);
+}
+
+/* FONDO */
+function cambiarFondo(input){
+    const carnet = document.getElementById('carnet');
+
+    const reader = new FileReader();
+    reader.onload = e=>{
+        carnet.style.backgroundImage = `url('${e.target.result}')`;
     }
     reader.readAsDataURL(input.files[0]);
 }

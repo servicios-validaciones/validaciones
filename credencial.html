@@ -36,7 +36,7 @@ body {
 
 .carnet-container {
     width:500px;
-    height:315px;   /* 🔥 vuelve a altura fija */
+    height:315px;
     overflow:hidden;
     display:flex;
     flex-direction:column;
@@ -45,13 +45,12 @@ body {
 .header {  
     background: rgba(255,255,255,0.2);  
     backdrop-filter: blur(6px);  
-    -webkit-backdrop-filter: blur(6px);  
     color:#008c8c;  
     display:flex;  
     align-items:center;  
     justify-content:space-between;  
-    padding:5px 10px;  
-    height:40px;  
+    padding:4px 10px;
+    height:38px;  
     position:relative;
 }  
 
@@ -61,38 +60,38 @@ body {
     bottom:0;
     left:15px;
     right:15px;
-    height:4px;
+    height:3px;
     background:#00a3ff;
-    border-radius:1px;
 }
 
 .header-title {  
-    font-size:17px;  
+    font-size:15px;  
     font-weight:600;  
     text-align:center;  
     flex-grow:1;  
-    line-height:1.1;  
+    line-height:1.05;  
     color:#0072bb;  
-    letter-spacing:1.2px;  
+    letter-spacing:1px;  
     text-transform: uppercase;
 }  
 
-.flag-icon { width:30px; }  
-.shield-icon { width:25px; }  
+.flag-icon { width:28px; }  
+.shield-icon { width:22px; }  
 
 .content {
     display:grid;
-    grid-template-columns:130px 1fr;
-    padding:10px;
-    gap:10px;
-
-    flex:1; /* 🔥 ESTO es lo importante */
+    grid-template-columns:120px 1fr;
+    padding:6px;
+    gap:6px;
+    flex:1;
+    align-content:start;
 }
+
 .photo-placeholder {  
-    width:120px;  
-    height:140px;  
+    width:115px;  
+    height:135px;  
     background:#ffffff;  
-    padding:5px;  
+    padding:4px;  
     border-radius:6px;  
     cursor:pointer;  
     overflow:hidden;  
@@ -100,7 +99,7 @@ body {
     justify-content:center;  
     align-items:center;  
     box-sizing:border-box;
-    transform: translate(10px, 8px);
+    transform: translate(8px, 6px);
 }  
 
 .photo-placeholder img {  
@@ -112,31 +111,32 @@ body {
 }  
 
 .data {  
-    font-size:11px;  
+    font-size:10.5px;  
     font-weight:400;
     color:#1a1a1a;
-    letter-spacing:0.2px;
+    letter-spacing:0.1px;
+    line-height:1.05;
 }  
 
 .data b{
-    font-size:13.5px;
+    font-size:12.5px;  
     font-weight:600;
     color:#000;
 }  
 
 .item {  
-    margin-bottom:3px;  
-    padding-bottom:1px;  
+    margin-bottom:2px;  
+    padding-bottom:0;  
     display:flex;
-    justify-content:space-between;
-    align-items:center;
+    justify-content:flex-start;
+    gap:18px;
+    align-items:flex-start;
 }  
 
 .label {  
     font-weight:600;  
     display:block;  
-    font-size:10px;  
-    letter-spacing:0.3px;
+    font-size:9.5px;  
     color:#333;
 }  
 
@@ -147,8 +147,8 @@ body {
 }
 
 .signature-box {
-    width:120px;
-    height:45px;
+    width:115px;
+    height:42px;
     border:1px dashed #999;
     position:relative;
     cursor:pointer;
@@ -157,23 +157,44 @@ body {
 
 .signature-box img{
     position:absolute;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
     object-fit:contain;
     display:none;
 }
 
+.item-dates{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    width:100%;
+}
+
+.item-dates > div{
+    flex:1;
+}
+
+.footer {  
+    background:#4aa3df;  
+    color:#fff;  
+    width:100%;  
+    height:32px;  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    padding:4px 10px;  
+    font-size:9.5px;
+}  
+
 .seguridad-vial{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:6px;
 }
 
 .seguridad-vial .linea{
     width:2px;
-    height:28px;
+    height:24px;
     background:#fff;
 }
 
@@ -181,82 +202,27 @@ body {
     display:flex;
     flex-direction:column;
     font-weight:700;
-    font-size:13px;
-    letter-spacing:1px;
+    font-size:12px;
     line-height:1;
 }
 
-.footer {  
-    background:#4aa3df;  
-    color:#fff;  
-    position:relative;   /* 🔧 deja de flotar */
-    width:100%;  
-    height:35px;  
-    display:flex;  
-    justify-content:space-between;  
-    align-items:center;  
-    padding:5px 10px;  
-    font-size:10px;
-}  
-
 .footer-logo {  
-    width:20px;  
+    width:18px;  
 }  
 
 .footer-right{
     display:flex;
     align-items:center;
     gap:5px;
-    margin-right:20px;
-}
-
-.footer-text{
-    display:flex;
-    flex-direction:column;
-    line-height:1;
-    font-weight:500;
-    letter-spacing:0.2px;
 }
 
 .footer-text span:last-child{
-    font-size:12px;
+    font-size:11px;
     font-weight:700;
 }
 
-.en{
-    font-weight:400;
-    color:#444;
-}
-    .item-dates{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    width:100%;
-    gap:20px;
-}
+.en{ color:#444; font-weight:400; }
 
-/* mejora visual de columnas 4a / 4b */
-.item-dates > div{
-    flex:1;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px){
-
-    body{
-        align-items:flex-start;
-        padding-top:20px;
-    }
-
-    .carnet-container{
-        transform: scale(0.75);
-        transform-origin: top center;
-        align-items:flex-start;
-    }
-    .firma-row{
-    justify-content:flex-end;
-    margin-top:5px;
-    }
 </style>  
 </head>  
 
@@ -268,109 +234,108 @@ body {
 
 <div class="carnet-container" id="carnet">  
 
-    <div class="header">  
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">  
+<div class="header">  
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">  
 
-        <div class="header-title">  
-            Licencia Nacional de Conducir<br>  
-            Buenos Aires - General San Martín.  
-        </div>  
-
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">  
+    <div class="header-title">  
+        Licencia Nacional de Conducir<br>  
+        Buenos Aires - General San Martín.  
     </div>  
 
-    <div class="content">  
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">  
+</div>  
 
-        <div class="photo-placeholder" onclick="fileInput.click()">  
-            <span id="txtFoto">Subir foto</span>  
-            <img id="preview">  
-        </div>  
-        <input type="file" id="fileInput" hidden onchange="previewImage(this)">  
+<div class="content">  
 
-        <div class="data">  
-
-            <div class="item">
-                <div>
-                    <span class="label"><b>5. N° Licencia</b> / <span class="en">Licence N°</span></span>
-                    <b>23743980</b>
-                </div>
-                <div>
-                    <span class="label"><b>9. Clases</b> / <span class="en">Class</span></span>
-                    <b>A1 B1</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div>
-                    <span class="label"><b>1. Apellido</b> / <span class="en">Last name</span></span>
-                    <b>PANIAGUA</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div>
-                    <span class="label"><b>2. Nombre</b> / <span class="en">First name</span></span>
-                    <b>CLAUDIO NAHUEL</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div>
-                    <span class="label"><b>8. Domicilio</b> / <span class="en">Address</span></span>
-                    <b>TROPEZÓN - GRAL SAN MARTÍN</b>
-                </div>
-            </div>
-
-            <div class="item">
-    <div>
-        <span class="label"><b>3. Fecha de Nac.</b> / <span class="en">Date of birth</span></span>
-        <b>21/07/1981</b>
-    </div>
-</div>
-
-<div class="item firma-row">
-    <div class="signature-container">
-        <div class="signature-box" id="firmaBox" onclick="firmaInput.click()">
-            <img id="firmaPreview">
-        </div>
-        <span class="label"><b>7. Firma</b> / <span class="en">Signature</span></span>
-    </div>
-
-    <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
-</div>
-
-            <div class="item item-dates">
-                <div>
-                    <span class="label"><b>4a. Otorgamiento</b> / <span class="en">Date of issue</span></span>
-                    <b>25/03/2026</b>
-                </div>
-
-                <div>
-                    <span class="label"><b>4b. Vencimiento</b> / <span class="en">Expires</span></span>
-                    <b>25/03/2031</b>
-                </div>
-            </div>
-
-        </div>  
+    <div class="photo-placeholder" onclick="fileInput.click()">  
+        <span id="txtFoto">Subir foto</span>  
+        <img id="preview">  
     </div>  
+    <input type="file" id="fileInput" hidden onchange="previewImage(this)">  
 
-    <div class="footer">  
-        <div class="seguridad-vial">
-            <div class="linea"></div>
-            <div class="texto">
-                <span>SEGURIDAD</span>
-                <span>VIAL</span>
+    <div class="data">  
+
+        <div class="item">
+            <div>
+                <span class="label"><b>5. N° Licencia</b></span>
+                <b>23743980</b>
+            </div>
+            <div>
+                <span class="label"><b>9. Clases</b></span>
+                <b>A1 B1</b>
             </div>
         </div>
 
-        <div class="footer-right">  
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">  
-            <div class="footer-text">
-                <span>Ministerio de Transporte</span>
-                <span>República Argentina</span>
+        <div class="item">
+            <div>
+                <span class="label"><b>1. Apellido</b></span>
+                <b>PANIAGUA</b>
             </div>
-        </div>  
+        </div>
+
+        <div class="item">
+            <div>
+                <span class="label"><b>2. Nombre</b></span>
+                <b>CLAUDIO NAHUEL</b>
+            </div>
+        </div>
+
+        <div class="item">
+            <div>
+                <span class="label"><b>8. Domicilio</b></span>
+                <b>TROPEZÓN - GRAL SAN MARTÍN</b>
+            </div>
+        </div>
+
+        <div class="item">
+            <div>
+                <span class="label"><b>3. Fecha de Nac.</b></span>
+                <b>21/07/1981</b>
+            </div>
+        </div>
+
+        <div class="item firma-row">
+            <div class="signature-container">
+                <div class="signature-box" onclick="firmaInput.click()">
+                    <img id="firmaPreview">
+                </div>
+                <span class="label"><b>7. Firma</b></span>
+            </div>
+            <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
+        </div>
+
+        <div class="item item-dates">
+            <div>
+                <span class="label"><b>4a. Otorgamiento</b></span>
+                <b>25/03/2026</b>
+            </div>
+
+            <div>
+                <span class="label"><b>4b. Vencimiento</b></span>
+                <b>25/03/2031</b>
+            </div>
+        </div>
+
     </div>  
+</div>  
+
+<div class="footer">  
+    <div class="seguridad-vial">
+        <div class="linea"></div>
+        <div class="texto">
+            <span>SEGURIDAD</span>
+            <span>VIAL</span>
+        </div>
+    </div>
+
+    <div class="footer-right">  
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">  
+        <div class="footer-text">
+            <span>Ministerio de Transporte</span>
+            <span>República Argentina</span>
+        </div>
+    </div>  
+</div>  
 
 </div>  
 
@@ -378,7 +343,6 @@ body {
 function previewImage(input){  
     const img = document.getElementById('preview');  
     const txt = document.getElementById('txtFoto');  
-
     const reader = new FileReader();  
     reader.onload = e=>{  
         img.src = e.target.result;  
@@ -409,20 +373,12 @@ function cambiarFondo(input){
 
 async function generarPDF(){  
     const { jsPDF } = window.jspdf;  
-
     const canvas = await html2canvas(document.getElementById("carnet"), {
         scale:4,
         useCORS:true
     });  
-
     const img = canvas.toDataURL("image/png");  
-
-    const pdf = new jsPDF({  
-        orientation:"landscape",  
-        unit:"mm",  
-        format:[85.6,54]  
-    });  
-
+    const pdf = new jsPDF({ orientation:"landscape", unit:"mm", format:[85.6,54] });  
     pdf.addImage(img,"PNG",0,0,85.6,54);  
     pdf.save("carnet.pdf");  
 }  

@@ -10,13 +10,16 @@
 
 <style>  
 body {  
-    font-family: Arial, sans-serif;  
+    font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;  
     background-color: #f0f0f0;  
     display:flex;  
     justify-content:center;  
     align-items:center;  
     height:100vh;  
     margin:0;  
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }  
 
 .btn-pdf{  
@@ -69,12 +72,13 @@ body {
 
 .header-title {  
     font-size:17px;  
-    font-weight:bold;  
+    font-weight:600;  
     text-align:center;  
     flex-grow:1;  
     line-height:1.1;  
     color:#0072bb;  
-    letter-spacing:2px;  
+    letter-spacing:1.2px;  
+    text-transform: uppercase;
 }  
 
 .flag-icon { width:30px; }  
@@ -100,7 +104,6 @@ body {
     justify-content:center;  
     align-items:center;  
     box-sizing:border-box;
-
     transform: translate(10px, 8px);
 }  
 
@@ -114,10 +117,15 @@ body {
 
 .data {  
     font-size:11px;  
+    font-weight:400;
+    color:#1a1a1a;
+    letter-spacing:0.2px;
 }  
 
 .data b{
-    font-size:14px;
+    font-size:13.5px;
+    font-weight:600;
+    color:#000;
 }  
 
 .item {  
@@ -129,9 +137,11 @@ body {
 }  
 
 .label {  
-    font-weight:bold;  
+    font-weight:600;  
     display:block;  
     font-size:10px;  
+    letter-spacing:0.3px;
+    color:#333;
 }  
 
 .signature-container{
@@ -174,8 +184,8 @@ body {
 .seguridad-vial .texto{
     display:flex;
     flex-direction:column;
-    font-weight:bold;
-    font-size:14px;
+    font-weight:700;
+    font-size:13px;
     letter-spacing:1px;
     line-height:1;
 }
@@ -209,16 +219,19 @@ body {
     display:flex;
     flex-direction:column;
     line-height:1;
+    font-weight:500;
+    letter-spacing:0.2px;
 }
 
 .footer-text span:last-child{
     font-size:12px;
-    font-weight:bold;
+    font-weight:700;
 }
 
-/* 👇 SOLO ESTO CAMBIÉ: inglés sin negrita */
+/* inglés sin negrita */
 .en{
-    font-weight: normal;
+    font-weight:400;
+    color:#444;
 }
 </style>  
 </head>  
@@ -251,6 +264,7 @@ body {
         <input type="file" id="fileInput" hidden onchange="previewImage(this)">  
 
         <div class="data">  
+
             <div class="item">
                 <div>
                     <span class="label"><b>5. N° Licencia</b> / <span class="en">Licence N°</span></span>

@@ -68,10 +68,12 @@ body {
 .flag-icon { width:30px; }  
 .shield-icon { width:25px; }  
 
+/* 👇 FIX para que no tape el footer */
 .content {  
     display:grid;  
     grid-template-columns:130px 1fr;  
     padding:10px;  
+    padding-bottom:45px;
     gap:10px;  
 }  
 
@@ -128,8 +130,8 @@ body {
 }
 
 .signature-box {
-    width:100px; /* 👈 más grande */
-    height:35px; /* 👈 más grande */
+    width:100px;
+    height:35px;
     border:1px dashed #999;
     position:relative;
     cursor:pointer;
@@ -164,6 +166,24 @@ body {
 .footer-logo {  
     width:20px;  
 }  
+
+/* 👇 NUEVO BLOQUE DERECHO */
+.footer-right{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.footer-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+}
+
+.footer-text span:last-child{
+    font-size:12px;
+    font-weight:bold;
+}
 </style>  
 </head>  
 
@@ -268,9 +288,12 @@ body {
             <b>VIAL</b>
         </div>
 
-        <div style="display:flex;align-items:center;gap:5px;">  
+        <div class="footer-right">  
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">  
-            Ministerio de Transporte  
+            <div class="footer-text">
+                <span>Ministerio de Transporte</span>
+                <span>República Argentina</span>
+            </div>
         </div>  
     </div>  
 
@@ -317,10 +340,10 @@ async function generarPDF(){
     const firmaBox = document.getElementById("firmaBox");
     const bordeOriginal = firmaBox.style.border;
 
-    firmaBox.style.border = "none"; // ❌ ocultar borde
+    firmaBox.style.border = "none";
 
     const canvas = await html2canvas(document.getElementById("carnet"), {
-        scale:4, // 👈 mejor calidad
+        scale:4,
         useCORS:true
     });  
 
@@ -334,7 +357,7 @@ async function generarPDF(){
 
     pdf.addImage(img,"PNG",0,0,85.6,54);  
 
-    firmaBox.style.border = bordeOriginal; // 🔁 restaurar borde
+    firmaBox.style.border = bordeOriginal;
 
     pdf.save("carnet.pdf");  
 }  

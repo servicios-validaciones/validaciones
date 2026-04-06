@@ -1,0 +1,382 @@
+<!DOCTYPE html>    
+<html lang="es">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>LNC</title>    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>    
+
+<style>    
+body {    
+    font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;    
+    background: linear-gradient(135deg, #e6e6e6, #f7f7f7);  
+    display:flex;    
+    justify-content:center;    
+    align-items:center;    
+    height:100vh;    
+    margin:0;    
+    -webkit-font-smoothing: antialiased;  
+    -moz-osx-font-smoothing: grayscale;  
+    text-rendering: optimizeLegibility;  
+}    
+
+.btn-pdf{    
+    position:absolute;    
+    top:10px;    
+    left:10px;    
+    padding:8px 12px;    
+    background:#4aa3df;    
+    color:#fff;    
+    border:none;    
+    border-radius:5px;    
+    cursor:pointer;    
+}    
+
+.carnet-container {  
+    width:500px;  
+    height:315px;  
+    overflow:hidden;  
+    display:flex;  
+    flex-direction:column;  
+    border-radius:14px;  
+    border:1px solid rgba(0,0,0,0.15);  
+    box-shadow:0 8px 25px rgba(0,0,0,0.18);  
+    background:#fff;  
+}  
+
+.header {    
+    background: rgba(255,255,255,0.2);    
+    backdrop-filter: blur(6px);    
+    color:#008c8c;    
+    display:flex;    
+    align-items:center;    
+    justify-content:space-between;    
+    padding:4px 10px;  
+    height:38px;    
+    position:relative;  
+}    
+
+.header::after{  
+    content:"";  
+    position:absolute;  
+    bottom:0;  
+    left:15px;  
+    right:15px;  
+    height:3px;  
+    background:#00a3ff;  
+}  
+
+.header-title {    
+    font-size:15px;    
+    font-weight:600;    
+    text-align:center;    
+    flex-grow:1;    
+    line-height:1.05;    
+    color:#0072bb;    
+    letter-spacing:1px;    
+    text-transform: uppercase;  
+}    
+
+.flag-icon { width:28px; }    
+.shield-icon { width:22px; }    
+
+.content {  
+    display:grid;  
+    grid-template-columns:120px 1fr;  
+    padding:6px;  
+    gap:6px;  
+    flex:1;  
+    align-content:start;  
+}  
+
+.photo-placeholder {    
+    width:115px;    
+    height:135px;    
+    background:#ffffff;    
+    padding:4px;    
+    border-radius:6px;    
+    cursor:pointer;    
+    overflow:hidden;    
+    display:flex;    
+    justify-content:center;    
+    align-items:center;    
+    box-sizing:border-box;  
+    transform: translate(8px, 6px);  
+}    
+
+.photo-placeholder img {    
+    width:100%;    
+    height:100%;    
+    object-fit:cover;    
+    display:none;    
+    border-radius:3px;  
+}    
+
+.data {    
+    font-size:10.5px;    
+    font-weight:400;  
+    color:#1a1a1a;  
+    letter-spacing:0.1px;  
+    line-height:1.05;  
+}    
+
+.data b{  
+    font-size:12.5px;    
+    font-weight:600;  
+    color:#000;  
+}    
+
+.item {    
+    margin-bottom:6px;    
+    padding-bottom:0;    
+    display:flex;  
+    justify-content:flex-start;  
+    gap:18px;  
+    align-items:flex-start;  
+}    
+
+.label {    
+    font-weight:400;   /* CAMBIO IMPORTANTE: ya no negrita */  
+    display:block;    
+    font-size:9.5px;    
+    color:#333;  
+}    
+
+.en{  
+    font-weight:400;  
+    color:#444;  
+}  
+
+.item-dates{  
+    display:flex;  
+    justify-content:space-between;  
+    gap:10px;  
+    width:100%;  
+    margin-top:-4px;  
+}  
+
+.item-dates > div{  
+    flex:1;  
+}  
+
+.right-align{  
+    display:flex;  
+    justify-content:flex-end;  
+    width:100%;  
+    gap:25px;  
+}  
+
+.footer {    
+    background:#4aa3df;    
+    color:#fff;    
+    width:100%;    
+    height:32px;    
+    display:flex;    
+    justify-content:space-between;    
+    align-items:center;    
+    padding:4px 10px;    
+    font-size:9.5px;  
+}    
+
+.seguridad-vial{  
+    display:flex;  
+    align-items:center;  
+    gap:6px;  
+}  
+
+.seguridad-vial .linea{  
+    width:2px;  
+    height:24px;  
+    background:#fff;  
+}  
+
+.seguridad-vial .texto{  
+    display:flex;  
+    flex-direction:column;  
+    font-weight:700;  
+    font-size:12px;  
+    line-height:1;  
+}  
+
+.footer-logo {    
+    width:18px;    
+}    
+
+.footer-right{  
+    display:flex;  
+    align-items:center;  
+    gap:5px;  
+    transform: translateX(-15px);  
+}  
+
+.footer-country{  
+    display:block;  
+    font-size:12px;  
+    margin-top:1px;  
+    font-weight:500;  
+}  
+
+.clases{  
+    margin-left: auto;  
+}  
+
+.item-dates > div:last-child{  
+    margin-left: auto;  
+    text-align: right;  
+}  
+
+.footer-text{  
+    font-size:11px;  
+    line-height:1.1;  
+}  
+</style>    
+</head>    
+
+<body>    
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
+<button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
+<input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
+
+<div class="carnet-container" id="carnet">    
+
+<div class="header">    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" class="flag-icon">    
+    <div class="header-title">    
+        Licencia Nacional de Conducir<br>    
+        Buenos Aires - General San Martín    
+    </div>    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="shield-icon">    
+</div>    
+
+<div class="content">    
+
+    <div class="photo-placeholder" onclick="fileInput.click()">    
+        <span id="txtFoto">Subir foto</span>    
+        <img id="preview">    
+    </div>    
+    <input type="file" id="fileInput" hidden onchange="previewImage(this)">    
+
+    <div class="data">    
+
+        <div class="item">  
+            <div>  
+                <span class="label"><b>5. N° Licencia</b><span class="en">/ License N°</span></span>  
+                <b>23743980</b>  
+            </div>  
+            <div class="clases">  
+                <span class="label"><b>9. Clases</b> <span class="en">/ Class</span></span>  
+                <b>A1 B1</b>  
+            </div>  
+        </div>  
+
+        <div class="item">  
+            <div>  
+                <span class="label"><b>1. Apellido</b> / Last Name</span>  
+                <b>PANIAGUA</b>  
+            </div>  
+        </div>  
+
+        <div class="item">  
+            <div>  
+                <span class="label"><b>2. Nombre</b> / First Name</span>  
+                <b>CLAUDIO NAHUEL</b>  
+            </div>  
+        </div>  
+
+        <div class="item">  
+            <div>  
+                <span class="label"><b>8. Domicilio</b> / Address</span>  
+                <b>TROPEZÓN<br>GRAL SAN MARTÍN</b>  
+            </div>  
+        </div>  
+
+        <div class="item" style="display:flex; justify-content:space-between; width:100%; align-items:flex-start;">  
+            <div>  
+                <span class="label"><b>3. Fecha de Nac.</b> / Date of birth</span>  
+                <b>21/07/1981</b>  
+            </div>  
+
+            <div style="text-align:right;">  
+                <b style="display:block; margin-bottom:3px;">________________</b>  
+                <span class="label"><b>5. Firma</b> / Signature</span>  
+            </div>  
+        </div>  
+
+        <div class="item item-dates right-align">  
+            <div>  
+                <span class="label"><b>4a. Otorgamiento</b> / Issue</span>  
+                <b>25/03/2026</b>  
+            </div>  
+            <div>  
+                <span class="label"><b>4b. Vencimiento</b> / Expires</span>  
+                <b>25/03/2031</b>  
+            </div>  
+        </div>  
+
+    </div>    
+</div>    
+
+<div class="footer">    
+    <div class="seguridad-vial">  
+        <div class="linea"></div>  
+        <div class="texto">  
+            <span>SEGURIDAD</span>  
+            <span>VIAL</span>  
+        </div>  
+    </div>  
+    <div class="footer-right">    
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="footer-logo">    
+        <div class="footer-text">  
+            <span>Ministerio de Transporte</span>  
+            <span class="footer-country">República Argentina</span>  
+        </div>  
+    </div>    
+</div>    
+
+</div>    
+
+<script>    
+
+function previewImage(input){    
+    const img = document.getElementById('preview');    
+    const txt = document.getElementById('txtFoto');    
+    const reader = new FileReader();    
+    reader.onload = e=>{    
+        img.src = e.target.result;    
+        img.style.display="block";    
+        txt.style.display="none";    
+    }    
+    reader.readAsDataURL(input.files[0]);    
+}  
+
+function cambiarFondo(input){  
+    const carnet = document.getElementById('carnet');  
+    const reader = new FileReader();  
+    reader.onload = e=>{  
+        carnet.style.backgroundImage = `url('${e.target.result}')`;  
+        carnet.style.backgroundSize = "cover";  
+        carnet.style.backgroundPosition = "center";  
+        carnet.style.backgroundRepeat = "no-repeat";  
+    }  
+    reader.readAsDataURL(input.files[0]);  
+}  
+
+async function generarPDF(){    
+    const { jsPDF } = window.jspdf;    
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });    
+    const img = canvas.toDataURL("image/png");    
+    const pdf = new jsPDF({ orientation:"landscape", unit:"mm", format:[85.6,54] });    
+    pdf.addImage(img,"PNG",0,0,85.6,54);    
+    pdf.save("carnet.pdf");    
+}    
+
+</script>    
+
+</body>    
+  </html>

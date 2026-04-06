@@ -91,7 +91,7 @@ body {
     display:grid;  
     grid-template-columns:130px 1fr;  
     padding:10px;  
-    padding-bottom:85px; /* 🔧 más espacio para que no choque con footer */
+    padding-bottom:10px;  /* 🔧 antes 85px */
     gap:10px;  
 }  
 
@@ -203,8 +203,7 @@ body {
     justify-content:space-between;  
     align-items:center;  
     padding:5px 10px;  
-    font-size:10px;  
-    margin-top:10px;  /* 🔧 separación con fechas */
+    font-size:10px;
 }  
 
 .footer-logo {  
@@ -259,6 +258,7 @@ body {
     .carnet-container{
         transform: scale(0.75);
         transform-origin: top center;
+        align-items:flex-start;
     }
 </style>  
 </head>  

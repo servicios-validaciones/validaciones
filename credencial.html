@@ -241,6 +241,32 @@ body {
     cursor:pointer;
     align-self:flex-end;
 }
+    .firma-box{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:2px;
+}
+
+/* link arriba */
+.firma-link{
+    font-size:9px;
+    color:#0072bb;
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+/* firma tamaño realista */
+.firma-img{
+    max-width:90px;     /* clave: evita que ocupe todo el carnet */
+    max-height:25px;    /* altura tipo firma real */
+    object-fit:contain;
+}
+
+/* etiqueta firma */
+.firma-label{
+    margin-top:0;
+}
 
 .firma-link:hover{
     color:#005a92;
@@ -318,16 +344,19 @@ body {
             </div>
         </div>
 
-        <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
+        <div class="firma-box">
 
-<a href="#" class="firma-link" onclick="firmaInput.click(); return false;">
-    Cargar firma (PNG)
-</a>
+    <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
 
-<img id="firmaPreview" class="firma-img" style="display:none;">
+    <a href="#" class="firma-link" onclick="firmaInput.click(); return false;">
+        Cargar firma
+    </a>
 
-<div class="item right-align">
-    <span class="label"><b>7. Firma</b> / Signature</span>
+    <img id="firmaPreview" class="firma-img" style="display:none;">
+
+    <div class="item right-align firma-label">
+        <span class="label"><b>7. Firma</b> / Signature</span>
+    </div>
 </div>
 
         <div class="item item-dates right-align">

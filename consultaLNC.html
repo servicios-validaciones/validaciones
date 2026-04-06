@@ -151,10 +151,10 @@ footer { text-align: center; padding: 12px; color: #777; font-size: 13px; }
     <div class="card-container" id="licenciaVisual">
         <div class="card-inner" id="cardInner">
             <div class="card-front">
-                <img src="https://ibb.co/MDCKgFVX" class="card-img" alt="Frente Licencia">
+                <img src="" id="imgFrente" class="card-img" alt="Frente Licencia">
             </div>
             <div class="card-back">
-                <img src="https://ibb.co/KxkL37N4" class="card-img" alt="Dorso Licencia">
+                <img src="" id="imgDorso" class="card-img" alt="Dorso Licencia">
             </div>
         </div>
     </div>
@@ -180,9 +180,28 @@ const mensaje = document.getElementById("mensaje");
 const licenciaVisual = document.getElementById("licenciaVisual");
 const flipBtnContainer = document.getElementById("flipBtnContainer");
 const cardInner = document.getElementById("cardInner");
+const imgFrente = document.getElementById("imgFrente");
+const imgDorso = document.getElementById("imgDorso");
 
-/* Base de datos simulada */
-const padron = ["25904363", "29324931", "39992765", "12345678"];
+/* Base de datos de DNI con sus respectivas imágenes */
+const padron = {
+    "25904363": {
+        frente: "URL_FRENTE_1",
+        dorso: "URL_DORSO_1"
+    },
+    "29324931": {
+        frente: "URL_FRENTE_2",
+        dorso: "URL_DORSO_2"
+    },
+    "39992765": {
+        frente: "URL_FRENTE_3",
+        dorso: "URL_DORSO_3"
+    },
+    "12345678": {
+        frente: "https://ibb.co/MDCKgFVX",
+        dorso: "https://ibb.co/KxkL37N4"
+    }
+};
 
 dniInput.addEventListener("input", () => {
     consultarBtn.disabled = !(/^\d{7,8}$/.test(dniInput.value.trim()));
@@ -193,9 +212,14 @@ consultarBtn.addEventListener("click", () => {
     mensaje.innerHTML = "Buscando...";
     licenciaVisual.style.display = "none";
     flipBtnContainer.style.display = "none";
+    cardInner.classList.remove('is-flipped'); // Reiniciar rotación al buscar nuevo
 
     setTimeout(() => {
-        if (padron.includes(dni)) {
+        if (padron[dni]) {
+            // Asignar las imágenes correspondientes al DNI encontrado
+            imgFrente.src = padron[dni].frente;
+            imgDorso.src = padron[dni].dorso;
+
             mensaje.innerHTML = "<span class='verde'>¡Su documentación está lista!</span>";
             licenciaVisual.style.display = "block";
             flipBtnContainer.style.display = "flex";

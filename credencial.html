@@ -120,7 +120,7 @@ body {
     align-items:center;
 }
 
-/* 🔥 FIRMA CORREGIDA */
+/* 🔥 FIRMA FINAL (texto visible + firma arriba sin tapar) */
 .signature-box {
     width:80px;
     height:25px;
@@ -147,9 +147,10 @@ body {
     left:0;
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:contain;
     display:none;
     z-index:2;
+    opacity:0.85; /* 👈 clave: no tapa el texto */
 }
 
 /* FOOTER */  
@@ -295,13 +296,11 @@ function previewImage(input){
 
 function previewFirma(input){
     const img = document.getElementById('firmaPreview');
-    const txt = document.getElementById('txtFirma');
 
     const reader = new FileReader();
     reader.onload = e=>{
         img.src = e.target.result;
         img.style.display="block";
-        txt.style.opacity="0";
     }
     reader.readAsDataURL(input.files[0]);
 }

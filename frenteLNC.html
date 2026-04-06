@@ -237,7 +237,8 @@ body {
 <body>    
 
 <button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
-<button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
+<button class="btn-pdf" style="top:45px;" onclick="generarImagen()">Descargar Imagen</button>
+<button class="btn-pdf" style="top:80px;" onclick="bgInput.click()">Fondo</button>  
 <input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
 
 <div class="carnet-container" id="carnet">    
@@ -375,6 +376,17 @@ async function generarPDF(){
     pdf.addImage(img,"PNG",0,0,85.6,54);    
     pdf.save("carnet.pdf");    
 }    
+
+async function generarImagen(){
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });
+    const link = document.createElement('a');
+    link.download = 'carnet.jpg';
+    link.href = canvas.toDataURL("image/jpeg", 0.9);
+    link.click();
+}
 
 </script>    
 

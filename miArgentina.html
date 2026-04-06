@@ -3,391 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mi Argentina - Sistema de Consulta</title>
-
+<title>Mi Argentina - Licencia Nacional de Conducir</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-font-family:'Montserrat',sans-serif;
-margin:0;
-background:#f2f2f2;
-height:100vh;
-display:flex;
-flex-direction:column;
-overflow:hidden;
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: #f2f2f2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* LOADER */
+#loader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: white;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+.spinner {
+    width: 60px; height: 60px;
+    border: 6px solid #e6e6e6; border-top: 6px solid #4338ca;
+    border-radius: 50%; animation: girar 1s linear infinite;
+}
+@keyframes girar { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
-#loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
+header {
+    background: #4338ca; color: white; text-align: center;
+    padding: 14px; font-size: 20px; font-weight: 700;
 }
 
-.spinner{
-width:60px;
-height:60px;
-border:6px solid #e6e6e6;
-border-top:6px solid #4338ca;
-border-radius:50%;
-animation:girar 1s linear infinite;
+.container {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    max-width: 420px; margin: auto; padding: 15px; width: 100%; box-sizing: border-box;
 }
 
-@keyframes girar{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
+.info-box {
+    background: white; border-radius: 10px; padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px;
+    font-size: 14px; color: #444; width: 100%;
 }
 
-/* HEADER */
-
-header{
-background:#4338ca;
-color:white;
-text-align:center;
-padding:14px;
-font-size:20px;
-font-weight:700;
-flex-shrink:0;
+input {
+    width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd;
+    margin-top: 5px; font-size: 16px; box-sizing: border-box;
 }
 
-/* CONTENEDOR */
-
-.container{
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-max-width:420px;
-margin:auto;
-padding:15px;
-width:100%;
-box-sizing:border-box;
+button {
+    margin-top: 18px; background: #4338ca; color: white; border: none;
+    padding: 12px; border-radius: 30px; width: 180px; font-size: 16px; cursor: pointer;
 }
 
-h2{
-margin-bottom:10px;
-text-align:center;
-font-size:18px;
+button:disabled { opacity: .5; }
+
+/* --- EFECTO FLIP CARD (La Licencia) --- */
+.card-container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 350px;
+    height: 220px;
+    margin-top: 20px;
+    display: none; /* Se muestra al consultar */
 }
 
-.descripcion{
-color:#555;
-text-align:center;
-font-size:14px;
-margin-bottom:15px;
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
 
-.info-box{
-background:white;
-border-radius:10px;
-padding:15px;
-box-shadow:0 2px 8px rgba(0,0,0,0.05);
-margin-bottom:15px;
-font-size:14px;
-color:#444;
-width:100%;
+/* Clase que aplicaremos con JS para girar */
+.is-flipped {
+    transform: rotateY(180deg);
 }
 
-.info-box ul{
-margin:8px 0 0 18px;
-padding:0;
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-label{
-display:block;
-margin-top:10px;
-color:#555;
-font-weight:600;
-width:100%;
+.card-back {
+    transform: rotateY(180deg);
 }
 
-input{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #ddd;
-margin-top:5px;
-font-size:16px;
-box-sizing:border-box;
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-button{
-margin-top:18px;
-background:#4338ca;
-color:white;
-border:none;
-padding:12px;
-border-radius:30px;
-width:180px;
-font-size:16px;
-cursor:pointer;
+/* Flecha para girar */
+.flip-btn {
+    background: #eee;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid #ccc;
 }
 
-button:disabled{
-opacity:.5;
-cursor:not-allowed;
-}
+#mensaje { margin-top: 15px; font-weight: 600; text-align: center;}
+.verde { color: #22c55e; }
+.rojo { color: #ef4444; }
 
-.progress{
-width:100%;
-background:#e5e5e5;
-border-radius:20px;
-height:8px;
-margin-top:18px;
-overflow:hidden;
-display:none;
-}
-
-.progress-bar{
-height:100%;
-width:0%;
-background:#4338ca;
-transition:width .4s;
-}
-
-#mensaje{
-margin-top:18px;
-font-size:15px;
-color:#444;
-text-align:center;
-}
-
-/* ESTADO CERTIFICADO */
-
-.estado{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-margin-top:15px;
-font-weight:600;
-}
-
-.punto{
-width:12px;
-height:12px;
-border-radius:50%;
-display:inline-block;
-}
-
-.verde{ background:#22c55e; }
-.amarillo{ background:#facc15; }
-.rojo{ background:#ef4444; }
-
-.toast{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#4338ca;
-color:white;
-padding:12px 18px;
-border-radius:8px;
-opacity:0;
-transition:.4s;
-text-decoration:none;
-}
-
-.toast.show{
-opacity:1;
-}
-
-footer{
-text-align:center;
-padding:12px;
-color:#777;
-font-size:13px;
-flex-shrink:0;
-}
+footer { text-align: center; padding: 12px; color: #777; font-size: 13px; }
 
 </style>
 </head>
-
 <body>
 
 <div id="loader">
-
-<img src="https://mi.argentina.gob.ar/img/logos/LOGO_LOADING.png" 
-style="width:120px;margin-bottom:20px;">
-
-<div class="spinner"></div>
-
-<p style="margin-top:15px;color:#4338ca;font-weight:600;">
-Cargando sistema...
-</p>
-
+    <img src="https://mi.argentina.gob.ar/img/logos/LOGO_LOADING.png" style="width:120px;margin-bottom:20px;">
+    <div class="spinner"></div>
+    <p style="margin-top:15px;color:#4338ca;font-weight:600;">Cargando sistema...</p>
 </div>
 
-<header>
-Mi Argentina | Sistema de Consulta
-</header>
+<header>Mi Argentina | Licencia Digital</header>
 
 <div class="container">
+    <h2>Consulta de Licencia</h2>
+    <p style="text-align:center; font-size: 14px; color:#666;">Ingrese su DNI para visualizar su Licencia Nacional de Conducir.</p>
 
-<h2>Consultar Documentación</h2>
+    <div class="info-box">
+        <label>DNI del titular</label>
+        <input type="text" id="dniInput" placeholder="Ej: 30123456" maxlength="8">
+        <center><button id="consultarBtn" disabled>Consultar</button></center>
+    </div>
 
-<p class="descripcion">
-Ingrese su DNI para verificar si su certificado ya se encuentra disponible en la aplicación Mi Argentina.
-</p>
+    <div id="mensaje"></div>
 
-<div class="info-box">
-<b>Información del sistema</b>
-<ul>
-<li>La consulta se realiza únicamente mediante DNI.</li>
-<li>Si el certificado está disponible podrá visualizarlo en Mi Argentina.</li>
-<li>El proceso de validación puede demorar algunos días..</li>
-</ul>
+    <div class="card-container" id="licenciaVisual">
+        <div class="card-inner" id="cardInner">
+            <div class="card-front">
+                <img src="https://www.argentina.gob.ar/sites/default/files/licencia_frente.png" class="card-img" alt="Frente Licencia">
+            </div>
+            <div class="card-back">
+                <img src="https://www.argentina.gob.ar/sites/default/files/licencia_dorso.png" class="card-img" alt="Dorso Licencia">
+            </div>
+        </div>
+    </div>
+    
+    <div id="flipBtnContainer" style="display:none; flex-direction:column; align-items:center;">
+        <div class="flip-btn" onclick="flipCard()">🔄</div>
+        <p style="font-size:12px; color:#777;">Toca para ver el dorso</p>
+    </div>
+
 </div>
 
-<label>DNI</label>
-<input type="text" id="dniInput" placeholder="Ingrese su DNI" maxlength="8">
-
-<button id="consultarBtn" disabled>Consultar</button>
-
-<div class="progress">
-<div class="progress-bar" id="barra"></div>
-</div>
-
-<div id="mensaje"></div>
-
-</div>
-
-<footer>
-Centro de ayuda · Términos y condiciones
-</footer>
-
-<a id="toast" class="toast" href="https://www.argentina.gob.ar/miargentina" target="_blank">
-Ver certificado en Mi Argentina
-</a>
+<footer>Centro de ayuda · Seguridad Vial</footer>
 
 <script>
-
 /* LOADER */
-
 window.addEventListener("load",()=>{
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-},1500);
+    setTimeout(()=> { document.getElementById("loader").style.display="none"; }, 1000);
 });
 
-/* FUNCION PARA LEER FECHAS */
+const dniInput = document.getElementById("dniInput");
+const consultarBtn = document.getElementById("consultarBtn");
+const mensaje = document.getElementById("mensaje");
+const licenciaVisual = document.getElementById("licenciaVisual");
+const flipBtnContainer = document.getElementById("flipBtnContainer");
+const cardInner = document.getElementById("cardInner");
 
-function convertirFecha(fecha){
+/* Base de datos simulada */
+const padron = ["25904363", "29324931", "39992765", "12345678"];
 
-const partes = fecha.split("-").map(Number);
-
-let dia, mes, anio;
-
-/* detectar formato */
-
-if(partes[0] > 31){ 
-anio = partes[0];
-mes = partes[1];
-dia = partes[2];
-}else{
-dia = partes[0];
-mes = partes[1];
-anio = partes[2];
-}
-
-return new Date(anio, mes-1, dia);
-
-}
-
-/* SISTEMA */
-
-const dniInput=document.getElementById("dniInput");
-const consultarBtn=document.getElementById("consultarBtn");
-const mensaje=document.getElementById("mensaje");
-const barra=document.getElementById("barra");
-const progress=document.querySelector(".progress");
-const toast=document.getElementById("toast");
-
-const certificados={
-"48628651":"04-04-2026",
-"29324931":"02-04-2026",
-"39992765":"05-04-2026",
-"31309172":"27-03-2026",
-"37379052":"27-03-2026"
-};
-
-dniInput.addEventListener("input",()=>{
-const valido=/^\d{7,8}$/.test(dniInput.value.trim());
-consultarBtn.disabled=!valido;
+dniInput.addEventListener("input", () => {
+    consultarBtn.disabled = !(/^\d{7,8}$/.test(dniInput.value.trim()));
 });
 
-consultarBtn.addEventListener("click",()=>{
+consultarBtn.addEventListener("click", () => {
+    const dni = dniInput.value.trim();
+    mensaje.innerHTML = "Buscando...";
+    licenciaVisual.style.display = "none";
+    flipBtnContainer.style.display = "none";
 
-const dni=dniInput.value.trim();
-
-mensaje.innerHTML="Consultando base de datos...";
-progress.style.display="block";
-barra.style.width="20%";
-
-setTimeout(()=>{
-mensaje.innerHTML="Validando certificado...";
-barra.style.width="60%";
-},1200);
-
-setTimeout(()=>{
-
-barra.style.width="100%";
-
-if(!certificados[dni]){
-mensaje.innerHTML=`
-<div class="estado">
-<span class="punto rojo"></span>
-DNI no registrado
-</div>
-`;
-return;
-}
-
-const hoy=new Date();
-hoy.setHours(0,0,0,0);
-
-const fechaDisponible=convertirFecha(certificados[dni]);
-fechaDisponible.setHours(0,0,0,0);
-
-if(hoy>=fechaDisponible){
-
-mensaje.innerHTML=`
-<div class="estado">
-<span class="punto verde"></span>
-Su certificado está DISPONIBLE
-</div>
-`;
-toast.classList.add("show");
-
-}else{
-
-const fechaFormateada=fechaDisponible.toLocaleDateString("es-AR");
-
-mensaje.innerHTML=`
-<div class="estado">
-<span class="punto amarillo"></span>
-Certificado en proceso. Disponible a partir de ${fechaFormateada}
-</div>
-`;
-
-}
-
-},2500);
-
+    setTimeout(() => {
+        if (padron.includes(dni)) {
+            mensaje.innerHTML = "<span class='verde'>¡Su documentación está lista!</span>";
+            licenciaVisual.style.display = "block";
+            flipBtnContainer.style.display = "flex";
+        } else {
+            mensaje.innerHTML = "<span class='rojo'>No se encontró licencia vinculada a este DNI.</span>";
+        }
+    }, 1500);
 });
 
+/* Función para girar la tarjeta */
+function flipCard() {
+    cardInner.classList.toggle('is-flipped');
+}
 </script>
 
 </body>

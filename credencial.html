@@ -39,14 +39,15 @@ body {
     overflow:hidden;  
     position:relative;  
 
-    /* FONDO AGREGADO */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }  
 
 .header {  
-    background:#ffffff;  
+    background: rgba(255,255,255,0.2);  
+    backdrop-filter: blur(6px);  
+    -webkit-backdrop-filter: blur(6px);  
     color:#008c8c;  
     display:flex;  
     align-items:center;  
@@ -163,7 +164,6 @@ body {
 
 <button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>  
 
-<!-- BOTÓN FONDO -->
 <button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>
 <input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">
 
@@ -293,7 +293,6 @@ function previewFirma(input){
     reader.readAsDataURL(input.files[0]);
 }
 
-/* FONDO */
 function cambiarFondo(input){
     const carnet = document.getElementById('carnet');
 

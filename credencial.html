@@ -34,20 +34,13 @@ body {
     cursor:pointer;  
 }  
 
-.carnet-container {  
-    width:500px;  
-    min-height:315px;  
-    height:auto;  
-    background:#fff;  
-    border-radius:15px;  
-    overflow:hidden;  
-    position:relative;  
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.carnet-container {
+    width:500px;
+    height:315px;   /* 🔥 vuelve a altura fija */
+    overflow:hidden;
     display:flex;
     flex-direction:column;
-}  
+}
 
 .header {  
     background: rgba(255,255,255,0.2);  
@@ -87,14 +80,14 @@ body {
 .flag-icon { width:30px; }  
 .shield-icon { width:25px; }  
 
-.content {  
-    display:grid;  
-    grid-template-columns:130px 1fr;  
-    padding:10px;  
-    padding-bottom:45px;  /* 🔧 antes 85px */
-    gap:10px;  
-}  
+.content {
+    display:grid;
+    grid-template-columns:130px 1fr;
+    padding:10px;
+    gap:10px;
 
+    flex:1; /* 🔥 ESTO es lo importante */
+}
 .photo-placeholder {  
     width:120px;  
     height:140px;  

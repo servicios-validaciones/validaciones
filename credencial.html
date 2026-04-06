@@ -234,6 +234,17 @@ body {
     margin-left: auto;
     text-align: right;
 }
+    .firma-link{
+    font-size:9px;
+    color:#0072bb;
+    text-decoration:underline;
+    cursor:pointer;
+    align-self:flex-end;
+}
+
+.firma-link:hover{
+    color:#005a92;
+}
 
 </style>  
 </head>  
@@ -307,9 +318,17 @@ body {
             </div>
         </div>
 
-        <div class="item right-align">
-            <span class="label"><b>7. Firma</b> <span class="en">/ Signature</span></span>
-        </div>
+        <input type="file" id="firmaInput" hidden onchange="previewFirma(this)">
+
+<a href="#" class="firma-link" onclick="firmaInput.click(); return false;">
+    Cargar firma (PNG)
+</a>
+
+<img id="firmaPreview" class="firma-img" style="display:none;">
+
+<div class="item right-align">
+    <span class="label"><b>7. Firma</b> / Signature</span>
+</div>
 
         <div class="item item-dates right-align">
             <div>
@@ -382,6 +401,17 @@ async function generarPDF(){
     pdf.addImage(img,"PNG",0,0,85.6,54);  
     pdf.save("carnet.pdf");  
 }  
+    function previewFirma(input){
+    const img = document.getElementById('firmaPreview');
+    const reader = new FileReader();
+
+    reader.onload = e=>{
+        img.src = e.target.result;
+        img.style.display = "block";
+    }
+
+    reader.readAsDataURL(input.files[0]);
+    }
 </script>  
 
 </body>  

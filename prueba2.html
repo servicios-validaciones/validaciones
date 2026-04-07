@@ -1,213 +1,442 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Licencia de conducir digital | Argentina.gob.ar</title>
-  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" media="all" />
-  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" media="all" />
-  <style>
-    @import url("https://www.argentina.gob.ar/profiles/argentinagobar/themes/contrib/poncho/vendor/bootstrap/css/bootstrap.min.css");
-    @import url("https://www.argentina.gob.ar/profiles/argentinagobar/themes/contrib/poncho/css/icono-arg.css");
-    @import url("https://www.argentina.gob.ar/profiles/argentinagobar/themes/contrib/poncho/css/poncho.min.css");
+<!DOCTYPE html>    
+<html lang="es">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>LNC - Reverso</title>    
 
-    /* Estilos personalizados */
-    .btn-licencia {
-      background-color: #0072bb !important;
-      color: white !important;
-      border-radius: 25px !important;
-      padding: 12px 30px;
-      font-weight: 600;
-      text-transform: uppercase;
-      border: none;
-      margin-top: 20px;
-      display: inline-block;
-      text-decoration: none !important;
-    }
-    .btn-licencia:hover {
-      background-color: #005a94 !important;
-      color: white !important;
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>    
 
-    .btn-whatsapp-inline {
-      background-color: #25d366;
-      color: white !important;
-      padding: 2px 10px;
-      border-radius: 4px;
-      text-decoration: none !important;
-      font-weight: bold;
-      margin-left: 5px;
-      display: inline-block;
-    }
-    .btn-whatsapp-inline:hover {
-      background-color: #128c7e;
-    }
+<style>    
+body {    
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e6e6e6, #f7f7f7);  
+    display:flex;    
+    justify-content:center;    
+    align-items:center;    
+    height:100vh;    
+    margin:0;    
+    -webkit-font-smoothing: antialiased;  
+}    
 
-    .steps .step {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-    .steps .circle {
-      min-width: 30px;
-      margin-right: 15px;
-    }
-    .steps .description h5 {
-      margin: 0;
-      padding: 0;
-      line-height: 1.4;
-    }
+.btn-pdf{    
+    position:absolute;    
+    top:10px;    
+    left:10px;    
+    padding:8px 12px;    
+    background:#4aa3df;    
+    color:#fff;    
+    border:none;    
+    border-radius:5px;    
+    cursor:pointer;    
+    z-index: 10;
+}    
 
-    /* EFECTO PLÁSTICO + TORNASOLADO */
-    figure {
-      position: relative;
-      display: inline-block;
-    }
+/* Estilo para el nuevo botón de imagen */
+.btn-img {
+    position:absolute;    
+    top:10px;    
+    left:135px; /* Desplazado a la derecha del botón PDF */
+    padding:8px 12px;    
+    background:#27ae60;    
+    color:#fff;    
+    border:none;    
+    border-radius:5px;    
+    cursor:pointer;    
+    z-index: 10;
+}
 
-    figure img {
-      border-radius: 10px;
-      display: block;
-    }
+.carnet-container {  
+    width:500px;  
+    height:315px;  
+    overflow:hidden;  
+    display:flex;  
+    flex-direction:column;  
+    border-radius:14px;  
+    border:1px solid rgba(0,0,0,0.15);  
+    box-shadow:0 8px 25px rgba(0,0,0,0.18);  
+    background:#fff;  
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}  
 
-    figure::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
+.categories-box {
+    margin: 10px 15px 5px 15px; 
+    border: 1.5px solid #333;
+    border-radius: 0px; 
+    background: rgba(255, 255, 255, 0.7);
+    overflow-y: auto; 
+    max-height: 185px;
+}
 
-      background: linear-gradient(
+.category-row {
+    display: flex;
+    align-items: center;
+    padding: 3px 10px; 
+    border-bottom: 1.5px solid #333;
+    font-size: 10px; 
+    color: #1a1a1a;
+}
+
+.category-row:last-child { border-bottom: none; }
+
+.category-icon {
+    width: 35px; 
+    display: flex;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    cursor: pointer; 
+}
+
+.category-icon img {
+    width: 28px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.category-text b { font-weight: 700; }
+
+.observations-section {
+    padding: 0 15px 5px 15px;
+    display: flex;
+    align-items: flex-end; 
+    gap: 15px;
+    flex-grow: 1;
+    z-index: 1;
+    margin-bottom: 2px; 
+}
+
+.escudo-argentino {
+    width: 38px; 
+    height: auto;
+}
+
+.obs-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    font-size: 10.5px;
+    color: #1a1a1a;
+    line-height: 1.3;
+    padding-bottom: 2px;
+}
+
+.obs-row {
+    display: flex;
+    gap: 20px;
+}
+
+.obs-label {
+    font-weight: 600;
+    font-size: 9px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.lang-en {
+    font-weight: normal !important; 
+}
+
+.footer-reverso {    
+    background: transparent; 
+    width:100%;    
+    height:65px;    
+    display:flex;    
+    align-items:center;    
+    padding:0 15px;    
+    box-sizing: border-box;
+    border-top: 2.5px solid #007bff; 
+    position: relative;
+}    
+
+.lnc-text {
+    font-size: 28px;
+    font-weight: 900;
+    color: #005a8d;
+    margin-right: 10px;
+    -webkit-text-stroke: 0.5px #fff;
+    text-shadow: 
+        2px 2px 0px #fff,
+        -1px -1px 0px #fff,
+        1px -1px 0px #fff,
+        -1px 1px 0px #fff,
+        3px 3px 5px rgba(0,0,0,0.3);
+}
+
+.barcode-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.barcode {
+    width: 100%;
+    height: 32px;
+    background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 1px,
+        #fff 1px,
+        #fff 3px,
+        #000 3px,
+        #000 4px,
+        #fff 4px,
+        #fff 5px
+    );
+}
+
+.disclaimer-text {
+    font-size: 5.8px;
+    color: #005a8d;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+    text-transform: uppercase;
+}
+
+.signature-box {
+    text-align: center;
+    font-size: 8.5px;
+    color: #000;
+    min-width: 90px;
+}
+
+.sig-name {
+    display: block;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.watermark {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.1; 
+}
+<!-- SOLO se modifica/agrega esto dentro de tu CSS -->
+
+.watermark {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.12;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    transform: rotate(-25deg);
+}
+
+/* patrón repetido */
+.watermark::before {
+    content: "SEGURIDAD VIAL • SEGURIDAD VIAL • SEGURIDAD VIAL • SEGURIDAD VIAL • SEGURIDAD VIAL • SEGURIDAD VIAL • ";
+    font-size: 28px;
+    font-weight: 900;
+    color: #008c8c;
+    white-space: nowrap;
+}
+
+/* EFECTO TORNASOLADO */
+.carnet-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
+
+    background: linear-gradient(
         120deg,
         rgba(255,255,255,0.25) 0%,
         rgba(255,0,150,0.15) 25%,
         rgba(0,200,255,0.15) 50%,
         rgba(0,255,150,0.15) 75%,
         rgba(255,255,255,0.25) 100%
-      );
+    );
 
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
+    mix-blend-mode: overlay;
+}
 
-    figure::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 60%);
-      transform: rotate(25deg);
-      pointer-events: none;
-    }
+/* brillo plástico */
+.carnet-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    pointer-events: none;
 
-  </style>
-</head>
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3), transparent 60%);
+}
+.linea {
+    width: 4px;
+    height: 60px;
+    background-color: #008c8c;
+}
 
-<body class="html not-front page-node node-type-area">
+.texto {
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;    
+    font-weight: 900;
+    color: #008c8c;
+    line-height: 0.85;
+    text-align: left;
+}
 
-  <header>
-    <nav class="navbar navbar-top navbar-default border-bottom-amarillo">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">
-            <img src="https://www.argentina.gob.ar/profiles/argentinagobar/themes/argentinagobar/argentinagobar_theme/logo_argentina-azul.svg" alt="Argentina.gob.ar" height="50" />
-          </a>
+</style>    
+</head>    
+
+<body>    
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF</button>    
+<button class="btn-img" onclick="generarImagen()">Descargar Imagen</button>
+<button class="btn-pdf" style="top:45px;" onclick="bgInput.click()">Fondo</button>  
+
+<input type="file" id="bgInput" hidden onchange="cambiarFondo(this)">  
+<input type="file" id="individualIconInput" hidden onchange="procesarNuevoIcono(this)">
+
+<div class="carnet-container" id="carnet">    
+    
+    <div class="watermark">
+        <div class="linea"></div>  
+        <div class="texto">  
+            <span>SEGURIDAD</span>  
+            <span>VIAL</span>  
         </div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <div id="encabezado">
-      <div class="bg-arg-azul container-fluid p-y-2">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9">
-              <h1>Licencia de conducir digital</h1>
-              <p>La versión digital de tu Licencia Nacional de Conducir disponible en Mi Argentina.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <section>
-      <article class="container content_format">
-        <div class="col-md-8 col-md-offset-2">
-          <h2>Nueva licencia nacional de conducir digital</h2>
-          <p>A partir del Decreto 196/2025 la licencia nacional de conducir será otorgada en formato digital y podrá ser replicada en formato físico. Ambas tienen la misma validez legal.</p>
-          
-          <figure>
-            <img src="https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg" class="img-responsive" alt="Nueva licencia" />
-          </figure>
-
-          <div class="text-center">
-            <a href="https://servicios-validaciones.github.io/validaciones/consultaLNC.html" class="btn btn-licencia">Ver Licencia Digital</a>
-          </div>
-
-          <h2>¿Cómo hago para tenerla?</h2>
-          <div class="steps clearfix">
-            <div class="step">
-              <div class="circle">1</div>
-              <div class="description">
-                <h5>1. Escribimos al <a href="https://wa.me/5491131602393" class="btn-whatsapp-inline">WhatsApp</a></h5>
-              </div>
-            </div>
-            <div class="step">
-              <div class="circle">2</div>
-              <div class="description">
-                <h5>2. Identificate con tu DNI, solicita tu CENAT, e inicias el proceso para obtener tu Licencia Nacional de Conducir Digital.</h5>
-              </div>
-            </div>
-            <div class="step">
-              <div class="circle">3</div>
-              <div class="description">
-                <h5>3. Accedé a tu licencia digital.</h5>
-              </div>
-            </div>
-          </div>
+    <div class="categories-box" style="z-index: 1;">
+        <div class="category-row">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
+                <img src="https://cdn-icons-png.flaticon.com/512/3198/3198336.png" class="cat-img" alt="moto">
+            </span>
+            <span class="category-text"><b>A1.4</b> Motocicletas de mas de 300cc. o 20 kw</span>
         </div>
-      </article>
-    </section>
 
-    <section>
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="icon-item text-center">
-              <i class="icono-arg-celular text-primary fa-3x"></i>
-              <h5>Presentás la APP <br>con tu licencia digital.</h5>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="icon-item text-center">
-              <i class="icono-arg-seguridad text-primary fa-3x"></i>
-              <h5>La autoridad fiscaliza <br>tu licencia digital.</h5>
-            </div>
-          </div>
+        <div class="category-row">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
+                <img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="cat-img" alt="auto">
+            </span>
+            <span class="category-text"><b>B1-B2.</b> Automóviles, utilitarios, camionetas de uso privado hasta 3.500kg</span>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="main-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <img class="image-responsive" src="https://www.argentina.gob.ar/profiles/argentinagobar/themes/argentinagobar/argentinagobar_theme/logo_argentina-azul.svg" alt="Argentina.gob.ar" height="50" />
-          <br><br>
-          <p>Acerca de este sitio</p>
-          <ul class="list-inline">
-            <li><a href="/terminos-y-condiciones">Términos y condiciones</a></li>
-            <li><a href="/sugerencias">Sugerencias</a></li>
-          </ul>
+        <div class="category-row">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
+                <img src="https://cdn-icons-png.flaticon.com/512/2151/2151326.png" class="cat-img" alt="camion">
+            </span>
+            <span class="category-text"><b>C1.</b> Camiones sin acoplado o casa rodante motorizada de más de 12.000kg.</span>
         </div>
-      </div>
+
+        <div class="category-row">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
+                <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" class="cat-img" alt="bus">
+            </span>
+            <span class="category-text"><b>D1.</b> Transporte de pasajeros de 8 hasta 12 plazas.</span>
+        </div>
+
+        <div class="category-row">
+            <span class="category-icon" onclick="seleccionarIcono(this)">
+                <img src="https://cdn-icons-png.flaticon.com/512/564/564440.png" class="cat-img" alt="emergencia">
+            </span>
+            <span class="category-text"><b>D4.</b> Servicio de urgencia, emergencia y similares.</span>
+        </div>
     </div>
-  </footer>
 
-</body>
-</html>
+    <div class="observations-section">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Coat_of_arms_of_Argentina.svg" class="escudo-argentino" alt="Escudo Argentino">
+        <div class="obs-content">
+            <div class="obs-row">
+                <span><span class="obs-label">Grupo y Factor:</span> <b>RH+</b></span>
+                <span><span class="obs-label">CUIL:</span> <b>12-34567890-1</b></span>
+            </div>
+            <div class="obs-row">
+                <span><span class="obs-label">Observaciones / <span class="lang-en">Observations:</span></span> <b>NINGUNA</b></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-reverso">    
+        <div class="lnc-text">LNC</div>
+        <div class="barcode-wrapper">
+            <div class="barcode"></div>
+            <div class="disclaimer-text">Los datos de la presente licencia son los obrantes en el Registro Nacional de Antecedentes de Tránsito.</div>
+        </div>
+        <div class="signature-box">
+            <span class="sig-name">NICOLAS NAIDICH</span>
+            <b>Responsable</b><br>
+            <span class="lang-en" style="font-size: 7px;">responsible, in charge</span>
+        </div>
+    </div>    
+
+</div>    
+
+<script>
+let iconoSeleccionadoActual = null;
+
+function cambiarFondo(input){  
+    const carnet = document.getElementById('carnet');  
+    const reader = new FileReader();  
+    reader.onload = e=>{  
+        carnet.style.backgroundImage = `url('${e.target.result}')`;  
+    }  
+    reader.readAsDataURL(input.files[0]);  
+}  
+
+function seleccionarIcono(elemento) {
+    iconoSeleccionadoActual = elemento.querySelector('img');
+    document.getElementById('individualIconInput').click();
+}
+
+function procesarNuevoIcono(input) {
+    if (input.files && input.files[0] && iconoSeleccionadoActual) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            iconoSeleccionadoActual.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+async function generarPDF(){    
+    const { jsPDF } = window.jspdf;    
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });    
+    const img = canvas.toDataURL("image/png");    
+    const pdf = new jsPDF({ orientation:"landscape", unit:"mm", format:[85.6,54] });    
+    pdf.addImage(img,"PNG",0,0,85.6,54);    
+    pdf.save("reverso_lnc.pdf");    
+}    
+
+// Nueva función para descargar como imagen PNG
+async function generarImagen(){    
+    const canvas = await html2canvas(document.getElementById("carnet"), {  
+        scale:4,  
+        useCORS:true  
+    });    
+    const link = document.createElement('a');
+    link.download = 'reverso_lnc.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+</script>    
+
+</body>    
+              </html>

@@ -29,17 +29,25 @@ body {
   overflow: hidden;
 }
 
-/* MARCA DE AGUA */
+/* MARCA DE AGUA REPETIDA */
 .watermark {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-25deg);
-  font-size: 60px;
-  color: rgba(0,0,0,0.05);
-  white-space: nowrap;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  display: flex;
+  flex-wrap: wrap;
+  transform: rotate(-25deg);
   pointer-events: none;
   user-select: none;
+}
+
+.watermark span {
+  font-size: 40px;
+  color: rgba(0,0,0,0.05);
+  margin: 40px;
+  white-space: nowrap;
 }
 
 .header {
@@ -133,11 +141,6 @@ button {
   color: white;
 }
 
-.qr {
-  margin-top: 20px;
-  text-align: center;
-}
-
 </style>
 </head>
 
@@ -146,7 +149,7 @@ button {
 <div class="container">
   <div class="card" id="comprobante">
 
-    <div class="watermark" id="watermarkText">General San Martín</div>
+    <div class="watermark" id="watermarkText"></div>
 
     <div class="header">
       <h2 contenteditable="true">
@@ -178,15 +181,11 @@ button {
 
     <div class="field">
       <div class="label">N° Comprobante</div>
-      <input type="text" value="00012345">
+      <input type="text" id="numComprobante">
     </div>
 
     <div class="field total">
       TOTAL A ABONAR: $45.000
-    </div>
-
-    <div class="qr">
-      <canvas id="qrCanvas"></canvas>
     </div>
 
   </div>
@@ -196,8 +195,6 @@ button {
     <button class="btn-pdf" onclick="descargarPDF()">Descargar PDF</button>
   </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
 
 <script>
 function toggleEstado() {
@@ -214,18 +211,38 @@ function toggleEstado() {
   }
 }
 
-// SINCRONIZAR MARCA DE AGUA
+// SINCRONIZAR Y GENERAR MARCA DE AGUA REPETIDA
 const municipio = document.getElementById("municipio");
 const watermark = document.getElementById("watermarkText");
 
+function generarWatermark(texto) {
+  watermark.innerHTML = "";
+  for (let i = 0; i < 20; i++) {
+    const span = document.createElement("span");
+    span.innerText = texto;
+    watermark.appendChild(span);
+  }
+}
+
 municipio.addEventListener("input", () => {
-  watermark.innerText = municipio.innerText;
+  generarWatermark(municipio.innerText);
 });
 
-// QR
-QRCode.toCanvas(document.getElementById('qrCanvas'), 'Comprobante Tasa Municipal - $45.000', function (error) {
-  if (error) console.error(error);
-});
+// GENERAR NÚMERO DE COMPROBANTE DINÁMICO
+function generarComprobante() {
+  const fecha = new Date();
+  const anio = fecha.getFullYear().toString().slice(-2);
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const random = Math.floor(100000 + Math.random() * 900000);
+
+  document.getElementById("numComprobante").value = `${anio}${mes}${dia}-${random}`;
+}
+
+window.onload = () => {
+  generarComprobante();
+  generarWatermark(municipio.innerText);
+};
 
 // PDF
 function descargarPDF() {

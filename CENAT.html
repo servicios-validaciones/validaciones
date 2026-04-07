@@ -74,20 +74,6 @@ body {
     font-size:13px;
 }
 
-/* CODIGO */
-.codigo-box {
-    margin-top:20px;
-    text-align:center;
-    border-top:2px dashed #000;
-    padding-top:15px;
-}
-
-.codigo {
-    font-size:20px;
-    letter-spacing:4px;
-    margin:10px 0;
-}
-
 /* BOTON */
 .btn {
     margin-top:20px;
@@ -194,12 +180,6 @@ body {
         </div>
     </div>
 
-    <div class="codigo-box">
-        <div class="label"></div>
-        <div class="codigo" id="codigo"></div>
-        <small></small>
-    </div>
-
 </div>
 
 <button class="btn" onclick="descargarPDF()">Descargar PDF</button>
@@ -227,9 +207,6 @@ function format(fecha) {
 function generarNumeros() {
     document.getElementById("tramite").innerText =
         Math.floor(Math.random() * 1e12).toString().padStart(12, '0');
-
-    document.getElementById("codigo").innerText =
-        Math.floor(Math.random() * 1e16).toString().replace(/(.{4})/g, '$1 ').trim();
 }
 
 generarFechas();

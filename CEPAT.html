@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprobante Tasa Municipal</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #e9ecef;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.badge {
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.no-pagado {
+  background: #ffc107;
+  color: #000;
+}
+
+.pagado {
+  background: #28a745;
+  color: #fff;
+}
+
+.field {
+  margin: 12px 0;
+}
+
+.label {
+  font-weight: bold;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  font-size: 15px;
+  outline: none;
+}
+
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-toggle {
+  background: #007bff;
+  color: white;
+}
+
+.btn-pdf {
+  background: #dc3545;
+  color: white;
+}
+
+.qr {
+  margin-top: 20px;
+  text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card" id="comprobante">
+
+    <div class="header">
+      <h2 contenteditable="true">Municipalidad de General San Martín</h2>
+      <span id="estado" class="badge no-pagado">NO ABONADO</span>
+    </div>
+
+    <div class="field">
+      <div class="label">Nombre y Apellido</div>
+      <input type="text" value="Juan Pérez">
+    </div>
+
+    <div class="field">
+      <div class="label">DNI</div>
+      <input type="text" value="12.345.678">
+    </div>
+
+    <div class="field">
+      <div class="label">Concepto</div>
+      <input type="text" value="Tasa Municipal - Licencia de Conducir">
+    </div>
+
+    <div class="field">
+      <div class="label">Fecha</div>
+      <input type="text" value="07/04/2026">
+    </div>
+
+    <div class="field">
+      <div class="label">N° Comprobante</div>
+      <input type="text" value="00012345">
+    </div>
+
+    <div class="field total">
+      TOTAL A ABONAR: $45.000
+    </div>
+
+    <div class="qr">
+      <canvas id="qrCanvas"></canvas>
+    </div>
+
+  </div>
+
+  <div class="buttons">
+    <button class="btn-toggle" onclick="toggleEstado()">Cambiar estado</button>
+    <button class="btn-pdf" onclick="descargarPDF()">Descargar PDF</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
+
+<script>
+function toggleEstado() {
+  const estado = document.getElementById("estado");
+
+  if (estado.innerText === "NO ABONADO") {
+    estado.innerText = "A ABONAR";
+    estado.classList.remove("no-pagado");
+    estado.classList.add("pagado");
+  } else {
+    estado.innerText = "NO ABONADO";
+    estado.classList.remove("pagado");
+    estado.classList.add("no-pagado");
+  }
+}
+
+// QR
+QRCode.toCanvas(document.getElementById('qrCanvas'), 'Comprobante Tasa Municipal - $45.000', function (error) {
+  if (error) console.error(error);
+});
+
+// PDF
+function descargarPDF() {
+  html2canvas(document.getElementById("comprobante")).then(canvas => {
+    const imgData = canvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+
+    pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
+    pdf.save("comprobante_tasa_municipal.pdf");
+  });
+}
+</script>
+
+</body>
+        </html>

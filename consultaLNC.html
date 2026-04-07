@@ -10,9 +10,10 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             background: #f2f2f2;
-            min-height: 100vh;
+            height: 100vh; /* Forzamos altura de pantalla */
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Evita scroll innecesario si la pantalla es grande */
         }
 
         /* LOADER */
@@ -30,21 +31,22 @@
         }
         @keyframes girar { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
-        /* HEADER MODIFICADO */
+        /* HEADER */
         header {
             background: #4338ca;
             color: white;
             text-align: center;
-            padding: 14px;
+            padding: 12px;
             font-size: 22px;
             font-weight: 700;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
         .header-img {
-            height: 25px; /* Ajusta el tamaño de la imagen "mí" */
+            height: 25px;
             width: auto;
         }
 
@@ -53,30 +55,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* Centra el contenido verticalmente para ahorrar espacio */
             max-width: 420px;
-            margin: auto;
-            padding: 15px;
+            margin: 0 auto;
+            padding: 10px 15px;
             width: 100%;
             box-sizing: border-box;
         }
 
         h2 {
             text-align: center;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin: 0 0 10px 0;
         }
 
         .info-box {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             width: 100%;
             box-sizing: border-box;
         }
 
-        /* ESTILO DNI */
         label {
             display: block;
             font-weight: 700;
@@ -87,23 +89,23 @@
         input {
             width: 100%;
             padding: 12px;
-            border-radius: 10px; /* Bordes redondeados */
+            border-radius: 10px;
             border: 1px solid #ccc;
             font-size: 16px;
             box-sizing: border-box;
             outline: none;
         }
 
-        /* BOTÓN CONSULTAR */
+        /* BOTÓN CONSULTAR CON COLOR DEL HEADER */
         .btn-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         button {
-            background: #4338ca;
+            background: #4338ca; /* Mismo tono que el header */
             color: white;
             border: none;
-            padding: 14px;
+            padding: 12px;
             border-radius: 30px;
             width: 200px;
             font-size: 16px;
@@ -117,9 +119,9 @@
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 350px;
-            height: 220px;
-            margin-top: 20px;
+            max-width: 320px;
+            height: 200px;
+            margin-top: 10px;
             display: none;
         }
         .card-inner {
@@ -146,34 +148,35 @@
         .flip-btn {
             background: #eee;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 5px;
             cursor: pointer;
-            font-size: 22px;
+            font-size: 20px;
             border: 1px solid #ccc;
         }
 
-        #mensaje { margin-top: 15px; font-weight: 600; text-align: center; }
-        .verde { color: #22c55e; }
-        .rojo { color: #ef4444; }
+        #mensaje { margin: 10px 0; font-weight: 600; text-align: center; font-size: 15px;}
+        .verde { color: #22c55e; font-weight: 700; }
+        .rojo { color: #ef4444; font-weight: 700; }
 
-        /* FOOTER MODIFICADO */
+        /* FOOTER SUBIDO */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             color: #777;
-            font-size: 13px;
-            border-top: 1px solid #dcdcdc; /* Línea gris finita */
+            font-size: 12px;
+            border-top: 1px solid #dcdcdc;
             background: #f2f2f2;
+            flex-shrink: 0;
         }
         .footer-img {
             display: block;
-            margin: 10px auto 0;
-            max-height: 40px; /* Tamaño de la imagen del footer */
+            margin: 5px auto 0;
+            max-height: 35px;
             width: auto;
         }
     </style>
@@ -188,12 +191,12 @@
 
 <header>
     <img src="https://id.argentina.gob.ar/static/img/miargentina.svg" alt="mí" class="header-img">
-    
+    Argentina
 </header>
 
 <div class="container">
     <h2>Ingresa a tu Licencia Digital</h2>
-    <p style="text-align:center; font-size: 14px; color:#666; margin-bottom: 20px;">Ingrese su CUIL para visualizar su Licencia Nacional de Conducir Digital.</p>
+    <p style="text-align:center; font-size: 13px; color:#666; margin-bottom: 15px;">Ingrese su CUIL para visualizar su Licencia Nacional de Conducir Digital.</p>
 
     <div class="info-box">
         <label for="dniInput">CUIL</label>
@@ -218,7 +221,7 @@
     
     <div id="flipBtnContainer" style="display:none; flex-direction:column; align-items:center;">
         <div class="flip-btn" onclick="flipCard()">🔄</div>
-        <p style="font-size:12px; color:#777; margin-top: 5px;">Toca para ver el dorso</p>
+        <p style="font-size:11px; color:#777; margin-top: 3px;">Toca para ver el dorso</p>
     </div>
 </div>
 
@@ -242,20 +245,21 @@
     const imgFrente = document.getElementById("imgFrente");
     const imgDorso = document.getElementById("imgDorso");
 
-    /* BASE DE DATOS INTERNA: Agregá acá los DNIs y los links de fotos */
+    /* BASE DE DATOS INTERNA con opción de estado */
     const padron = {
         "12345678": {
             frente: "https://i.postimg.cc/bwxkDHRf/carnet.jpg",
-            dorso: "https://i.postimg.cc/tTDkdcMX/IMG-20260406-WA0034.jpg"
+            dorso: "https://i.postimg.cc/tTDkdcMX/IMG-20260406-WA0034.jpg",
+            activa: true // Si es true, sale ACTIVA en verde
         },
         "87654321": {
             frente: "LINK_FRENTE_OTRO",
-            dorso: "LINK_DORSO_OTRO"
+            dorso: "LINK_DORSO_OTRO",
+            activa: false // Si es false, sale NO ACTIVA en rojo
         }
     };
 
     dniInput.addEventListener("input", () => {
-        // Habilita el botón si el DNI tiene entre 7 y 8 números
         consultarBtn.disabled = !(/^\d{7,8}$/.test(dniInput.value.trim()));
     });
 
@@ -268,10 +272,17 @@
 
         setTimeout(() => {
             if (padron[dni]) {
-                imgFrente.src = padron[dni].frente;
-                imgDorso.src = padron[dni].dorso;
+                const user = padron[dni];
+                imgFrente.src = user.frente;
+                imgDorso.src = user.dorso;
 
-                mensaje.innerHTML = "<span class='verde'>Su licencia se encuentra ACTIVA</span>";
+                // Lógica de estado dinámico
+                if(user.activa) {
+                    mensaje.innerHTML = "Estado de Licencia Digital: <span class='verde'>ACTIVA</span>";
+                } else {
+                    mensaje.innerHTML = "Estado de Licencia Digital: <span class='rojo'>NO ACTIVA</span>";
+                }
+
                 licenciaVisual.style.display = "block";
                 flipBtnContainer.style.display = "flex";
             } else {

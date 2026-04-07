@@ -193,10 +193,10 @@
 
 <div class="container">
     <h2>Ingresa a tu Licencia Digital</h2>
-    <p style="text-align:center; font-size: 14px; color:#666; margin-bottom: 20px;">Ingrese su N° DNI para visualizar su Licencia Nacional de Conducir Digital.</p>
+    <p style="text-align:center; font-size: 14px; color:#666; margin-bottom: 20px;">Ingrese su CUIL para visualizar su Licencia Nacional de Conducir Digital.</p>
 
     <div class="info-box">
-        <label for="dniInput">DNI</label>
+        <label for="dniInput">CUIL</label>
         <input type="text" id="dniInput" placeholder="" maxlength="8">
         <div class="btn-container">
             <button id="consultarBtn" disabled>Consultar</button>
@@ -261,7 +261,7 @@
 
     consultarBtn.addEventListener("click", () => {
         const dni = dniInput.value.trim();
-        mensaje.innerHTML = "Buscando...";
+        mensaje.innerHTML = "Espere un momento...";
         licenciaVisual.style.display = "none";
         flipBtnContainer.style.display = "none";
         cardInner.classList.remove('is-flipped');
@@ -271,11 +271,11 @@
                 imgFrente.src = padron[dni].frente;
                 imgDorso.src = padron[dni].dorso;
 
-                mensaje.innerHTML = "<span class='verde'>Su licencia se encuentra Activa</span>";
+                mensaje.innerHTML = "<span class='verde'>Su licencia se encuentra ACTIVA</span>";
                 licenciaVisual.style.display = "block";
                 flipBtnContainer.style.display = "flex";
             } else {
-                mensaje.innerHTML = "<span class='rojo'>No se encontró licencia vinculada a este DNI.</span>";
+                mensaje.innerHTML = "<span class='rojo'>No se encontró licencia vinculada a este CUIL.</span>";
             }
         }, 1200);
     });

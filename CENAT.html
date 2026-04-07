@@ -74,6 +74,21 @@ body {
     font-size:13px;
 }
 
+/* NUEVO BLOQUE PROFESIONAL DE PAGO */
+.pago {
+    margin-top:15px;
+    padding:12px;
+    border:1px solid #000;
+    background:#f8f9fa;
+    font-size:13px;
+}
+
+.pago strong {
+    display:block;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
 /* BOTON */
 .btn {
     margin-top:20px;
@@ -121,7 +136,6 @@ body {
 
     <input placeholder="Jurisdicción" oninput="set('jurisdiccion', this.value)">
     <input placeholder="Estado (ej: SIN INFRACCIONES)" oninput="set('estado', this.value)">
-    <input placeholder="Importe" oninput="set('importe', this.value)">
 </div>
 
 <div id="cenat" class="certificado">
@@ -169,11 +183,14 @@ body {
         <strong>Estado:</strong> <span id="estado">-</span><br>
     </div>
 
+    <!-- BLOQUE PROFESIONAL DE PAGO -->
+    <div class="pago">
+        <strong>Importe del Certificado CENAT</strong>
+        Monto a abonar: <strong>$20.000</strong><br>
+        Medio de pago: Transferencia bancaria
+    </div>
+
     <div class="row">
-        <div class="col">
-            <div class="label">Importe a abonar es de</div>
-            <div class="value" id="importe">-</div>
-        </div>
         <div class="col">
             <div class="label">N° de trámite</div>
             <div class="value" id="tramite"></div>

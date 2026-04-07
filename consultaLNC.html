@@ -122,8 +122,8 @@
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 380px; /* Tamaño aumentado */
-            height: 240px;   /* Proporción mejorada */
+            max-width: 380px; 
+            height: 240px;   
             margin-top: 15px;
             display: none;
         }
@@ -210,8 +210,8 @@
     <p style="text-align:center; font-size: 14px; color:#666; margin-bottom: 20px;">Ingresá tu CUIL para ver tu credencial digital.</p>
 
     <div class="info-box">
-        <label for="dniInput">CUIL (sin guiones)</label>
-        <input type="text" id="dniInput" placeholder="Ej: 20401234567" maxlength="11">
+        <label for="dniInput">CUIL</label>
+        <input type="text" id="dniInput" placeholder="00-00000000-0" maxlength="13">
         <div class="btn-container">
             <button id="consultarBtn" disabled>VER LICENCIA</button>
         </div>
@@ -257,35 +257,45 @@
     const imgFrente = document.getElementById("imgFrente");
     const imgDorso = document.getElementById("imgDorso");
 
-    // Datos de ejemplo actualizados a 11 dígitos sugeridos (CUIL)
     const padron = {
-        "20012345678": {
-            frente: "https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg",
-            dorso: "https://i.postimg.cc/xT5Tj0hr/reverso-lnc-(2).png",
-            activa: true
-        },
-        "01234567": { // Mantenemos el anterior por compatibilidad
+        "001234567899": {
             frente: "https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg",
             dorso: "https://i.postimg.cc/xT5Tj0hr/reverso-lnc-(2).png",
             activa: true
         }
     };
 
-    dniInput.addEventListener("input", () => {
-        // Habilitar si tiene entre 7 y 11 dígitos
-        consultarBtn.disabled = !(/^\d{7,11}$/.test(dniInput.value.trim()));
+    // FORMATEADOR DE CUIL
+    dniInput.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, ""); // Quita lo que no sea número
+        let formatted = "";
+
+        if (value.length > 0) {
+            formatted = value.substring(0, 2);
+            if (value.length > 2) {
+                formatted += "-" + value.substring(2, 10);
+            }
+            if (value.length > 10) {
+                formatted += "-" + value.substring(10, 11);
+            }
+        }
+        
+        e.target.value = formatted;
+
+        // El CUIL completo tiene 11 números (2+8+1)
+        consultarBtn.disabled = (value.length !== 11);
     });
 
     consultarBtn.addEventListener("click", () => {
-        const dni = dniInput.value.trim();
+        const cuilLimpio = dniInput.value.replace(/\D/g, ""); 
         mensaje.innerHTML = "Buscando credencial...";
         licenciaVisual.style.display = "none";
         flipBtnContainer.style.display = "none";
         cardInner.classList.remove('is-flipped');
 
         setTimeout(() => {
-            if (padron[dni]) {
-                const user = padron[dni];
+            if (padron[cuilLimpio]) {
+                const user = padron[cuilLimpio];
                 imgFrente.src = user.frente;
                 imgDorso.src = user.dorso;
 

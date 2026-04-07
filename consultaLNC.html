@@ -14,6 +14,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            color: #333;
         }
 
         /* LOADER */
@@ -26,17 +27,17 @@
         }
         .spinner {
             width: 60px; height: 60px;
-            border: 6px solid #e6e6e6; border-top: 6px solid #4338ca;
+            border: 6px solid #e6e6e6; border-top: 6px solid #0072bb;
             border-radius: 50%; animation: girar 1s linear infinite;
         }
         @keyframes girar { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
         /* HEADER */
         header {
-            background: #4338ca;
+            background: #0072bb; /* Color Mi Argentina */
             color: white;
             text-align: center;
-            padding: 12px;
+            padding: 15px;
             font-size: 22px;
             font-weight: 700;
             display: flex;
@@ -56,7 +57,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            max-width: 420px;
+            max-width: 450px;
             margin: 0 auto;
             padding: 10px 15px;
             width: 100%;
@@ -65,16 +66,17 @@
 
         h2 {
             text-align: center;
-            font-size: 22px;
+            font-size: 24px;
             margin: 0 0 10px 0;
+            color: #333;
         }
 
         .info-box {
             background: white;
             border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -83,17 +85,19 @@
             display: block;
             font-weight: 700;
             font-size: 14px;
-            color: #333;
-            margin-bottom: 5px;
+            color: #555;
+            margin-bottom: 8px;
         }
         input {
             width: 100%;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #ccc;
-            font-size: 16px;
+            font-size: 18px;
             box-sizing: border-box;
             outline: none;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
         .btn-container {
@@ -101,26 +105,26 @@
             margin-top: 15px;
         }
         button {
-            background: #4338ca;
+            background: #0072bb;
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 30px;
-            width: 200px;
+            width: 100%;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
         }
         button:disabled { opacity: .5; cursor: not-allowed; }
 
-        /* --- EFECTO FLIP CARD (AGRANDADO) --- */
+        /* --- LICENCIA AGRANDADA --- */
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 360px; /* Aumentado */
-            height: 225px;   /* Aumentado proporcionalmente */
-            margin-top: 10px;
+            max-width: 380px; /* Tamaño aumentado */
+            height: 240px;   /* Proporción mejorada */
+            margin-top: 15px;
             display: none;
         }
         .card-inner {
@@ -137,39 +141,40 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 15px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
         .card-back { transform: rotateY(180deg); }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-img { width: 100%; height: 100%; object-fit: fill; }
 
         .flip-btn {
-            background: #eee;
+            background: #fff;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 5px;
+            margin-top: 10px;
             cursor: pointer;
-            font-size: 20px;
-            border: 1px solid #ccc;
+            font-size: 24px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        #mensaje { margin: 10px 0; font-weight: 600; text-align: center; font-size: 15px;}
+        #mensaje { margin: 15px 0; font-weight: 600; text-align: center; font-size: 16px;}
         .verde { color: #22c55e; font-weight: 700; }
         .rojo { color: #ef4444; font-weight: 700; }
 
-        /* FOOTER ACTUALIZADO */
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 20px 10px;
             color: #666;
             font-size: 13px;
-            border-top: 1px solid #e0e0e0; /* Línea gris sutil */
-            background: #f2f2f2;
+            border-top: 1px solid #e0e0e0;
+            background: #f9f9f9;
             flex-shrink: 0;
         }
         .footer-links {
@@ -178,20 +183,13 @@
         }
         .footer-links span {
             margin: 0 8px;
-            color: #333;
+            color: #ccc;
         }
         .footer-img {
             display: block;
             margin: 10px auto 0;
-            max-height: 30px;
+            max-height: 35px;
             width: auto;
-        }
-        .mid-image-link {
-            display: inline-block;
-            margin: 10px 0;
-            text-decoration: none;
-            color: #4338ca;
-            font-size: 11px;
         }
     </style>
 </head>
@@ -200,7 +198,7 @@
 <div id="loader">
     <img src="https://mi.argentina.gob.ar/img/logos/LOGO_LOADING.png" style="width:120px;margin-bottom:20px;">
     <div class="spinner"></div>
-    <p style="margin-top:15px;color:#4338ca;font-weight:600;">Cargando sistema...</p>
+    <p style="margin-top:15px;color:#0072bb;font-weight:600;">Cargando sistema...</p>
 </div>
 
 <header>
@@ -208,14 +206,14 @@
 </header>
 
 <div class="container">
-    <h2>Ingresa a tu Licencia Digital</h2>
-    <p style="text-align:center; font-size: 13px; color:#666; margin-bottom: 15px;">Ingrese su CUIL para visualizar su Licencia Nacional de Conducir Digital.</p>
+    <h2>Mi Licencia</h2>
+    <p style="text-align:center; font-size: 14px; color:#666; margin-bottom: 20px;">Ingresá tu CUIL para ver tu credencial digital.</p>
 
     <div class="info-box">
-        <label for="dniInput">CUIL</label>
-        <input type="text" id="dniInput" placeholder="" maxlength="8">
+        <label for="dniInput">CUIL (sin guiones)</label>
+        <input type="text" id="dniInput" placeholder="Ej: 20401234567" maxlength="11">
         <div class="btn-container">
-            <button id="consultarBtn" disabled>Consultar</button>
+            <button id="consultarBtn" disabled>VER LICENCIA</button>
         </div>
     </div>
 
@@ -234,25 +232,20 @@
     
     <div id="flipBtnContainer" style="display:none; flex-direction:column; align-items:center;">
         <div class="flip-btn" onclick="flipCard()">🔄</div>
-        <p style="font-size:11px; color:#777; margin-top: 3px;">Toca para ver el dorso</p>
+        <p style="font-size:12px; color:#666; margin-top: 5px; font-weight: 600;">Girar credencial</p>
     </div>
 </div>
 
 <footer>
     <div class="footer-links">
-        Términos y condiciones <span>·</span> Centro de ayuda
+        Términos y condiciones <span>|</span> Centro de ayuda
     </div>
-    
-    <a href="#" class="mid-image-link">
-        <img src="" alt="" style="max-width: 100px;"> </a>
-
     <img src="https://id.argentina.gob.ar/static/img/logo_miArgentina_color.svg" alt="Logo Footer" class="footer-img">
 </footer>
 
 <script>
-    /* LOADER */
     window.addEventListener("load",()=>{
-        setTimeout(()=> { document.getElementById("loader").style.display="none"; }, 1000);
+        setTimeout(()=> { document.getElementById("loader").style.display="none"; }, 1200);
     });
 
     const dniInput = document.getElementById("dniInput");
@@ -264,8 +257,14 @@
     const imgFrente = document.getElementById("imgFrente");
     const imgDorso = document.getElementById("imgDorso");
 
+    // Datos de ejemplo actualizados a 11 dígitos sugeridos (CUIL)
     const padron = {
-        "01234567": {
+        "20012345678": {
+            frente: "https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg",
+            dorso: "https://i.postimg.cc/xT5Tj0hr/reverso-lnc-(2).png",
+            activa: true
+        },
+        "01234567": { // Mantenemos el anterior por compatibilidad
             frente: "https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg",
             dorso: "https://i.postimg.cc/xT5Tj0hr/reverso-lnc-(2).png",
             activa: true
@@ -273,12 +272,13 @@
     };
 
     dniInput.addEventListener("input", () => {
-        consultarBtn.disabled = !(/^\d{7,8}$/.test(dniInput.value.trim()));
+        // Habilitar si tiene entre 7 y 11 dígitos
+        consultarBtn.disabled = !(/^\d{7,11}$/.test(dniInput.value.trim()));
     });
 
     consultarBtn.addEventListener("click", () => {
         const dni = dniInput.value.trim();
-        mensaje.innerHTML = "Espere un momento...";
+        mensaje.innerHTML = "Buscando credencial...";
         licenciaVisual.style.display = "none";
         flipBtnContainer.style.display = "none";
         cardInner.classList.remove('is-flipped');
@@ -289,18 +289,16 @@
                 imgFrente.src = user.frente;
                 imgDorso.src = user.dorso;
 
-                if(user.activa) {
-                    mensaje.innerHTML = "Estado de Licencia Digital: <span class='verde'>ACTIVA</span>";
-                } else {
-                    mensaje.innerHTML = "Estado de Licencia Digital: <span class='rojo'>NO ACTIVA</span>";
-                }
+                mensaje.innerHTML = user.activa ? 
+                    "Estado: <span class='verde'>LICENCIA ACTIVA</span>" : 
+                    "Estado: <span class='rojo'>LICENCIA VENCIDA</span>";
 
                 licenciaVisual.style.display = "block";
                 flipBtnContainer.style.display = "flex";
             } else {
-                mensaje.innerHTML = "<span class='rojo'>No se encontró licencia vinculada a este CUIL.</span>";
+                mensaje.innerHTML = "<span class='rojo'>No se encontró una licencia asociada.</span>";
             }
-        }, 1200);
+        }, 1000);
     });
 
     function flipCard() {

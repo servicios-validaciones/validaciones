@@ -27,14 +27,14 @@
         }
         .spinner {
             width: 60px; height: 60px;
-            border: 6px solid #e6e6e6; border-top: 6px solid #0072bb;
+            border: 6px solid #e6e6e6; border-top: 6px solid #0072BB;
             border-radius: 50%; animation: girar 1s linear infinite;
         }
         @keyframes girar { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
         /* HEADER */
         header {
-            background: #0072bb; /* Color Mi Argentina */
+            background: #0072BB; /* Color Azul Oficial */
             color: white;
             text-align: center;
             padding: 15px;
@@ -105,7 +105,7 @@
             margin-top: 15px;
         }
         button {
-            background: #0072bb;
+            background: #0072BB; /* Color Azul Oficial */
             color: white;
             border: none;
             padding: 14px;
@@ -198,7 +198,7 @@
 <div id="loader">
     <img src="https://mi.argentina.gob.ar/img/logos/LOGO_LOADING.png" style="width:120px;margin-bottom:20px;">
     <div class="spinner"></div>
-    <p style="margin-top:15px;color:#0072bb;font-weight:600;">Cargando sistema...</p>
+    <p style="margin-top:15px;color:#0072BB;font-weight:600;">Cargando sistema...</p>
 </div>
 
 <header>
@@ -267,7 +267,7 @@
 
     // FORMATEADOR DE CUIL
     dniInput.addEventListener("input", (e) => {
-        let value = e.target.value.replace(/\D/g, ""); // Quita lo que no sea número
+        let value = e.target.value.replace(/\D/g, ""); 
         let formatted = "";
 
         if (value.length > 0) {
@@ -281,8 +281,6 @@
         }
         
         e.target.value = formatted;
-
-        // El CUIL completo tiene 11 números (2+8+1)
         consultarBtn.disabled = (value.length !== 11);
     });
 

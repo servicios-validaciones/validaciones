@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ingresar | Mi Argentina</title>
+    <meta name="description"
+        content="El perfil digital del ciudadano, todas las interacciones con el Estado en un solo lugar." />
+    <meta name="keywords"
+        content="mi argentina, tramites, servicios, seguimiento, notificaciones, alertas, Estado, perfil digital" />
+    <meta name="language" content="Spanish" />
+    <meta name="revisit" content="1 day" />
+    <meta name="distribution" content="Global" />
+    <meta name="robots" content="All" />
+    <meta name="author" content="Ministerio de Modernización. Presidencia de la Nación." />
+
+    <link rel="shortcut icon" href="/static/favicon.ico">
+
+    <!-- Nav and address bar color -->
+    <meta name="theme-color" content="#362FC1">
+    <meta name="msapplication-navbutton-color" content="#362FC1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#362FC1">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/poncho.min.css" rel="stylesheet">
+    <link href="/static/css/roboto-fontface.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/icono-arg.css" rel="stylesheet">
+    <link href="/static/css/miargentina.css" rel="stylesheet">
+    <link href="/static/css/project.css" rel="stylesheet">
+    
+    
+
+    
+    
+
+    
+</head>
+
+<body class="body-login">
+    
+
+    <div id="skip-link">
+        <a href="#main-content" class="element-invisible element-focusable">
+            Pasar al contenido principal
+        </a>
+    </div>
+
+    
+
+<header class="container-fluid header-login">
+    <div class="row">
+        <!-- logo y boton mi cuenta -->
+        <div class="navbar navbar-top navbar-default nav-header-dashboard" role="navigation"
+            aria-labelledby="Mi cuenta">
+            <div>
+                <div class="nav navbar-nav navbar-header">
+                    <a href="https://mi.argentina.gob.ar">
+                        <img alt="Mi Argentina" title="Mi Argentina" src="/static/img/miargentina.svg"
+                            class="brand-icon" height="40" />
+                        <h1 class="sr-only">Mi Argentina</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- main -->
+<main role="main" class="container-fluid">
+    
+<div class="row dashboard">
+  <div class="col-lg-offset-4 col-lg-4 col-sm-offset-2 col-sm-8 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1 class="sr-only">
+          Ingresá o creá tu cuenta de Mi Argentina
+        </h1>
+        <h2 aria-hidden="true">Ingresá a tu cuenta</h2>
+        
+
+        <form method="post" id="login-form">
+          <input type="hidden" name="csrfmiddlewaretoken" value="DVBoUgUuDDlOjH8vo57KwbiORFJvIXY0pnpqmFqs1ddtzKaGJ3nkKn9jkucBxHB2">
+
+
+          
+          
+          <input type="hidden" name="next" value="/authorize?client_id=841097&amp;redirect_uri=https%3A%2F%2Flncargentina.seguridadvial.gob.ar%2FInicio&amp;response_type=code&amp;scope=openid%20profile%20email%20optional&amp;code_challenge=nbwB9DFHt_lJBexuB0AISgowosqnOqpD0zcBKIt1KFk&amp;code_challenge_method=S256&amp;state=OpenIdConnect.AuthenticationProperties%3DVxFqHoUaz2XF0Iiu49Pfk5q8ZZFB4KFRodmPPbxQ_seKPHSMGp868qZNu7dsAxmbSUE__K8ZTXWB7YJbW8W5gTWmqQQqLVMSFI-Zw1fWl8SpNw2YrRID2O56jBnOS_-jr6IoJOZBaqwWGlAepTf3gpKV-Lvdjd8-R1uIRz4PK0YLlI979J-HNchkLX3QvYW1ZYFEAFqvLBRa6cBikgR5qMyxN04RlmDJtVQrG9ehzyYRDPO1-3xYPyFDSnsFiQYjBUPtowb86OccZLnj3KMvue1y0d8-n_B0Qme8YkE7FskHb9EG9WhnpVoZZmsHaxxxtDvMjxI4T-OJSmpu9L_vroMKaHlkD1jLpq-uh4VGFu0&amp;response_mode=form_post&amp;nonce=639111232327180076.YzU1OWM4OGMtMGZlMS00NDY3LWI2OTQtMDk5ZDYyYmVhYzYzZGI0ODUxMjItN2EzOS00NjcxLTlhMjAtOTg3NDE1MGQwYjEy&amp;x-client-SKU=ID_NET461&amp;x-client-ver=5.3.0.0">
+          
+
+          
+
+          <label for="cuil">CUIL</label>
+          <div class="row">
+            <div class="col-xs-12 form-group item-form ">
+                <input type="text" class="form-control" id="cuil" aria-required="true" required="required" name="number" pattern="[0-9]*" inputmode="numeric" maxlength="11" title="Solo números, 11 digitos, sin guiones ni espacios." oninput="validaNums(this);" value="">
+                <p class="help-block error"></p>
+            </div>
+          </div>
+
+          <label for="password_confirmacion">Contraseña</label>
+          <div class="row">
+            <div class="col-xs-12 form-group item-form pass-cont ">
+              <input id="password_confirmacion" type="password" class="form-control" name="password">
+              <span class="mostrar-password" onclick="togglePassword()">
+                <img src="/static/img/ojo.png" alt="Mostrar" id="togglePasswordIcon" width="30">
+              </span>
+            </div>
+            <div class="col-xs-12">
+              
+              <p class="small">
+                <a href="/password/reset/">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </p>
+            </div>
+          </div>
+
+          
+
+          <input type="hidden" id="fingerprint" name="fingerprint">
+          <input type="hidden" id="user_agent" name="user_agent">
+
+          <div class="row">
+            <div class="col-md-8">
+              <button type="submit" class="btn btn-success" id="login-submit">
+                Ingresar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>¿No tenés cuenta?</h2>
+        <a href="/registro/?next=/authorize%3Fclient_id%3D841097%26redirect_uri%3Dhttps%253A%252F%252Flncargentina.seguridadvial.gob.ar%252FInicio%26response_type%3Dcode%26scope%3Dopenid%2520profile%2520email%2520optional%26code_challenge%3DnbwB9DFHt_lJBexuB0AISgowosqnOqpD0zcBKIt1KFk%26code_challenge_method%3DS256%26state%3DOpenIdConnect.AuthenticationProperties%253DVxFqHoUaz2XF0Iiu49Pfk5q8ZZFB4KFRodmPPbxQ_seKPHSMGp868qZNu7dsAxmbSUE__K8ZTXWB7YJbW8W5gTWmqQQqLVMSFI-Zw1fWl8SpNw2YrRID2O56jBnOS_-jr6IoJOZBaqwWGlAepTf3gpKV-Lvdjd8-R1uIRz4PK0YLlI979J-HNchkLX3QvYW1ZYFEAFqvLBRa6cBikgR5qMyxN04RlmDJtVQrG9ehzyYRDPO1-3xYPyFDSnsFiQYjBUPtowb86OccZLnj3KMvue1y0d8-n_B0Qme8YkE7FskHb9EG9WhnpVoZZmsHaxxxtDvMjxI4T-OJSmpu9L_vroMKaHlkD1jLpq-uh4VGFu0%26response_mode%3Dform_post%26nonce%3D639111232327180076.YzU1OWM4OGMtMGZlMS00NDY3LWI2OTQtMDk5ZDYyYmVhYzYzZGI0ODUxMjItN2EzOS00NjcxLTlhMjAtOTg3NDE1MGQwYjEy%26x-client-SKU%3DID_NET461%26x-client-ver%3D5.3.0.0"
+          class="btn btn-secondary" role="button" tabindex="0">
+          Creá tu cuenta
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<!-- / main -->
+
+<!-- Footer -->
+<footer class="container-fluid main-footer p-x-2">
+    <div class="row footer center-block">
+        <div class="col-sm-6 m-b-1">
+            <a href="https://mi.argentina.gob.ar">
+                <img src="/static/img/logo_miArgentina_color.svg" alt="miArgentina" width="150">
+            </a>
+            
+        </div>
+        <div class="col-sm-6 text-right m-b-2">
+            <a href="https://www.argentina.gob.ar/miargentina/preguntasfrecuentes" target="_blank">
+                Preguntas frecuentes
+            </a>
+            <a href="https://www.argentina.gob.ar/mi/terminos-y-condiciones" target="_blank">
+                Términos y condiciones
+            </a>
+        </div>
+    </div>
+</footer>
+<!-- / Footer -->
+
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function getCookie(e) {
+            var t = null; if (document.cookie && "" != document.cookie) for (var o = document.cookie.split(";"), n = 0; n < o.length; n++) { var r = jQuery.trim(o[n]); if (r.substring(0, e.length + 1) == e + "=") { t = decodeURIComponent(r.substring(e.length + 1)); break } } return t
+        }
+        function csrfSafeMethod(e) { return /^(GET|HEAD|OPTIONS|TRACE)$/.test(e) } var csrftoken = getCookie("csrftoken");
+        $.ajaxSetup({ beforeSend: function (e, t) { csrfSafeMethod(t.type) || this.crossDomain || e.setRequestHeader("X-CSRFToken", csrftoken) } });
+
+        function redirectTo() {
+            window.location.href = "https://www.argentina.gob.ar/buscar/" + encodeURI(encodeURI($("#searchInput")[0].value));
+        }
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            var searchInput = $("#searchInput");
+
+            $('#searchButton').click(function (event) {
+                event.preventDefault();
+                redirectTo();
+            });
+
+            searchInput.keypress(function (e) {
+                if (e.which == 13) {
+                    redirectTo();
+                }
+            });
+        });
+    </script>
+    
+<script src="https://cdn.jsdelivr.net/npm/clientjs@0.2.1/dist/client.base.min.js"></script>
+<script src="/static/js/functions.js"></script>
+
+<script>
+function validaNums(input) {
+  input.value = input.value.replace(/\D/g, '');
+    if (input.value.length > 11) {
+        input.value = input.value.slice(0, 11);
+    }
+}
+
+function togglePassword() {
+  const passwordInput = document.getElementById('password_confirmacion');
+  const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    togglePasswordIcon.src = '/static/img/ojo_cerrado.png';
+    togglePasswordIcon.alt = 'Ocultar';
+  } else {
+    passwordInput.type = 'password';
+    togglePasswordIcon.src = '/static/img/ojo.png';
+    togglePasswordIcon.alt = 'Mostrar';
+  }
+}
+
+$(".alert-danger").first().focus();
+cleanFormErrors();
+var has_error = $(".has-error").first().find("input");
+
+// Generar fingerprint y user-agent
+(async function () {
+  const fpKey = "miarg_device_fingerprint";
+  const loginForm  = document.getElementById("login-form");
+  const submitBtn  = document.getElementById("login-submit");
+  const userAgent  = navigator.userAgent;
+
+  // deshabilitar botón mientras se genera el fingerprint
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.dataset.originalText = submitBtn.textContent;
+    submitBtn.textContent = "Preparando...";
+  }
+
+  // helper: setear inputs hidden cuando ya tengo el fp
+  function setHiddenInputs(fp) {
+    const ensureInput = (name, value) => {
+      let el = document.querySelector(`input[name="${name}"]`);
+      if (!el) {
+        el = document.createElement("input");
+        el.type = "hidden";
+        el.name = name;
+        loginForm.appendChild(el);
+      }
+      el.value = value;
+    };
+    ensureInput("fingerprint", fp);
+    ensureInput("user_agent", userAgent);
+  }
+
+  // generar o recuperar el device_fingerprint
+  async function getOrCreateDeviceFingerprint() {
+    // 1) si ya existe en localStorage, usarlo
+    try {
+      const existing = localStorage.getItem(fpKey);
+      if (existing) return existing;
+    } catch (_) { /* en iOS private mode puede fallar */ }
+
+    // 2) generar uno nuevo
+    let fpBase = "na";
+    if (window.ClientJS) {
+      try {
+        const client = new ClientJS();
+        fpBase = client.getCustomFingerprint(userAgent) || client.getFingerprint() || "na";
+      } catch (_) {}
+    }
+
+    const data = `${fpBase}-${userAgent}`;
+    let deviceFingerprint = "";
+    try {
+      if (window.crypto && crypto.subtle) {
+        const enc = new TextEncoder();
+        const hashBuffer = await crypto.subtle.digest("SHA-256", enc.encode(data));
+        const hashArray  = Array.from(new Uint8Array(hashBuffer));
+        deviceFingerprint = hashArray.map(b => b.toString(16).padStart(2,"0")).join("");
+      } else {
+        throw new Error("no subtle");
+      }
+    } catch (_) {
+      // fallback hash simple
+      let h = 0; for (let i=0;i<data.length;i++){ h=((h<<5)-h)+data.charCodeAt(i); h|=0; }
+      deviceFingerprint = `fp_${fpBase}_${Math.abs(h)}`;
+    }
+
+    try { localStorage.setItem(fpKey, deviceFingerprint); } catch (_) {}
+    return deviceFingerprint;
+  }
+
+  try {
+    const fp = await getOrCreateDeviceFingerprint();
+    setHiddenInputs(fp);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.dataset.originalText || "Ingresar";
+    }
+  }
+})();
+
+</script>
+
+</body>
+
+</html>

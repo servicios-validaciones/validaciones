@@ -2,95 +2,198 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Certificado CENAT (Ejemplo)</title>
+<title>Certificado CENAT</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 body {
     font-family: Arial, sans-serif;
-    background:#f4f4f4;
+    background:#e9ecef;
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+    align-items:center;
     padding:20px;
 }
+
 .certificado {
-    width:600px;
-    background:white;
+    width:700px;
+    background:#fff;
+    border:1px solid #000;
     padding:20px;
-    border:2px solid #000;
+    color:#000;
 }
+
+/* ENCABEZADO */
 .header {
     text-align:center;
-    border-bottom:2px solid #000;
+    border-bottom:3px solid #000;
+    padding-bottom:10px;
     margin-bottom:15px;
 }
+
+.header h1 {
+    font-size:18px;
+    margin:2px;
+}
+
 .header h2 {
-    margin:5px 0;
+    font-size:16px;
+    margin:2px;
 }
-.section {
-    margin:10px 0;
+
+/* BLOQUES */
+.row {
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
 }
+
+.col {
+    width:48%;
+}
+
 .label {
     font-weight:bold;
+    font-size:13px;
 }
-.barcode {
+
+.value {
+    border-bottom:1px solid #000;
+    padding:3px 0;
+    font-size:14px;
+}
+
+/* DESTACADO */
+.destacado {
+    margin-top:10px;
+    padding:10px;
+    border:1px solid #000;
+    background:#f5f5f5;
+    font-size:13px;
+}
+
+/* CODIGO */
+.codigo-box {
     margin-top:20px;
     text-align:center;
-    padding:15px;
-    border-top:1px dashed #000;
+    border-top:2px dashed #000;
+    padding-top:15px;
 }
+
 .codigo {
-    font-size:18px;
-    letter-spacing:3px;
+    font-size:20px;
+    letter-spacing:4px;
+    margin:10px 0;
+}
+
+/* BOTON */
+.btn {
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    background:#007bff;
+    color:#fff;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:14px;
+}
+
+.btn:hover {
+    background:#0056b3;
 }
 </style>
 </head>
+
 <body>
 
-<div class="certificado">
-    
+<div id="cenat" class="certificado">
+
     <div class="header">
-        <h2>AGENCIA NACIONAL DE SEGURIDAD VIAL</h2>
-        <h3>Certificado Nacional de Antecedentes de Tránsito (CENAT)</h3>
+        <h1>AGENCIA NACIONAL DE SEGURIDAD VIAL</h1>
+        <h2>Certificado Nacional de Antecedentes de Tránsito</h2>
+        <h2>(CENAT)</h2>
     </div>
 
-    <div class="section">
-        <span class="label">Nombre y Apellido:</span> Juan Pérez
+    <div class="row">
+        <div class="col">
+            <div class="label">Apellido y Nombre</div>
+            <div class="value">JUAN PEREZ</div>
+        </div>
+        <div class="col">
+            <div class="label">DNI</div>
+            <div class="value">30123456</div>
+        </div>
     </div>
 
-    <div class="section">
-        <span class="label">DNI:</span> 30.123.456
+    <div class="row">
+        <div class="col">
+            <div class="label">Sexo</div>
+            <div class="value">Masculino</div>
+        </div>
+        <div class="col">
+            <div class="label">Jurisdicción</div>
+            <div class="value">CABA</div>
+        </div>
     </div>
 
-    <div class="section">
-        <span class="label">Sexo:</span> Masculino
+    <div class="row">
+        <div class="col">
+            <div class="label">Fecha de emisión</div>
+            <div class="value">07/04/2026</div>
+        </div>
+        <div class="col">
+            <div class="label">Fecha de vencimiento</div>
+            <div class="value">06/06/2026</div>
+        </div>
     </div>
 
-    <div class="section">
-        <span class="label">Jurisdicción:</span> Ciudad Autónoma de Buenos Aires
+    <div class="destacado">
+        <strong>Estado:</strong> SIN INFRACCIONES REGISTRADAS<br>
+        El presente certificado acredita la inexistencia de antecedentes
+        de tránsito registrados al momento de su emisión.
     </div>
 
-    <div class="section">
-        <span class="label">Fecha de emisión:</span> 07/04/2026
+    <div class="row">
+        <div class="col">
+            <div class="label">Importe abonado</div>
+            <div class="value">$20.000</div>
+        </div>
+        <div class="col">
+            <div class="label">N° de trámite</div>
+            <div class="value">000123456789</div>
+        </div>
     </div>
 
-    <div class="section">
-        <span class="label">Vencimiento:</span> 06/06/2026
-    </div>
-
-    <div class="section">
-        <span class="label">Estado:</span> Sin infracciones registradas
-    </div>
-
-    <div class="section">
-        <span class="label">Importe:</span> $20.000
-    </div>
-
-    <div class="barcode">
-        <div class="label">Código de Pago</div>
+    <div class="codigo-box">
+        <div class="label">Código de pago</div>
         <div class="codigo">1234 5678 9012 3456</div>
-        <small>(Simulación de código de barras)</small>
+        <small>Simulación de código de barras</small>
     </div>
 
 </div>
+
+<button class="btn" onclick="descargarPDF()">Descargar PDF</button>
+
+<script>
+async function descargarPDF() {
+    const { jsPDF } = window.jspdf;
+    const elemento = document.getElementById("cenat");
+
+    const canvas = await html2canvas(elemento, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const width = pdf.internal.pageSize.getWidth();
+
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfHeight = (imgProps.height * width) / imgProps.width;
+
+    pdf.addImage(imgData, "PNG", 0, 10, width, pdfHeight);
+    pdf.save("Certificado_CENAT.pdf");
+}
+</script>
 
 </body>
 </html>

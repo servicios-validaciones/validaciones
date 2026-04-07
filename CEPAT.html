@@ -26,6 +26,20 @@ body {
   padding: 25px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   position: relative;
+  overflow: hidden;
+}
+
+/* MARCA DE AGUA */
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  font-size: 60px;
+  color: rgba(0,0,0,0.05);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 
 .header {
@@ -38,23 +52,36 @@ body {
 
 .header h2 {
   margin: 0;
+  line-height: 1.2;
 }
 
-.badge {
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-weight: bold;
+.header small {
   font-size: 14px;
+  color: #666;
+  display: block;
+}
+
+/* NUEVO ESTILO BADGE */
+.badge {
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
 }
 
 .no-pagado {
-  background: #ffc107;
-  color: #000;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
 }
 
 .pagado {
-  background: #28a745;
-  color: #fff;
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
 .field {
@@ -119,8 +146,13 @@ button {
 <div class="container">
   <div class="card" id="comprobante">
 
+    <div class="watermark" id="watermarkText">General San Martín</div>
+
     <div class="header">
-      <h2 contenteditable="true">Municipalidad de General San Martín</h2>
+      <h2 contenteditable="true">
+        Municipalidad
+        <small contenteditable="true" id="municipio">General San Martín</small>
+      </h2>
       <span id="estado" class="badge no-pagado">NO ABONADO</span>
     </div>
 
@@ -136,7 +168,7 @@ button {
 
     <div class="field">
       <div class="label">Concepto</div>
-      <input type="text" value="Tasa Municipal - Licencia de Conducir">
+      <input type="text" value="Tasa Municipal + CEPAT - Licencia de Conducir">
     </div>
 
     <div class="field">
@@ -172,7 +204,7 @@ function toggleEstado() {
   const estado = document.getElementById("estado");
 
   if (estado.innerText === "NO ABONADO") {
-    estado.innerText = "A ABONAR";
+    estado.innerText = "ABONADO";
     estado.classList.remove("no-pagado");
     estado.classList.add("pagado");
   } else {
@@ -181,6 +213,14 @@ function toggleEstado() {
     estado.classList.add("no-pagado");
   }
 }
+
+// SINCRONIZAR MARCA DE AGUA
+const municipio = document.getElementById("municipio");
+const watermark = document.getElementById("watermarkText");
+
+municipio.addEventListener("input", () => {
+  watermark.innerText = municipio.innerText;
+});
 
 // QR
 QRCode.toCanvas(document.getElementById('qrCanvas'), 'Comprobante Tasa Municipal - $45.000', function (error) {
@@ -201,4 +241,4 @@ function descargarPDF() {
 </script>
 
 </body>
-        </html>
+</html>

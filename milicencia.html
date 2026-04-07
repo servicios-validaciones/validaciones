@@ -16,9 +16,9 @@
             background-color: #fff;
         }
 
-        /* Navbar superior */
+        /* Navbar superior - CAMBIADO A AZUL */
         .navbar {
-            background-color: #0072BB;
+            background-color: #0000FF;
             height: 56px;
             display: flex;
             align-items: center;
@@ -71,13 +71,14 @@
             border-radius: 8px;
             font-size: 18px;
             box-sizing: border-box;
-            outline-color: #0072BB;
+            outline-color: #0000FF;
             text-align: center;
             letter-spacing: 1px;
         }
 
+        /* Botón - CAMBIADO A AZUL */
         .btn-primary {
-            background-color: #0072BB;
+            background-color: #0000FF;
             color: white;
             border: none;
             padding: 14px 32px;
@@ -94,7 +95,7 @@
             cursor: not-allowed;
         }
 
-        /* --- ESTILOS DE LA LICENCIA (CARD) --- */
+        /* --- ESTILOS DE LA LICENCIA (ACHICADA) --- */
         #mensaje { 
             margin: 20px 0; 
             font-weight: 600; 
@@ -107,8 +108,8 @@
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 380px; 
-            height: 230px;   
+            max-width: 340px; /* Un poco más chica para que no toque los bordes */
+            height: 210px;   /* Proporción ajustada */
             margin: 10px auto;
             display: none;
         }
@@ -126,12 +127,20 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            background-color: #eee; /* Fondo gris suave por si la imagen es distinta */
         }
         .card-back { transform: rotateY(180deg); }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Ajuste para que la foto se vea entera sin cortarse */
+        .card-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            background-color: white; 
+        }
 
         .flip-control {
             display: none;
@@ -162,7 +171,7 @@
         }
 
         .footer-logo {
-            color: #0072BB;
+            color: #0000FF;
             font-weight: 900;
             font-size: 22px;
             margin-bottom: 15px;
@@ -171,7 +180,7 @@
         }
 
         .footer-links a {
-            color: #0072BB;
+            color: #0000FF;
             text-decoration: underline;
             margin: 0 10px;
             font-size: 13px;
@@ -232,7 +241,6 @@
         const imgFrente = document.getElementById("imgFrente");
         const imgDorso = document.getElementById("imgDorso");
 
-        // Base de datos de ejemplo
         const padron = {
             "00123456789": {
                 frente: "https://i.postimg.cc/hv0Zm3RS/carnet-(1).jpg",
@@ -241,7 +249,6 @@
             }
         };
 
-        // Formateador de CUIL (00-00000000-0)
         cuilInput.addEventListener("input", (e) => {
             let value = e.target.value.replace(/\D/g, ""); 
             let formatted = "";
@@ -257,7 +264,6 @@
             }
             
             e.target.value = formatted;
-            // El botón se habilita solo si hay 11 dígitos numéricos
             consultarBtn.disabled = (value.length !== 11);
         });
 

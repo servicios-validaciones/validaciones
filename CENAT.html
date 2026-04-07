@@ -103,10 +103,40 @@ body {
 .btn:hover {
     background:#0056b3;
 }
+
+/* FORM */
+.formulario {
+    width:700px;
+    background:#fff;
+    padding:15px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+}
+
+.formulario input, .formulario select {
+    width:100%;
+    padding:6px;
+    margin:5px 0 10px;
+}
 </style>
 </head>
 
 <body>
+
+<div class="formulario">
+    <input placeholder="Apellido y Nombre" oninput="set('nombre', this.value)">
+    <input placeholder="DNI" oninput="set('dni', this.value)">
+    
+    <select onchange="set('sexo', this.value)">
+        <option value="">Sexo</option>
+        <option>Masculino</option>
+        <option>Femenino</option>
+    </select>
+
+    <input placeholder="Jurisdicción" oninput="set('jurisdiccion', this.value)">
+    <input placeholder="Estado (ej: SIN INFRACCIONES)" oninput="set('estado', this.value)">
+    <input placeholder="Importe" oninput="set('importe', this.value)">
+</div>
 
 <div id="cenat" class="certificado">
 
@@ -119,38 +149,38 @@ body {
     <div class="row">
         <div class="col">
             <div class="label">Apellido y Nombre</div>
-            <div class="value">JUAN PEREZ</div>
+            <div class="value" id="nombre">-</div>
         </div>
         <div class="col">
             <div class="label">DNI</div>
-            <div class="value">30123456</div>
+            <div class="value" id="dni">-</div>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
             <div class="label">Sexo</div>
-            <div class="value">Masculino</div>
+            <div class="value" id="sexo">-</div>
         </div>
         <div class="col">
             <div class="label">Jurisdicción</div>
-            <div class="value">CABA</div>
+            <div class="value" id="jurisdiccion">-</div>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
             <div class="label">Fecha de emisión</div>
-            <div class="value">07/04/2026</div>
+            <div class="value" id="emision"></div>
         </div>
         <div class="col">
             <div class="label">Fecha de vencimiento</div>
-            <div class="value">06/06/2026</div>
+            <div class="value" id="vencimiento"></div>
         </div>
     </div>
 
     <div class="destacado">
-        <strong>Estado:</strong> SIN INFRACCIONES REGISTRADAS<br>
+        <strong>Estado:</strong> <span id="estado">-</span><br>
         El presente certificado acredita la inexistencia de antecedentes
         de tránsito registrados al momento de su emisión.
     </div>
@@ -158,17 +188,17 @@ body {
     <div class="row">
         <div class="col">
             <div class="label">Importe abonado</div>
-            <div class="value">$20.000</div>
+            <div class="value" id="importe">-</div>
         </div>
         <div class="col">
             <div class="label">N° de trámite</div>
-            <div class="value">000123456789</div>
+            <div class="value" id="tramite"></div>
         </div>
     </div>
 
     <div class="codigo-box">
         <div class="label">Código de pago</div>
-        <div class="codigo">1234 5678 9012 3456</div>
+        <div class="codigo" id="codigo"></div>
         <small>Simulación de código de barras</small>
     </div>
 
@@ -177,6 +207,37 @@ body {
 <button class="btn" onclick="descargarPDF()">Descargar PDF</button>
 
 <script>
+function set(id, value) {
+    document.getElementById(id).innerText = value || "-";
+}
+
+// FECHAS AUTOMÁTICAS
+function generarFechas() {
+    let hoy = new Date();
+    let venc = new Date();
+    venc.setDate(hoy.getDate() + 60);
+
+    document.getElementById("emision").innerText = format(hoy);
+    document.getElementById("vencimiento").innerText = format(venc);
+}
+
+function format(fecha) {
+    return fecha.toLocaleDateString('es-AR');
+}
+
+// GENERAR NUMEROS
+function generarNumeros() {
+    document.getElementById("tramite").innerText =
+        Math.floor(Math.random() * 1e12).toString().padStart(12, '0');
+
+    document.getElementById("codigo").innerText =
+        Math.floor(Math.random() * 1e16).toString().replace(/(.{4})/g, '$1 ').trim();
+}
+
+generarFechas();
+generarNumeros();
+
+// PDF
 async function descargarPDF() {
     const { jsPDF } = window.jspdf;
     const elemento = document.getElementById("cenat");
